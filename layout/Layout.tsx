@@ -6,45 +6,44 @@ import Search from "./Search";
 import Icons from "../components/ui/Icons";
 import { Size } from "../constants/size";
 import { Colors } from "../constants/colors";
+import AllMoviesScreen from "../screens/AllMoviesScreen";
 
 const Stack = createNativeStackNavigator();
 
 const Layout = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={({ navigation }) => ({
+          headerRight: ({ tintColor }) => (
+            <Icons
+              name="search"
+              size={Size.icon}
+              color={Colors.Primary100}
+              onPress={() => navigation.navigate("Search")}
+            />
+          ),
+
+          headerStyle: {
+            backgroundColor: Colors.Primary200,
+          },
+
+          headerTintColor: Colors.Primary100,
+        })}
+      >
         <Stack.Screen
           name="Home"
           component={Category}
-          options={({ navigation }) => ({
+          options={{
             title: "Tee-Flix",
-            headerStyle: {
-              backgroundColor: Colors.Primary200,
-              shadowColor: "transparent",
-            },
-            headerTintColor: Colors.Primary100,
-            headerRight: ({ tintColor }) => (
-              <Icons
-                name="search"
-                size={Size.icon}
-                color={Colors.Primary100}
-                onPress={() => navigation.navigate("Search")}
-              />
-            ),
-          })}
+          }}
         />
         <Stack.Screen name="Search" component={Search} />
 
-        <Stack.Screen
-          name="MovieDetails"
-          component={MovieDetailsScreen}
-          options={{
-            headerStyle: {
-              backgroundColor: Colors.Primary200,
-            },
-            headerTintColor: Colors.Primary100,
-          }}
-        />
+        <Stack.Screen name="MovieDetails" component={MovieDetailsScreen} />
+
+        <Stack.Screen name="AllMovies" component={AllMoviesScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

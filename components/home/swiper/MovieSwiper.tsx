@@ -36,7 +36,12 @@ const CustomSwiper = () => {
   }, []);
   return (
     <>
-      <DescriptionTab title="NOW PLAYING !" />
+      <DescriptionTab
+        title="NOW PLAYING !"
+        onPress={() =>
+          navigation.navigate("AllMovies", { type: "now_playing" })
+        }
+      />
 
       <View style={styles.container}>
         {/* Left (Previous) Image - Blurred */}

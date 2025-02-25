@@ -38,7 +38,7 @@ export const movieApi = createApi({
 
     getMovieDetails: builder.mutation({
       query: (movieId) => ({
-        url: `/movie/${movieId}`,
+        url: `/movie/${movieId}?api_key=${process.env.EXPO_PUBLIC_API_KEY_2}&append_to_response=recommendations`,
         method: "GET",
       }),
     }),

@@ -1,7 +1,10 @@
 import { View, Text, StyleSheet } from "react-native";
 import Link from "../ui/link";
 import { Colors } from "../../constants/colors";
-const DescriptionTab: React.FC<{ title: string }> = ({ title }) => {
+const DescriptionTab: React.FC<{ title: string; onPress: () => void }> = ({
+  title,
+  onPress,
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.descText}>{title}</Text>
@@ -9,7 +12,7 @@ const DescriptionTab: React.FC<{ title: string }> = ({ title }) => {
         name="chevron-forward-outline"
         color={Colors.Primary100}
         size={16}
-        onPress={() => console.log("See More")}
+        onPress={onPress}
       />
     </View>
   );

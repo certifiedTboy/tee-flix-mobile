@@ -1,11 +1,21 @@
-import { View, Text } from "react-native";
+import { Text, ScrollView, StyleSheet } from "react-native";
+import AllMovies from "../components/movies/AllMovies";
+import { Colors } from "../constants/colors";
 
 const MoviesScreen = () => {
   return (
-    <View>
-      <Text>This is movie screen</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <Text>Popular Movies</Text>
+
+      <AllMovies type="popular_movie" />
+    </ScrollView>
   );
 };
 
 export default MoviesScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.Primary200,
+  },
+});

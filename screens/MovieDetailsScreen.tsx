@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import MovieDetails from "../components/movies/MovieDetails";
+import RecommendedMovies from "../components/movies/RecommendedMovies";
 import { RouteProp } from "@react-navigation/native";
 import { useGetMovieDetailsMutation } from "../lib/apis/movieApis";
 import { Colors } from "../constants/colors";
@@ -32,7 +33,6 @@ const MovieDetailsScreen = ({
     }
   }, [data]);
 
-  console.log(data);
   return (
     <ScrollView style={styles.container}>
       {data && (
@@ -47,8 +47,11 @@ const MovieDetailsScreen = ({
           rating={data?.vote_average}
           tagline={data?.tagline}
           runtime={data?.runtime}
+          key={data?.id}
         />
       )}
+
+      {data && <RecommendedMovies movies={data?.recommendations?.results} />}
     </ScrollView>
   );
 };

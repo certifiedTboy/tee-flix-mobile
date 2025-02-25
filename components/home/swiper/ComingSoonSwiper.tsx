@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { Text, Dimensions, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
 import DescriptionTab from "../../common/DescriptionTab";
 import MovieCard from "../../common/MovieCard";
@@ -10,12 +11,19 @@ import { useGetUpcomingMoviesMutation } from "../../../lib/apis/movieApis";
 const ComingSoonSwiper = () => {
   const [getUpcomingMovies, { data }] = useGetUpcomingMoviesMutation();
 
+  const navigation = useNavigation();
+
   useEffect(() => {
     getUpcomingMovies(null);
   }, []);
   return (
     <>
-      <DescriptionTab title="COMING SOON" />
+      <DescriptionTab
+        title="COMING SOON"
+        onPress={() =>
+          navigation.navigate("AllMovies", { type: "coming_soon" })
+        }
+      />
 
       <View style={styles.container}>
         <SwiperFlatList
