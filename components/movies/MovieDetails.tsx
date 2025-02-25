@@ -80,6 +80,12 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({
         >
           <Icons name="play" size={30} color={Colors.Primary200} />
         </Pressable>
+
+        {overview && (
+          <View style={styles.detailsContainer2}>
+            <Text style={styles.overview}>{overview}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -100,6 +106,11 @@ const styles = StyleSheet.create({
   details: {},
   detailsContainer: {
     marginHorizontal: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  detailsContainer2: {
+    marginHorizontal: 6,
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -125,12 +136,17 @@ const styles = StyleSheet.create({
 
   playButton: {
     backgroundColor: Colors.Secondary300,
-    marginVertical: 20,
+    marginVertical: 16,
     paddingVertical: 10,
     alignItems: "center",
   },
 
   pressed: {
     opacity: 0.9,
+  },
+
+  overview: {
+    color: Colors.Secondary300,
+    fontSize: 13,
   },
 });
