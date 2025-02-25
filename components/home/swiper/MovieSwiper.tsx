@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../../../constants/colors";
-import DescriptionTab from "../DescriptionTab";
+import DescriptionTab from "../../common/DescriptionTab";
 import Icons from "../../ui/Icons";
 import { useFetchNowPlayingMoviesMutation } from "../../../lib/apis/movieApis";
 
@@ -25,7 +25,7 @@ const CustomSwiper = () => {
 
   const navigation = useNavigation();
 
-  const handleScroll = (event) => {
+  const handleScroll = (event: any) => {
     const contentOffsetX = event.nativeEvent.contentOffset.x;
     const index = Math.round(contentOffsetX / width);
     setActiveIndex(index);
@@ -78,10 +78,7 @@ const CustomSwiper = () => {
             data?.results?.length > 0 &&
             data?.results.slice(0, 5).map((item: any) => (
               <Pressable
-                style={({ pressed }) => [
-                  styles.imageContainer,
-                  pressed && styles.pressed,
-                ]}
+                style={styles.imageContainer}
                 onPress={() => navigation.navigate("MovieDetails" as never)}
                 key={item.id}
               >

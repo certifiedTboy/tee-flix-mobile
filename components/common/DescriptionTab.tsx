@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
   descText: {
     color: Colors.Secondary100,
-    fontSize: 12,
+    fontSize: 20,
     fontWeight: 600,
   },
 });

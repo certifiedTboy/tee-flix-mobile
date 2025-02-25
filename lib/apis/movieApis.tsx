@@ -28,8 +28,18 @@ export const movieApi = createApi({
         method: "GET",
       }),
     }),
+
+    getUpcomingMovies: builder.mutation({
+      query: (payload) => ({
+        url: "/movie/upcoming",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetLatestMoviesMutation, useFetchNowPlayingMoviesMutation } =
-  movieApi;
+export const {
+  useGetLatestMoviesMutation,
+  useFetchNowPlayingMoviesMutation,
+  useGetUpcomingMoviesMutation,
+} = movieApi;

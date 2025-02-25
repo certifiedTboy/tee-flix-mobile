@@ -1,12 +1,13 @@
 import { View, ScrollView, StyleSheet } from "react-native";
 import { Colors } from "../constants/colors";
-// import DescriptionTab from "../components/home/DescriptionTab";
 import MovieSwiper from "../components/home/swiper/MovieSwiper";
+import ComingSoonSwiper from "../components/home/swiper/ComingSoonSwiper";
 
 const HomeScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <MovieSwiper />
+      <ComingSoonSwiper />
     </ScrollView>
   );
 };

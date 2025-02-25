@@ -42,12 +42,19 @@ const MovieCard: React.FC<MovieCardProps> = ({
             {"  "}
             {release_date}
           </Text>
-          <Text style={styles.detailsText}>
+          {/* <Text style={styles.detailsText}>
             <Icons name="star" size={14} color={Colors.Primary100} />
             {"  "}
             {Number(rating).toFixed(1)} Rating
-          </Text>
+          </Text> */}
         </View>
+      </View>
+
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoText}>
+          <Icons name="star" size={12} color={Colors.Primary100} />{" "}
+          {Number(rating).toFixed(1)}
+        </Text>
       </View>
     </Pressable>
   );
@@ -58,9 +65,10 @@ export default MovieCard;
 const styles = StyleSheet.create({
   cardContainer: {
     height: Dimensions.get("window").height / 2,
-    width: Dimensions.get("window").width,
+    width: Dimensions.get("window").width / 2,
     borderRadius: 10,
     justifyContent: "center",
+    marginHorizontal: 10,
   },
   imageContainer: {
     height: "100%",
@@ -68,7 +76,7 @@ const styles = StyleSheet.create({
     // width: Dimensions.get("window").width,
   },
   image: {
-    // width: "100%",
+    width: "100%",
     height: "100%",
     borderRadius: 10,
   },
@@ -95,6 +103,22 @@ const styles = StyleSheet.create({
 
   detailsText: {
     color: Colors.Primary100,
+  },
+
+  infoContainer: {
+    position: "absolute",
+    top: 3,
+    left: 2,
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 8,
+  },
+
+  infoText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "bold",
   },
 
   pressed: {
