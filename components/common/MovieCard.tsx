@@ -15,12 +15,15 @@ const MovieCard: React.FC<MovieCardProps> = ({
   title,
   release_date,
   rating,
+  movieId,
 }) => {
   const navigation = useNavigation();
   return (
     <Pressable
       style={({ pressed }) => [styles.cardContainer, pressed && styles.pressed]}
-      onPress={() => navigation.navigate("MovieDetails" as never)}
+      onPress={() =>
+        navigation.navigate("MovieDetails", { movieId: movieId, title })
+      }
     >
       <View style={styles.imageContainer}>
         {poster_image && (

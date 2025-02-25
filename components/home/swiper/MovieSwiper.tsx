@@ -79,7 +79,12 @@ const CustomSwiper = () => {
             data?.results.slice(0, 5).map((item: any) => (
               <Pressable
                 style={styles.imageContainer}
-                onPress={() => navigation.navigate("MovieDetails" as never)}
+                onPress={() =>
+                  navigation.navigate("MovieDetails", {
+                    movieId: item.id,
+                    title: item.title,
+                  })
+                }
                 key={item.id}
               >
                 <Image
@@ -163,7 +168,7 @@ const styles = StyleSheet.create({
     left: 0,
     width: "100%",
     height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.4)", // Semi-transparent black overlay
+    backgroundColor: "rgba(0, 0, 0, 0.1)", // Semi-transparent black overlay
     borderRadius: 15, // Match the image border
   },
 

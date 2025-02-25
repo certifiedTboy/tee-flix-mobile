@@ -26,7 +26,7 @@ const Layout = () => {
             headerRight: ({ tintColor }) => (
               <Icons
                 name="search"
-                size={16}
+                size={Size.icon}
                 color={Colors.Primary100}
                 onPress={() => navigation.navigate("Search")}
               />
@@ -35,7 +35,16 @@ const Layout = () => {
         />
         <Stack.Screen name="Search" component={Search} />
 
-        <Stack.Screen name="MovieDetails" component={MovieDetailsScreen} />
+        <Stack.Screen
+          name="MovieDetails"
+          component={MovieDetailsScreen}
+          options={{
+            headerStyle: {
+              backgroundColor: Colors.Primary200,
+            },
+            headerTintColor: Colors.Primary100,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

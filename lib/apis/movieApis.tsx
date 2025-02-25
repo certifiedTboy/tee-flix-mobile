@@ -35,6 +35,13 @@ export const movieApi = createApi({
         method: "GET",
       }),
     }),
+
+    getMovieDetails: builder.mutation({
+      query: (movieId) => ({
+        url: `/movie/${movieId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -42,4 +49,5 @@ export const {
   useGetLatestMoviesMutation,
   useFetchNowPlayingMoviesMutation,
   useGetUpcomingMoviesMutation,
+  useGetMovieDetailsMutation,
 } = movieApi;

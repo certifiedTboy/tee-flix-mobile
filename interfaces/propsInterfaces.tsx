@@ -15,4 +15,18 @@ export interface MovieCardProps {
   rating?: number | string;
   poster_image?: ImageSourcePropType;
   release_date?: string;
+  movieId?: number;
+}
+
+export interface MovieDetailsProps {
+  movieId: number;
+  poster_image?: ImageSourcePropType;
+  release_date?: string;
+  genres?: { id: number; name: string }[];
+  title: string;
+  overview: string;
+  rating: number;
+  production_companies?: { id: number; name: string }[];
+  tagline?: string;
+  runtime?: number;
 }
