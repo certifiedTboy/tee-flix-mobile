@@ -1,3 +1,3 @@
 export const Size = {
-  icon: 30,
+  icon: 24,
 };

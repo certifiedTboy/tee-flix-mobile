@@ -1,14 +1,18 @@
+import { ImageSourcePropType } from "react-native";
+
 export interface IconProps {
   color: string;
   size: number;
   name: string;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 export interface MovieCardProps {
-  height: number | string;
-  width: number | string;
-  title: string;
-  genres: string;
-  rating: number | string;
+  height?: number | string;
+  width?: number | string;
+  title?: string;
+  genres?: string;
+  rating?: number | string;
+  poster_image?: ImageSourcePropType;
+  release_date?: string;
 }

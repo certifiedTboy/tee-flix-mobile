@@ -1,14 +1,14 @@
 import { View, Text, StyleSheet } from "react-native";
 import Link from "../ui/link";
 import { Colors } from "../../constants/colors";
-const DescriptionTab = () => {
+const DescriptionTab: React.FC<{ title: string }> = ({ title }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.descText}>AVAILABLE FOR ONLINE STREAMING</Text>
+      <Text style={styles.descText}>{title}</Text>
       <Link
-        name="arrow-forward"
+        name="chevron-forward-outline"
         color={Colors.Primary100}
-        size={20}
+        size={16}
         onPress={() => console.log("See More")}
       />
     </View>
@@ -19,12 +19,12 @@ export default DescriptionTab;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.Secondary200,
+    // backgroundColor: Colors.Secondary200,
     padding: 10,
     width: "95%",
     marginHorizontal: "auto",
-    borderRadius: 6,
-    opacity: 0.5,
+    // borderRadius: 8,
+    // opacity: 0.5,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

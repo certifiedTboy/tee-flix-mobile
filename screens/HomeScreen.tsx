@@ -1,12 +1,13 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet } from "react-native";
 import { Colors } from "../constants/colors";
-import DescriptionTab from "../components/home/DescriptionTab";
+// import DescriptionTab from "../components/home/DescriptionTab";
+import MovieSwiper from "../components/home/swiper/MovieSwiper";
 
 const HomeScreen = () => {
   return (
-    <View style={styles.container}>
-      <DescriptionTab />
-    </View>
+    <ScrollView style={styles.container}>
+      <MovieSwiper />
+    </ScrollView>
   );
 };
 
@@ -14,7 +15,6 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: Colors.Primary200,
   },
 });

@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import MovieDetailsScreen from "../screens/MovieDetailsScreen";
 import Category from "./Category";
 import Search from "./Search";
 import Icons from "../components/ui/Icons";
@@ -25,7 +26,7 @@ const Layout = () => {
             headerRight: ({ tintColor }) => (
               <Icons
                 name="search"
-                size={Size.icon}
+                size={16}
                 color={Colors.Primary100}
                 onPress={() => navigation.navigate("Search")}
               />
@@ -33,6 +34,8 @@ const Layout = () => {
           })}
         />
         <Stack.Screen name="Search" component={Search} />
+
+        <Stack.Screen name="MovieDetails" component={MovieDetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
