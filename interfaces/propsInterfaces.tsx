@@ -29,4 +29,6 @@ export interface MovieDetailsProps {
   production_companies?: { id: number; name: string }[];
   tagline?: string;
   runtime?: number;
+  episodes?: number;
+  seasons?: number;
 }

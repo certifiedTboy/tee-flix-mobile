@@ -1,12 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MovieDetailsScreen from "../screens/MovieDetailsScreen";
+import AllMoviesScreen from "../screens/AllMoviesScreen";
+import SeriesDetailsScreen from "../screens/SeriesDetailsScreen";
 import Category from "./Category";
 import Search from "./Search";
 import Icons from "../components/ui/Icons";
 import { Size } from "../constants/size";
 import { Colors } from "../constants/colors";
-import AllMoviesScreen from "../screens/AllMoviesScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,7 +43,7 @@ const Layout = () => {
         <Stack.Screen name="Search" component={Search} />
 
         <Stack.Screen name="MovieDetails" component={MovieDetailsScreen} />
-
+        <Stack.Screen name="SeriesDetails" component={SeriesDetailsScreen} />
         <Stack.Screen name="AllMovies" component={AllMoviesScreen} />
       </Stack.Navigator>
     </NavigationContainer>

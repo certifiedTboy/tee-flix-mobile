@@ -44,7 +44,7 @@ const OtherMovieCard: React.FC<MovieCardProps> = ({
         <View style={styles.detailsContainer}>
           <Text style={styles.detailsText}>
             {" "}
-            <Icons name="calendar" size={14} color={Colors.Primary100} />
+            <Icons name="calendar" size={10} color={Colors.Primary100} />
             {"  "}
             {release_date}
           </Text>

@@ -21,15 +21,13 @@ const Category = () => {
           } else if (route.name === "Movies") {
             iconName = focused ? "film" : "film-outline";
           } else if (route.name === "Series") {
-            iconName = focused ? "camera" : "unlink";
+            iconName = focused ? "link" : "unlink";
           } else {
             iconName = focused ? "tv" : "tv-outline";
           }
 
-          return <Icons name={iconName} size={Size.icon} color={color} />;
+          return <Icons name={iconName} size={size} color={color} />;
         },
-
-        // headerShown: false,
 
         headerStyle: {
           backgroundColor: Colors.Primary200,
@@ -44,22 +42,13 @@ const Category = () => {
         headerTintColor: Colors.Secondary100,
         tabBarActiveTintColor: Colors.Primary100, // Active icon color
         tabBarInactiveTintColor: Colors.Secondary100, // Inactive icon color
-        // animation: "fade",
+
         tabBarStyle: {
           backgroundColor: Colors.Primary200,
-          height: 70,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          paddingVertical: 20,
-          paddingTop: 15,
         },
 
         tabBarLabelStyle: {
-          fontFamily: "Georgia",
-          fontWeight: 300,
-          fontSize: 10,
-          marginVertical: 2,
+          fontWeight: "bold",
         },
       })}
     >

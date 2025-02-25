@@ -42,6 +42,27 @@ export const movieApi = createApi({
         method: "GET",
       }),
     }),
+
+    getAllSeries: builder.mutation({
+      query: () => ({
+        url: "/tv/popular?language=en-US&page=1",
+        method: "GET",
+      }),
+    }),
+
+    getSeriesDetails: builder.mutation({
+      query: (seriesId) => ({
+        url: `/tv/${seriesId}?language=en-US`,
+        method: "GET",
+      }),
+    }),
+
+    getSeriesRecommendations: builder.mutation({
+      query: (seriesId) => ({
+        url: `/tv/${seriesId}/recommendations?language=en-US`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -50,4 +71,7 @@ export const {
   useFetchNowPlayingMoviesMutation,
   useGetUpcomingMoviesMutation,
   useGetMovieDetailsMutation,
+  useGetAllSeriesMutation,
+  useGetSeriesDetailsMutation,
+  useGetSeriesRecommendationsMutation,
 } = movieApi;

@@ -13,7 +13,7 @@ import { formatRuntime } from "../../helpers/helpers";
 
 const { height } = Dimensions.get("window");
 
-const MovieDetails: React.FC<MovieDetailsProps> = ({
+const SeriesDetails: React.FC<MovieDetailsProps> = ({
   movieId,
   release_date,
   overview,
@@ -102,7 +102,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({
   );
 };
 
-export default MovieDetails;
+export default SeriesDetails;
 
 const styles = StyleSheet.create({
   container: {

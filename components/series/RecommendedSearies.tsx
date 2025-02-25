@@ -2,10 +2,10 @@ import { Text, View, StyleSheet } from "react-native";
 import OtherMovieCard from "../common/OtherMovieCard";
 import { Colors } from "../../constants/colors";
 
-const RecommendedMovies: React.FC<{ movies: {}[] }> = ({ movies }) => {
+const RecommendedSeries: React.FC<{ movies: {}[] }> = ({ movies }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Recommended Movies</Text>
+      <Text style={styles.text}>Recommended Shows</Text>
 
       <View style={styles.cardContainer}>
         {movies &&
@@ -27,7 +27,7 @@ const RecommendedMovies: React.FC<{ movies: {}[] }> = ({ movies }) => {
   );
 };
 
-export default RecommendedMovies;
+export default RecommendedSeries;
 
 const styles = StyleSheet.create({
   container: {

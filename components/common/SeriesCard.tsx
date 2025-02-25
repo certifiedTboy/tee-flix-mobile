@@ -10,7 +10,8 @@ import { useNavigation } from "@react-navigation/native";
 import { MovieCardProps } from "../../interfaces/propsInterfaces";
 import { Colors } from "../../constants/colors";
 import Icons from "../ui/Icons";
-const MovieCard: React.FC<MovieCardProps> = ({
+
+const SeriesCard: React.FC<MovieCardProps> = ({
   poster_image,
   title,
   release_date,
@@ -18,11 +19,12 @@ const MovieCard: React.FC<MovieCardProps> = ({
   movieId,
 }) => {
   const navigation = useNavigation();
+
   return (
     <Pressable
       style={({ pressed }) => [styles.cardContainer, pressed && styles.pressed]}
       onPress={() =>
-        navigation.navigate("MovieDetails", { movieId: movieId, title })
+        navigation.navigate("SeriesDetails", { seriesId: movieId, title })
       }
     >
       <View style={styles.imageContainer}>
@@ -43,15 +45,10 @@ const MovieCard: React.FC<MovieCardProps> = ({
         <View style={styles.detailsContainer}>
           <Text style={styles.detailsText}>
             {" "}
-            <Icons name="calendar" size={14} color={Colors.Primary100} />
+            <Icons name="calendar" size={10} color={Colors.Primary100} />
             {"  "}
             {release_date}
           </Text>
-          {/* <Text style={styles.detailsText}>
-            <Icons name="star" size={14} color={Colors.Primary100} />
-            {"  "}
-            {Number(rating).toFixed(1)} Rating
-          </Text> */}
         </View>
       </View>
 
@@ -65,15 +62,16 @@ const MovieCard: React.FC<MovieCardProps> = ({
   );
 };
 
-export default MovieCard;
+export default SeriesCard;
 
 const styles = StyleSheet.create({
   cardContainer: {
-    height: Dimensions.get("window").height / 2,
-    width: Dimensions.get("window").width / 2,
+    height: Dimensions.get("window").height / 4,
+    width: Dimensions.get("window").width / 2.5,
     borderRadius: 10,
-    justifyContent: "center",
+    // justifyContent: "center",
     marginHorizontal: 10,
+    marginBottom: 70,
   },
   imageContainer: {
     height: "100%",
@@ -94,7 +92,7 @@ const styles = StyleSheet.create({
   },
 
   movieTitle: {
-    fontSize: 20,
+    fontSize: 16,
     color: Colors.Secondary100,
     marginTop: 10,
     fontWeight: "bold",
@@ -108,6 +106,7 @@ const styles = StyleSheet.create({
 
   detailsText: {
     color: Colors.Primary100,
+    fontSize: 10,
   },
 
   infoContainer: {

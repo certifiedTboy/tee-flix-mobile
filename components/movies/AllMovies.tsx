@@ -12,8 +12,7 @@ const AllMovies: React.FC<{ type: string }> = ({ type }) => {
   const [fetchNowPlayingMovies, { data }] = useFetchNowPlayingMoviesMutation();
   const [getUpcomingMovies, { data: upcomingData }] =
     useGetUpcomingMoviesMutation();
-  const [getLatestMovies, { data: latestData }] =
-    useGetUpcomingMoviesMutation();
+  const [getLatestMovies, { data: latestData }] = useGetLatestMoviesMutation();
 
   useEffect(() => {
     if (type === "now_playing") {
