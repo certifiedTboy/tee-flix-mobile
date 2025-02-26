@@ -7,6 +7,7 @@ import {
   Pressable,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import SeriesThrillerReels from "../reels/SeriesThrillerReels";
 import Icons from "../ui/Icons";
 import { MovieDetailsProps } from "../../interfaces/propsInterfaces";
 import { Colors } from "../../constants/colors";
@@ -31,12 +32,13 @@ const SeriesDetails: React.FC<MovieDetailsProps> = ({
 
   return (
     <View style={styles.container}>
-      <Image
+      {/* <Image
         style={styles.movieImage}
         source={{
           uri: `${process.env.EXPO_PUBLIC_API_IMAGE_URL}${poster_image}`,
         }}
-      />
+      /> */}
+      <SeriesThrillerReels seriesId={movieId} />
 
       <View style={styles.details}>
         <Text style={styles.movieTitle}>{title}</Text>

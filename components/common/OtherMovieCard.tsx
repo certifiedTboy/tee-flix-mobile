@@ -66,7 +66,7 @@ export default OtherMovieCard;
 const styles = StyleSheet.create({
   cardContainer: {
     height: Dimensions.get("window").height / 4,
-    width: Dimensions.get("window").width / 2.5,
+    width: Dimensions.get("window").width / 2.4,
     borderRadius: 10,
     // justifyContent: "center",
     marginHorizontal: 10,

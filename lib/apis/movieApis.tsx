@@ -77,6 +77,27 @@ export const movieApi = createApi({
         method: "GET",
       }),
     }),
+
+    getSeriesThrillers: builder.mutation({
+      query: (seriesId) => ({
+        url: `/tv/${seriesId}/videos`,
+        method: "GET",
+      }),
+    }),
+
+    searchMovies: builder.mutation({
+      query: ({ searchQuery, currentPage }) => ({
+        url: `/search/movie?api_key=${process.env.EXPO_PUBLIC_API_KEY_2}&query=${searchQuery}&page=${currentPage}`,
+        method: "GET",
+      }),
+    }),
+
+    searchShows: builder.mutation({
+      query: ({ searchQuery, currentPage }) => ({
+        url: `/search/tv?include_adult=true&language=en-US&query=${searchQuery}&page=${currentPage}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -90,4 +111,7 @@ export const {
   useGetSeriesRecommendationsMutation,
   useGetTvShowsMutation,
   useGetMovieThrillersMutation,
+  useGetSeriesThrillersMutation,
+  useSearchMoviesMutation,
+  useSearchShowsMutation,
 } = movieApi;

@@ -7,19 +7,19 @@ import React, {
 } from "react";
 import { View, Alert, StyleSheet } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
-import { useGetMovieThrillersMutation } from "../../lib/apis/movieApis";
+import { useGetSeriesThrillersMutation } from "../../lib/apis/movieApis";
 
-const ThrillerReels: React.FC<{ movieId: number }> = ({ movieId }) => {
+const SeriesThrillerReels: React.FC<{ seriesId: number }> = ({ seriesId }) => {
   const [playing, setPlaying] = useState(true);
   const [playList, setPlayList] = useState<string[]>([]);
 
-  const [getMovieThrillers, { data }] = useGetMovieThrillersMutation();
+  const [getSeriesThrillers, { data }] = useGetSeriesThrillersMutation();
 
   useLayoutEffect(() => {
-    if (movieId) {
-      getMovieThrillers(movieId);
+    if (seriesId) {
+      getSeriesThrillers(seriesId);
     }
-  }, [movieId]);
+  }, [seriesId]);
 
   const onStateChange = useCallback((state: any) => {
     if (state === "ended") {
@@ -30,6 +30,7 @@ const ThrillerReels: React.FC<{ movieId: number }> = ({ movieId }) => {
 
   useEffect(() => {
     // find main trailler key
+
     if (data && data?.results?.length > 0) {
       const trailerKey = data?.results.find(
         (result: any) => result?.type === "Trailer"
@@ -49,7 +50,7 @@ const ThrillerReels: React.FC<{ movieId: number }> = ({ movieId }) => {
   return (
     <View style={styles.contentContainer}>
       <View style={styles.movieContainer}>
-        {data && playList?.length > 0 ? (
+        {playList?.length > 0 ? (
           <YoutubePlayer
             height={200}
             play={playing}
@@ -71,7 +72,7 @@ const ThrillerReels: React.FC<{ movieId: number }> = ({ movieId }) => {
   );
 };
 
-export default ThrillerReels;
+export default SeriesThrillerReels;
 
 const styles = StyleSheet.create({
   contentContainer: {
