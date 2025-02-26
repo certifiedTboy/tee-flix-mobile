@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import SeriesCard from "../common/SeriesCard";
 import { useGetAllSeriesMutation } from "../../lib/apis/movieApis";
 import { Colors } from "../../constants/colors";

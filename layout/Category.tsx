@@ -21,7 +21,7 @@ const Category = () => {
           } else if (route.name === "Movies") {
             iconName = focused ? "film" : "film-outline";
           } else if (route.name === "Series") {
-            iconName = focused ? "link" : "unlink";
+            iconName = focused ? "logo-youtube" : "logo-youtube";
           } else {
             iconName = focused ? "tv" : "tv-outline";
           }

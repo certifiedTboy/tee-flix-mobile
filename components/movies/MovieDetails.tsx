@@ -6,6 +6,7 @@ import {
   Text,
   Pressable,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Icons from "../ui/Icons";
 import { MovieDetailsProps } from "../../interfaces/propsInterfaces";
 import { Colors } from "../../constants/colors";
@@ -26,6 +27,8 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({
   episodes,
   seasons,
 }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Image
@@ -88,6 +91,9 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({
             styles.playButton,
             pressed && styles.pressed,
           ]}
+          onPress={() =>
+            navigation.navigate("StreamMovie", { movieId, movieTitle: title })
+          }
         >
           <Icons name="play" size={30} color={Colors.Primary200} />
         </Pressable>

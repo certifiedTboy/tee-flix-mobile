@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MovieDetailsScreen from "../screens/MovieDetailsScreen";
+import MovieStreamScreen from "../screens/MovieStreamScreen";
 import AllMoviesScreen from "../screens/AllMoviesScreen";
 import SeriesDetailsScreen from "../screens/SeriesDetailsScreen";
 import Category from "./Category";
@@ -45,6 +46,11 @@ const Layout = () => {
         <Stack.Screen name="MovieDetails" component={MovieDetailsScreen} />
         <Stack.Screen name="SeriesDetails" component={SeriesDetailsScreen} />
         <Stack.Screen name="AllMovies" component={AllMoviesScreen} />
+        <Stack.Screen
+          name="StreamMovie"
+          component={MovieStreamScreen}
+          // options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

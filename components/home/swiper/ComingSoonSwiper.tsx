@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
 import DescriptionTab from "../../common/DescriptionTab";
 import MovieCard from "../../common/MovieCard";
+import OtherMovieCard from "../../common/OtherMovieCard";
 import { useGetUpcomingMoviesMutation } from "../../../lib/apis/movieApis";
 
 // const { width, height } = Dimensions.get("window");
@@ -34,7 +35,7 @@ const ComingSoonSwiper = () => {
           // showPagination
           data={data?.results?.slice(0, 11)}
           renderItem={({ item }) => (
-            <MovieCard
+            <OtherMovieCard
               title={item?.original_title}
               poster_image={item?.poster_path}
               rating={item?.vote_average}
