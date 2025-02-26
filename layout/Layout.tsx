@@ -5,6 +5,7 @@ import MovieStreamScreen from "../screens/MovieStreamScreen";
 import AllMoviesScreen from "../screens/AllMoviesScreen";
 import SeriesScreen from "../screens/SeriesScreen";
 import SeriesDetailsScreen from "../screens/SeriesDetailsScreen";
+import SeriesStreamScreen from "../screens/SeriesStreamScreen";
 import Category from "./Category";
 import Search from "./Search";
 import Icons from "../components/ui/Icons";
@@ -71,6 +72,26 @@ const Layout = () => {
         <Stack.Screen
           name="StreamMovie"
           component={MovieStreamScreen}
+          options={({ route }) => {
+            return {
+              title:
+                `Now watching ${route.params?.movieTitle}` ??
+                "Now streaming...",
+            };
+          }}
+          // options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="StreamSeries"
+          component={SeriesStreamScreen}
+          options={({ route }) => {
+            return {
+              title:
+                `Now watching ${route.params?.seriesTitle}` ??
+                "Now streaming...",
+            };
+          }}
           // options={{ headerShown: false }}
         />
       </Stack.Navigator>

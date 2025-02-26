@@ -18,7 +18,15 @@
         {
           "initialOrientation": "DEFAULT"
         }
-      ]
+      ],
+      [
+        "expo-video",
+        {
+          "supportsBackgroundPlayback": true,
+          "supportsPictureInPicture": true
+        }
+      ],
+      "expo-video"
     ],
     "ios": {
       "supportsTablet": true

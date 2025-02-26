@@ -8,9 +8,11 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icons from "../ui/Icons";
+import ThrillerReelsSwiper from "../reels/ThrillerReelsSwiper";
 import { MovieDetailsProps } from "../../interfaces/propsInterfaces";
 import { Colors } from "../../constants/colors";
 import { formatRuntime } from "../../helpers/helpers";
+import ThrillerReels from "../reels/ThrillerReels";
 
 const { height } = Dimensions.get("window");
 
@@ -31,12 +33,14 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({
 
   return (
     <View style={styles.container}>
-      <Image
+      {/* <Image
         style={styles.movieImage}
         source={{
           uri: `${process.env.EXPO_PUBLIC_API_IMAGE_URL}${poster_image}`,
         }}
-      />
+      /> */}
+
+      <ThrillerReels movieId={movieId} />
 
       <View style={styles.details}>
         <Text style={styles.movieTitle}>{title}</Text>

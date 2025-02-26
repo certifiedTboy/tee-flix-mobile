@@ -70,6 +70,13 @@ export const movieApi = createApi({
         method: "GET",
       }),
     }),
+
+    getMovieThrillers: builder.mutation({
+      query: (movieId) => ({
+        url: `/movie/${movieId}/videos`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -82,4 +89,5 @@ export const {
   useGetSeriesDetailsMutation,
   useGetSeriesRecommendationsMutation,
   useGetTvShowsMutation,
+  useGetMovieThrillersMutation,
 } = movieApi;

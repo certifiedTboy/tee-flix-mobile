@@ -1,5 +1,6 @@
 import { Text, View, StyleSheet } from "react-native";
 import OtherMovieCard from "../common/OtherMovieCard";
+import SeriesCard from "../common/SeriesCard";
 import { Colors } from "../../constants/colors";
 
 const RecommendedSeries: React.FC<{ movies: {}[] }> = ({ movies }) => {
@@ -12,11 +13,11 @@ const RecommendedSeries: React.FC<{ movies: {}[] }> = ({ movies }) => {
           movies.length > 0 &&
           movies.map((item: any) => {
             return (
-              <OtherMovieCard
-                title={item?.original_title || item?.original_name}
+              <SeriesCard
+                title={item?.original_name}
                 poster_image={item?.poster_path}
                 rating={item?.vote_average}
-                release_date={item?.release_date || item?.first_air_date}
+                release_date={item?.first_air_date}
                 movieId={item?.id}
                 key={item.id}
               />
