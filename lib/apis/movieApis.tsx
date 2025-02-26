@@ -50,6 +50,13 @@ export const movieApi = createApi({
       }),
     }),
 
+    getTvShows: builder.mutation({
+      query: () => ({
+        url: "/tv/popular?language=en-US&page=2",
+        method: "GET",
+      }),
+    }),
+
     getSeriesDetails: builder.mutation({
       query: (seriesId) => ({
         url: `/tv/${seriesId}?language=en-US`,
@@ -74,4 +81,5 @@ export const {
   useGetAllSeriesMutation,
   useGetSeriesDetailsMutation,
   useGetSeriesRecommendationsMutation,
+  useGetTvShowsMutation,
 } = movieApi;

@@ -7,16 +7,14 @@ import { useGetMovieDetailsMutation } from "../lib/apis/movieApis";
 import { Colors } from "../constants/colors";
 
 type MovieDetailsScreenRouteProp = RouteProp<
-  { params: { movieId: string }; navigation: any },
+  { params: { movieId: string } },
   "params"
 >;
 
 const MovieDetailsScreen = ({
   route,
-  navigation,
 }: {
   route: MovieDetailsScreenRouteProp;
-  navigation: any;
 }) => {
   const [getMovieDetails, { data }] = useGetMovieDetailsMutation();
   const movieId = route.params.movieId;
@@ -27,11 +25,11 @@ const MovieDetailsScreen = ({
     }
   }, [movieId]);
 
-  useEffect(() => {
-    if (data) {
-      navigation.setOptions({ title: data.original_title });
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     navigation.setOptions({ title: data.original_title });
+  //   }
+  // }, [data]);
 
   return (
     <ScrollView style={styles.container}>

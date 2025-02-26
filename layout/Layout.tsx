@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MovieDetailsScreen from "../screens/MovieDetailsScreen";
 import MovieStreamScreen from "../screens/MovieStreamScreen";
 import AllMoviesScreen from "../screens/AllMoviesScreen";
+import SeriesScreen from "../screens/SeriesScreen";
 import SeriesDetailsScreen from "../screens/SeriesDetailsScreen";
 import Category from "./Category";
 import Search from "./Search";
@@ -17,7 +18,7 @@ const Layout = () => {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Home"
-        screenOptions={({ navigation }) => ({
+        screenOptions={({ navigation, route }) => ({
           headerRight: ({ tintColor }) => (
             <Icons
               name="search"
@@ -43,9 +44,30 @@ const Layout = () => {
         />
         <Stack.Screen name="Search" component={Search} />
 
-        <Stack.Screen name="MovieDetails" component={MovieDetailsScreen} />
-        <Stack.Screen name="SeriesDetails" component={SeriesDetailsScreen} />
+        <Stack.Screen
+          name="MovieDetails"
+          component={MovieDetailsScreen}
+          options={({ route }) => {
+            return {
+              title: route.params?.title ?? "Movie Details",
+            };
+          }}
+        />
+        <Stack.Screen
+          name="SeriesDetails"
+          component={SeriesDetailsScreen}
+          options={({ route }) => {
+            return {
+              title: route.params?.title ?? "Series Details",
+            };
+          }}
+        />
         <Stack.Screen name="AllMovies" component={AllMoviesScreen} />
+        <Stack.Screen
+          name="AllSeries"
+          component={SeriesScreen}
+          options={{ headerTitle: "Tv Shows / Series" }}
+        />
         <Stack.Screen
           name="StreamMovie"
           component={MovieStreamScreen}

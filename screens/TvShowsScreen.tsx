@@ -1,11 +1,11 @@
 import { ScrollView, Text, StyleSheet } from "react-native";
-import AllSeries from "../components/series/AllSeries";
+import AllTvShows from "../components/series/AllTvShows";
 import { Colors } from "../constants/colors";
 
 const TvShowsScreen = () => {
   return (
     <ScrollView style={styles.container}>
-      <AllSeries />
+      <AllTvShows />
     </ScrollView>
   );
 };

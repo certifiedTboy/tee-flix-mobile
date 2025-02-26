@@ -10,16 +10,14 @@ import {
 import { Colors } from "../constants/colors";
 
 type MovieDetailsScreenRouteProp = RouteProp<
-  { params: { seriesId: string }; navigation: any },
+  { params: { seriesId: string } },
   "params"
 >;
 
 const SeriesDetailsScreen = ({
   route,
-  navigation,
 }: {
   route: MovieDetailsScreenRouteProp;
-  navigation: any;
 }) => {
   const [getSeriesDetails, { data }] = useGetSeriesDetailsMutation();
 
@@ -35,11 +33,11 @@ const SeriesDetailsScreen = ({
     }
   }, [seriesId]);
 
-  useEffect(() => {
-    if (data) {
-      navigation.setOptions({ title: data.name });
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     navigation.setOptions({ title: data.name });
+  //   }
+  // }, [data]);
 
   return (
     <ScrollView style={styles.container}>
