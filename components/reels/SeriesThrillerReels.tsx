@@ -34,8 +34,8 @@ const SeriesThrillerReels: React.FC<{ seriesId: number }> = ({ seriesId }) => {
     if (data && data?.results?.length > 0) {
       const trailerKey = data?.results.find(
         (result: any) => result?.type === "Trailer"
-      ).key;
-      const keys = data?.results.map((result: any) => result.key);
+      )?.key;
+      const keys = data?.results.map((result: any) => result?.key);
 
       if ((keys && keys.length > 0) || trailerKey) {
         setPlayList([trailerKey, ...keys]);

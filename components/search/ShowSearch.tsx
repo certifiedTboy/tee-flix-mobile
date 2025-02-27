@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { ScrollView, View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import SearchInput from "../common/SearchInput";
 import SeriesCard from "../common/SeriesCard";
 import {
