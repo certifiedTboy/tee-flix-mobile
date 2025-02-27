@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ScrollView, View, Text, StyleSheet, FlatList } from "react-native";
 import SearchInput from "../common/SearchInput";
 import SeriesCard from "../common/SeriesCard";
@@ -11,9 +11,10 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 const ShowSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [showResults, setShowResults] = useState([]);
+  const [showResults, setShowResults] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchShows, { data }] = useSearchShowsMutation();
+  const [searchFreshShows, { data: freshResult }] = useSearchShowsMutation();
   const [getAllSeries, { data: seriesData }] = useGetAllSeriesMutation();
 
   useEffect(() => {
@@ -42,6 +43,44 @@ const ShowSearch = () => {
     }
   }, [data]);
 
+  const handleEndReached = () => {
+    setCurrentPage((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    const fetchFreshMovies = () => {
+      if (currentPage >= freshResult?.total_pages) {
+        return;
+      }
+
+      if (currentPage > 1) {
+        searchFreshShows({ searchQuery, currentPage });
+      }
+    };
+
+    fetchFreshMovies();
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (freshResult && freshResult.results?.length > 0 && currentPage > 1) {
+      setShowResults((prev) => [...prev, ...freshResult.results]);
+    }
+  }, [freshResult]);
+
+  const RenderedCard = useCallback(
+    ({ item }: { item: any }) => (
+      <SeriesCard
+        title={item?.original_name}
+        poster_image={item?.poster_path}
+        rating={item?.vote_average}
+        release_date={item?.first_air_date}
+        movieId={item?.id}
+        key={item.id}
+      />
+    ),
+    []
+  );
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -56,18 +95,12 @@ const ShowSearch = () => {
         <View style={styles.listContainer}>
           <FlatList
             data={showResults}
-            renderItem={({ item }) => (
-              <SeriesCard
-                title={item?.original_name}
-                poster_image={item?.poster_path}
-                rating={item?.vote_average}
-                release_date={item?.first_air_date}
-                movieId={item?.id}
-                key={item.id}
-              />
-            )}
+            renderItem={RenderedCard}
             keyExtractor={(item) => item.id}
             numColumns={2}
+            scrollEventThrottle={16} // Improves performance
+            onEndReached={handleEndReached} // Trigger when reaching the end
+            onEndReachedThreshold={0.5} // Adjust sensitivity
           />
         </View>
       </SafeAreaView>

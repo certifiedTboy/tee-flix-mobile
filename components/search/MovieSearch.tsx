@@ -112,7 +112,7 @@ const MovieSearch = () => {
             numColumns={2}
             scrollEventThrottle={16} // Improves performance
             onEndReached={handleEndReached} // Trigger when reaching the end
-            onEndReachedThreshold={0.1} // Adjust sensitivity
+            onEndReachedThreshold={0.5} // Adjust sensitivity
           />
         </View>
       </SafeAreaView>

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   View,
   Text,
@@ -62,7 +63,7 @@ const SeriesCard: React.FC<MovieCardProps> = ({
   );
 };
 
-export default SeriesCard;
+export default memo(SeriesCard);
 
 const styles = StyleSheet.create({
   cardContainer: {
