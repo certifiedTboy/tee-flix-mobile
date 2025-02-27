@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ScrollView, View, Text, StyleSheet, FlatList } from "react-native";
 import SearchInput from "../common/SearchInput";
 import OtherMovieCard from "../common/OtherMovieCard";
@@ -9,11 +9,21 @@ import {
 import { Colors } from "../../constants/colors";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
+interface ScrollEvent {
+  nativeEvent: {
+    contentOffset: {
+      y: number;
+    };
+  };
+}
+
 const MovieSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [movieResults, setMovieResults] = useState([]);
+  const [movieResults, setMovieResults] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchMovies, { data }] = useSearchMoviesMutation();
+  const [searchFreshMovies, { data: freshResult }] = useSearchMoviesMutation();
+
   const [getLatestMovies, { data: latestMovies }] =
     useGetLatestMoviesMutation();
 
@@ -43,6 +53,46 @@ const MovieSearch = () => {
     }
   }, [data]);
 
+  const handleEndReached = () => {
+    setCurrentPage((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    const fetchFreshMovies = () => {
+      if (currentPage >= freshResult?.total_pages) {
+        return;
+      }
+
+      if (currentPage > 1) {
+        searchFreshMovies({ searchQuery, currentPage });
+      }
+    };
+
+    fetchFreshMovies();
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (freshResult && freshResult.results?.length > 0 && currentPage > 1) {
+      setMovieResults((prev) => [...prev, ...freshResult.results]);
+    }
+  }, [freshResult]);
+
+  // Render the card
+  // useCallback is used to prevent re-rendering of the card
+  const RenderedCard = useCallback(
+    ({ item }: { item: any }) => (
+      <OtherMovieCard
+        title={item?.original_title}
+        poster_image={item?.poster_path}
+        rating={item?.vote_average}
+        release_date={item?.release_date}
+        movieId={item?.id}
+        key={item.id}
+      />
+    ),
+    []
+  );
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -57,18 +107,12 @@ const MovieSearch = () => {
         <View style={styles.listContainer}>
           <FlatList
             data={movieResults}
-            renderItem={({ item }) => (
-              <OtherMovieCard
-                title={item?.original_title}
-                poster_image={item?.poster_path}
-                rating={item?.vote_average}
-                release_date={item?.release_date}
-                movieId={item?.id}
-                key={item.id}
-              />
-            )}
+            renderItem={RenderedCard}
             keyExtractor={(item) => item.id}
             numColumns={2}
+            scrollEventThrottle={16} // Improves performance
+            onEndReached={handleEndReached} // Trigger when reaching the end
+            onEndReachedThreshold={0.1} // Adjust sensitivity
           />
         </View>
       </SafeAreaView>
