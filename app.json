@@ -3,14 +3,14 @@
     "name": "tee-flix",
     "slug": "tee-flix",
     "version": "1.0.0",
-    // "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "orientation": "portrait",
+    "icon": "./assets/cover.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/cover.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#fcd834"
     },
     "plugins": [
       [
@@ -26,6 +26,18 @@
           "supportsPictureInPicture": true
         }
       ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#fcd834",
+          "image": "./assets/cover.png",
+          "dark": {
+            "image": "./assets/cover.png",
+            "backgroundColor": "#fcd834"
+          },
+          "imageWidth": 300
+        }
+      ],
       "expo-video"
     ],
     "ios": {
@@ -33,12 +45,19 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/cover.png",
+        "backgroundColor": "#FCC434"
+      },
+      "package": "com.certifiedtboy.teeflix"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1af8d94e-ba1b-4343-877b-95b0ca754197"
+      }
+    },
+    "owner": "certifiedtboy"
   }
 }

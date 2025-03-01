@@ -27,7 +27,12 @@
     "react-native-tab-view": "^4.0.5",
     "react-native-webview": "13.12.5",
     "react-native-youtube-iframe": "^2.3.0",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "expo-notifications": "~0.29.13",
+    "expo-device": "~7.0.2",
+    "expo-constants": "~17.0.7",
+    "expo-splash-screen": "~0.29.22",
+    "expo-dev-client": "~5.0.12"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
