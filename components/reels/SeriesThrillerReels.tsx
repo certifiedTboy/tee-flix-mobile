@@ -12,7 +12,7 @@ import { useGetSeriesThrillersMutation } from "../../lib/apis/movieApis";
 const SeriesThrillerReels: React.FC<{ seriesId: number }> = ({ seriesId }) => {
   const [playing, setPlaying] = useState(true);
   const [trailerId, setTrailerId] = useState<string | null>(null);
-  const [playList, setPlayList] = useState<string[]>([]);
+  // const [playList, setPlayList] = useState<string[]>([]);
 
   const [getSeriesThrillers, { data }] = useGetSeriesThrillersMutation();
 
