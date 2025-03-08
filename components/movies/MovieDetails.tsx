@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icons from "../ui/Icons";
-import ThrillerReelsSwiper from "../reels/ThrillerReelsSwiper";
+// import ThrillerReelsSwiper from "../reels/ThrillerReelsSwiper";
 import { MovieDetailsProps } from "../../interfaces/propsInterfaces";
 import { Colors } from "../../constants/colors";
 import { formatRuntime } from "../../helpers/helpers";

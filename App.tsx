@@ -1,3 +1,5 @@
+import "expo-dev-client";
+import "./gesture-handler";
 import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";

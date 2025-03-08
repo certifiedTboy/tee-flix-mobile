@@ -7,8 +7,9 @@ import SeriesScreen from "../screens/SeriesScreen";
 import SeriesDetailsScreen from "../screens/SeriesDetailsScreen";
 import SeriesStreamScreen from "../screens/SeriesStreamScreen";
 import Category from "./Category";
-import Search from "./Search";
+// import Search from "./Search";
 import Icons from "../components/ui/Icons";
+import SearchDrawer from "./Search";
 import { Size } from "../constants/size";
 import { Colors } from "../constants/colors";
 
@@ -43,7 +44,7 @@ const Layout = () => {
             title: "Tee-Flix",
           }}
         />
-        <Stack.Screen name="Search" component={Search} />
+        <Stack.Screen name="Search" component={SearchDrawer} />
 
         <Stack.Screen
           name="MovieDetails"
