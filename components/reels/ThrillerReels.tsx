@@ -11,6 +11,7 @@ import { useGetMovieThrillersMutation } from "../../lib/apis/movieApis";
 
 const ThrillerReels: React.FC<{ movieId: number }> = ({ movieId }) => {
   const [playing, setPlaying] = useState(true);
+  const [trailerId, setTrailerId] = useState<string | null>(null);
   const [playList, setPlayList] = useState<string[]>([]);
 
   const [getMovieThrillers, { data }] = useGetMovieThrillersMutation();
@@ -34,35 +35,29 @@ const ThrillerReels: React.FC<{ movieId: number }> = ({ movieId }) => {
       const trailerKey = data?.results.find(
         (result: any) => result?.type === "Trailer"
       )?.key;
-      const keys = data?.results.map((result: any) => result?.key);
 
-      if ((keys && keys.length > 0) || trailerKey) {
-        setPlayList([trailerKey, ...keys]);
-      }
+      setTrailerId(trailerKey);
+      // const keys = data?.results.map((result: any) => result?.key);
+
+      // if ((keys && keys.length > 0) || trailerKey) {
+      //   setPlayList([trailerKey, ...keys]);
+      // }
     }
   }, [data]);
 
-  const togglePlaying = useCallback(() => {
-    setPlaying((prev) => !prev);
-  }, []);
+  // const togglePlaying = useCallback(() => {
+  //   setPlaying((prev) => !prev);
+  // }, []);
 
   return (
     <View style={styles.contentContainer}>
       <View style={styles.movieContainer}>
-        {data && playList?.length > 0 ? (
+        {trailerId && (
           <YoutubePlayer
             height={200}
             play={playing}
-            playList={playList}
-            //   videoId={"rUSdnuOLebE"}
-            onChangeState={onStateChange}
-          />
-        ) : (
-          <YoutubePlayer
-            height={200}
-            play={playing}
-            playList={""}
-            //   videoId={"rUSdnuOLebE"}
+            // playList={playList}
+            videoId={trailerId}
             onChangeState={onStateChange}
           />
         )}
