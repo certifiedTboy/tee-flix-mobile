@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
-import { View } from "react-native";
+import { View, TextInput, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { WebView } from "react-native-webview";
 import * as ScreenOrientation from "expo-screen-orientation";
 import Icons from "../ui/Icons";
-import { StyleSheet } from "react-native";
 import { Colors } from "../../constants/colors";
 import { Size } from "../../constants/size";
 
 const SeriesStreaming: React.FC<{ seriesId: string }> = ({ seriesId }) => {
-  const [fullScreen, setFullScreen] = useState(false);
+  const [fullScreen, setFullScreen] = useState(true);
   const [episode, setEpisode] = useState(1);
   const [season, setSeason] = useState(1);
 
@@ -30,19 +29,44 @@ const SeriesStreaming: React.FC<{ seriesId: string }> = ({ seriesId }) => {
   useEffect(() => {
     changeScreenOrientation();
 
+    navigation.setOptions({ headerShown: false });
+
     return () => {
       changePortraitOrientation();
     };
   }, []);
 
   const showFullScreen = () => {
-    navigation.setOptions({ headerShown: false });
+    navigation.setOptions({ headerShown: fullScreen });
     return setFullScreen(true);
   };
 
   const closeFullScreen = () => {
-    navigation.setOptions({ headerShown: true });
+    navigation.setOptions({ headerShown: fullScreen });
     setFullScreen(false);
+  };
+
+  // change series episode up by 1
+  const onChangeEpisodeUp = () => {
+    setEpisode(episode + 1);
+  };
+
+  // change series season up by 1
+  const onChangeSeasonUp = () => {
+    setSeason(season + 1);
+  };
+
+  // change series episode down by 1
+  const onChangeEpisodeDown = () => {
+    if (episode === 1) return;
+
+    setEpisode(episode - 1);
+  };
+
+  // change series season down by 1
+  const onChangeSeasonDown = () => {
+    if (season === 1) return;
+    setSeason(season - 1);
   };
 
   return (
@@ -75,6 +99,41 @@ const SeriesStreaming: React.FC<{ seriesId: string }> = ({ seriesId }) => {
           />
         )}
       </View>
+      <View style={styles.inputContainer}>
+        <View style={styles.episode}>
+          <Icons
+            name="play-skip-forward-circle-outline"
+            size={26}
+            color={Colors.Secondary300}
+            onPress={onChangeEpisodeUp}
+          />
+
+          <TextInput value={episode.toString()} style={styles.input} />
+
+          <Icons
+            name="play-skip-back-circle-outline"
+            size={26}
+            color={Colors.Secondary300}
+            onPress={onChangeEpisodeDown}
+          />
+        </View>
+
+        <View style={styles.episode}>
+          <Icons
+            name="play-skip-forward-circle-outline"
+            size={26}
+            color={Colors.Secondary300}
+            onPress={onChangeSeasonUp}
+          />
+          <TextInput value={season.toString()} style={styles.input} />
+          <Icons
+            name="play-skip-back-circle-outline"
+            size={26}
+            color={Colors.Secondary300}
+            onPress={onChangeSeasonDown}
+          />
+        </View>
+      </View>
     </View>
   );
 };
@@ -94,6 +153,30 @@ const styles = StyleSheet.create({
   },
 
   toggleFullScreen: { position: "absolute", top: 20, right: 20 },
+  inputContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    position: "absolute",
+    paddingHorizontal: 20,
+  },
+
+  episode: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  input: {
+    // backgroundColor: "#1C1C1C",
+    width: 40,
+    height: 40,
+    borderRadius: 5,
+    textAlign: "center",
+    color: Colors.Secondary300,
+    fontWeight: "bold",
+    fontSize: 16,
+  },
 });
 
 export default SeriesStreaming;

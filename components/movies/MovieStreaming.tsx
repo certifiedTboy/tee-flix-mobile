@@ -9,7 +9,7 @@ import { Colors } from "../../constants/colors";
 import { Size } from "../../constants/size";
 
 const MovieStreaming: React.FC<{ movieId: string }> = ({ movieId }) => {
-  const [fullScreen, setFullScreen] = useState(false);
+  const [fullScreen, setFullScreen] = useState(true);
 
   const navigation = useNavigation();
 
@@ -27,6 +27,7 @@ const MovieStreaming: React.FC<{ movieId: string }> = ({ movieId }) => {
 
   useEffect(() => {
     changeScreenOrientation();
+    navigation.setOptions({ headerShown: false });
 
     return () => {
       changePortraitOrientation();

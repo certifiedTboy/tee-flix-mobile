@@ -31,7 +31,7 @@ const Category = () => {
 
         headerStyle: {
           backgroundColor: Colors.Primary200,
-          height: 30,
+          // height: 30,
         },
 
         headerTitleStyle: {
