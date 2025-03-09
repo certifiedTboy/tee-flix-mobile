@@ -50,6 +50,7 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import MovieSearch from "../components/search/MovieSearch";
 import ShowSearch from "../components/search/ShowSearch";
+import Icons from "../components/ui/Icons";
 import { Colors } from "../constants/colors";
 
 const Drawer = createDrawerNavigator();
@@ -69,12 +70,22 @@ const SearchDrawer = () => {
       <Drawer.Screen
         name="Movies"
         component={MovieSearch}
-        options={{ title: "Search Movies" }}
+        options={{
+          title: "Search Movies",
+          drawerIcon: () => (
+            <Icons name="film" size={20} color={Colors.Secondary300} />
+          ),
+        }}
       />
       <Drawer.Screen
         name="Shows"
         component={ShowSearch}
-        options={{ title: "Search Shows" }}
+        options={{
+          title: "Search Shows",
+          drawerIcon: () => (
+            <Icons name="tv" size={20} color={Colors.Secondary300} />
+          ),
+        }}
       />
     </Drawer.Navigator>
   );

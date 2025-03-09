@@ -108,7 +108,7 @@ const SeriesStreaming: React.FC<{ seriesId: string }> = ({ seriesId }) => {
             onPress={onChangeEpisodeUp}
           />
 
-          <TextInput value={episode.toString()} style={styles.input} />
+          <TextInput value={`E${episode.toString()}`} style={styles.input} />
 
           <Icons
             name="play-skip-back-circle-outline"
@@ -125,7 +125,7 @@ const SeriesStreaming: React.FC<{ seriesId: string }> = ({ seriesId }) => {
             color={Colors.Secondary300}
             onPress={onChangeSeasonUp}
           />
-          <TextInput value={season.toString()} style={styles.input} />
+          <TextInput value={`S${season.toString()}`} style={styles.input} />
           <Icons
             name="play-skip-back-circle-outline"
             size={26}
