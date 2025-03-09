@@ -100,8 +100,10 @@ const MovieSearch = () => {
           onSearchChange={(enteredText: string) => setSearchQuery(enteredText)}
         />
 
-        <Text style={styles.text}>
-          {data?.results?.length > 0 ? "Search Results" : "Recommended Movies"}
+        <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
+          {data?.results?.length > 0
+            ? `Search Results for ${searchQuery}`
+            : "Recommended Movies"}
         </Text>
 
         <View style={styles.listContainer}>
@@ -137,9 +139,10 @@ const styles = StyleSheet.create({
 
   text: {
     color: Colors.Secondary300,
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: "bold",
     marginBottom: 20,
     marginLeft: 23,
+    marginVertical: 20,
   },
 });
