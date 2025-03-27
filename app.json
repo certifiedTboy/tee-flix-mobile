@@ -45,8 +45,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/cover.png",
-        "backgroundColor": "#FCC434"
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#fcd834"
       },
       "package": "com.certifiedtboy.teeflix"
     },

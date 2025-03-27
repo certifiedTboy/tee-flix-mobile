@@ -1,15 +1,27 @@
 import { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import SeriesCard from "../common/SeriesCard";
+// import SkeletonGroup from "../ui/SkeletonGroup";
+// import Skeleton from "../ui/Skeleton";
 import { useGetAllSeriesMutation } from "../../lib/apis/movieApis";
 import { Colors } from "../../constants/colors";
 
 const AllSeries = () => {
-  const [getAllSeries, { data }] = useGetAllSeriesMutation();
+  const [getAllSeries, { data, isLoading }] = useGetAllSeriesMutation();
 
   useEffect(() => {
     getAllSeries(null);
   }, []);
+
+  // if (isLoading) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <SkeletonGroup numberOfItems={10} direction="row">
+  //         <Skeleton w={150} h={200} mX={5} mY={5} />
+  //       </SkeletonGroup>
+  //     </View>
+  //   );
+  // }
 
   return (
     <View style={styles.container}>
