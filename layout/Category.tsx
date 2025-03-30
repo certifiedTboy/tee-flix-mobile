@@ -5,14 +5,13 @@ import SeriesScreen from "../screens/SeriesScreen";
 import TvShowsScreen from "../screens/TvShowsScreen";
 import Icons from "../components/ui/Icons";
 import { Colors } from "../constants/colors";
-import { Size } from "../constants/size";
 
 const Tab = createBottomTabNavigator();
 
 const Category = () => {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={({ route, navigation }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
@@ -26,9 +25,16 @@ const Category = () => {
             iconName = focused ? "tv" : "tv-outline";
           }
 
-          return <Icons name={iconName} size={size} color={color} />;
+          return (
+            <Icons
+              name={iconName}
+              size={size}
+              color={color}
+              onPress={() => navigation.navigate(route.name)}
+            />
+          );
         },
-
+        animation: "none",
         headerStyle: {
           backgroundColor: Colors.Primary200,
           // height: 30,
