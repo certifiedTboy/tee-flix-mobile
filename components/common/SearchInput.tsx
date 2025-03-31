@@ -7,7 +7,9 @@ const SearchInput: React.FC<{
 }> = ({ onSearchChange }) => {
   return (
     <View style={styles.inputContainer}>
-      {/* <Icons name="search" size={26} color={Colors.Secondary300} /> */}
+      <View style={styles.icon}>
+        <Icons name="search" size={22} color={Colors.Secondary300} />
+      </View>
 
       <TextInput
         style={styles.input}
@@ -20,48 +22,30 @@ const SearchInput: React.FC<{
 export default SearchInput;
 
 const styles = StyleSheet.create({
-  // inputContainer: {
-  //   // flexDirection: "row",
-  //   // justifyContent: "center",
-  //   // alignItems: "center",
-  // },
-  // input: {
-  //   marginVertical: 20,
-  //   fontSize: 16,
-  //   borderBottomWidth: 2,
-  //   backgroundColor: "#1C1C1C",
-  //   marginHorizontal: 5,
-  //   paddingLeft: 35,
-  //   borderRadius: 9,
-  //   // opacity: 0.2,
-  //   color: Colors.Secondary300,
-  // },
-
-  // icon: {
-  //   position: "absolute",
-  //   top: 27,
-  //   left: 8,
-  //   zIndex: 1,
-  //   opacity: 0.2,
-  // },
-
   inputContainer: {
     marginHorizontal: "auto",
     marginVertical: 8,
     width: "90%",
+    flexDirection: "row",
+    alignItems: "center",
   },
-  // label: {
-  //   fontSize: 12,
-  //   color:Colors.Secondary300,
-  // },
 
   input: {
     backgroundColor: "#1C1C1C",
-    padding: 6,
+    paddingTop: 10,
+    paddingLeft: 32,
     borderRadius: 6,
     color: Colors.Secondary300,
     fontSize: 18,
     flexDirection: "row",
     justifyContent: "space-between",
+    width: "100%",
+  },
+
+  icon: {
+    marginRight: -27,
+    marginLeft: 4,
+    zIndex: 1,
+    width: 20,
   },
 });
