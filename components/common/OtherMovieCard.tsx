@@ -1,15 +1,15 @@
+import { useNavigation } from "@react-navigation/native";
 import { memo } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
   Dimensions,
   Image,
   Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { MovieCardProps } from "../../interfaces/propsInterfaces";
 import { Colors } from "../../constants/colors";
+import { MovieCardProps } from "../../interfaces/propsInterfaces";
 import Icons from "../ui/Icons";
 
 const OtherMovieCard: React.FC<MovieCardProps> = ({
@@ -20,10 +20,12 @@ const OtherMovieCard: React.FC<MovieCardProps> = ({
   movieId,
 }) => {
   const navigation = useNavigation();
+
   return (
     <Pressable
       style={({ pressed }) => [styles.cardContainer, pressed && styles.pressed]}
       onPress={() =>
+        // @ts-ignore
         navigation.navigate("MovieDetails", { movieId: movieId, title })
       }
     >
@@ -67,9 +69,9 @@ export default memo(OtherMovieCard);
 const styles = StyleSheet.create({
   cardContainer: {
     height: Dimensions.get("window").height / 4,
-    width: Dimensions.get("window").width / 2.4,
     borderRadius: 10,
     // justifyContent: "center",
+    width: Dimensions.get("window").width / 2.4,
     marginHorizontal: 10,
     marginBottom: 70,
   },

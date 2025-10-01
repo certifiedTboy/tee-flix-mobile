@@ -1,13 +1,14 @@
-import { useState, useEffect, useCallback } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { Colors } from "../../constants/colors";
+import {
+  useGetAllSeriesMutation,
+  useSearchShowsMutation,
+} from "../../lib/apis/movieApis";
 import SearchInput from "../common/SearchInput";
 import SeriesCard from "../common/SeriesCard";
-import {
-  useSearchShowsMutation,
-  useGetAllSeriesMutation,
-} from "../../lib/apis/movieApis";
-import { Colors } from "../../constants/colors";
-import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import OtherSeriesCategories from "./OtherSeriesCategories";
 
 const ShowSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -95,15 +96,19 @@ const ShowSearch = () => {
         </Text>
 
         <View style={styles.listContainer}>
-          <FlatList
+          {/* <FlatList
             data={showResults}
             renderItem={RenderedCard}
             keyExtractor={(item) => item.id}
-            numColumns={2}
+            horizontal
             scrollEventThrottle={16} // Improves performance
             onEndReached={handleEndReached} // Trigger when reaching the end
             onEndReachedThreshold={0.5} // Adjust sensitivity
-          />
+          /> */}
+          <OtherSeriesCategories category="popular" />
+          <OtherSeriesCategories category="top_rated" />
+          <OtherSeriesCategories category="on_the_air" />
+          <OtherSeriesCategories category="airing_today" />
         </View>
       </SafeAreaView>
     </SafeAreaProvider>

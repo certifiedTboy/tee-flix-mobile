@@ -9,7 +9,7 @@ export interface IconProps {
 
 export interface MovieCardProps {
   height?: number | string;
-  width?: number | string;
+  width?: string;
   title?: string;
   genres?: string;
   rating?: number | string;

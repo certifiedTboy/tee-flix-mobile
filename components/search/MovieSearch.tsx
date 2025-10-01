@@ -1,21 +1,21 @@
-import { useState, useEffect, useCallback } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
-import SearchInput from "../common/SearchInput";
-import OtherMovieCard from "../common/OtherMovieCard";
+import { useGetScreenOrientation } from "@/hooks/useGetScreenOrientation";
+import { useCallback, useEffect, useState } from "react";
 import {
-  useSearchMoviesMutation,
-  useGetLatestMoviesMutation,
-} from "../../lib/apis/movieApis";
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+} from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "../../constants/colors";
-import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-
-interface ScrollEvent {
-  nativeEvent: {
-    contentOffset: {
-      y: number;
-    };
-  };
-}
+import {
+  useGetLatestMoviesMutation,
+  useSearchMoviesMutation,
+} from "../../lib/apis/movieApis";
+import OtherMovieCard from "../common/OtherMovieCard";
+import SearchInput from "../common/SearchInput";
+import OtherMoviesCategories from "./OtherMoviesCategories";
 
 const MovieSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,6 +26,14 @@ const MovieSearch = () => {
 
   const [getLatestMovies, { data: latestMovies }] =
     useGetLatestMoviesMutation();
+
+  const { width } = useWindowDimensions();
+
+  const { isPortrait, getScreenOrientation } = useGetScreenOrientation();
+
+  useEffect(() => {
+    getScreenOrientation(width);
+  }, [width]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -106,17 +114,29 @@ const MovieSearch = () => {
             : "Recommended Movies"}
         </Text>
 
-        <View style={styles.listContainer}>
+        <ScrollView contentContainerStyle={styles.listContainer}>
           <FlatList
             data={movieResults}
             renderItem={RenderedCard}
             keyExtractor={(item) => item.id}
-            numColumns={2}
             scrollEventThrottle={16} // Improves performance
             onEndReached={handleEndReached} // Trigger when reaching the end
             onEndReachedThreshold={0.5} // Adjust sensitivity
+            // onScroll={handleScroll}
+            horizontal
           />
-        </View>
+
+          <OtherMoviesCategories
+            category="top_rated"
+            categoryTitle="Top Rated"
+          />
+          <OtherMoviesCategories category="upcoming" categoryTitle="Upcoming" />
+          <OtherMoviesCategories
+            category="now_playing"
+            categoryTitle="Now Playing"
+          />
+          <OtherMoviesCategories category="popular" categoryTitle="Popular" />
+        </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -134,7 +154,7 @@ const styles = StyleSheet.create({
   listContainer: {
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 100,
+    // marginBottom: 100,
   },
 
   text: {

@@ -1,20 +1,20 @@
-import { View, Text, StyleSheet } from "react-native";
-import Link from "../ui/link";
+import { Pressable, StyleSheet, Text } from "react-native";
 import { Colors } from "../../constants/colors";
+import Link from "../ui/link";
 const DescriptionTab: React.FC<{ title: string; onPress: () => void }> = ({
   title,
   onPress,
 }) => {
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <Text style={styles.descText}>{title}</Text>
       <Link
         name="chevron-forward-outline"
         color={Colors.Primary100}
-        size={16}
+        size={25}
         onPress={onPress}
       />
-    </View>
+    </Pressable>
   );
 };
 

@@ -1,34 +1,37 @@
+import SeriesCard from "@/components/common/SeriesCard";
 import LoadMoreBtn from "@/components/ui/LoadMoreBtn";
 import { Colors } from "@/constants/colors";
+import {
+  useGetOtherSeriesCategoryMutation,
+  useSearchShowsMutation,
+} from "@/lib/apis/movieApis";
 import { SearchContext } from "@/store/search-context";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import OtherMovieCard from "../components/common/OtherMovieCard";
-import {
-  useGetOtherMovieCategoryMutation,
-  useSearchMoviesMutation,
-} from "../lib/apis/movieApis";
 
-const AllMoviesScreen = ({ route }: { route: any }) => {
-  const [movieResults, setMovieResults] = useState<any[]>([]);
+const AllTvShowsScreen = ({ route }: { route: any }) => {
+  const [seriesResults, setSeriesResults] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchMovies, { data }] = useSearchMoviesMutation();
-  const [getOtherMovieCategory, { data: latestMovies }] =
-    useGetOtherMovieCategoryMutation();
 
-  const { movieSearchQuery, setMovieSearchQuery } = useContext(SearchContext);
+  const [getOtherSeriesCategory, { data, isLoading }] =
+    useGetOtherSeriesCategoryMutation();
+
+  const [searchSeries, { data: result }] = useSearchShowsMutation();
+
+  const { tvShowsSearchQuery, setTvShowsSearchQuery } =
+    useContext(SearchContext);
 
   useFocusEffect(
     useCallback(() => {
-      if (movieSearchQuery.trim().length === 0 && route?.params?.category) {
-        getOtherMovieCategory(route?.params?.category);
+      if (tvShowsSearchQuery.trim().length === 0 && route?.params?.category) {
+        getOtherSeriesCategory(route?.params?.category);
       }
 
       return () => {
-        setMovieSearchQuery("");
-        setMovieResults([]);
+        setTvShowsSearchQuery("");
+        setSeriesResults([]);
         setCurrentPage(1);
       };
     }, [])
@@ -36,25 +39,25 @@ const AllMoviesScreen = ({ route }: { route: any }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (movieSearchQuery.trim().length > 0) {
-        searchMovies({ searchQuery: movieSearchQuery, currentPage });
+      if (tvShowsSearchQuery.trim().length > 0) {
+        searchSeries({ searchQuery: tvShowsSearchQuery, currentPage });
       }
     }, 1000);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [movieSearchQuery, currentPage]);
+  }, [tvShowsSearchQuery, currentPage]);
 
   useEffect(() => {
-    if (latestMovies && latestMovies?.results?.length > 0) {
-      setMovieResults(latestMovies.results);
+    if (result && result?.results?.length > 0) {
+      setSeriesResults(result.results);
     }
-  }, [latestMovies]);
+  }, [result]);
 
   useEffect(() => {
     if (data && data?.results?.length > 0) {
-      setMovieResults(data?.results);
+      setSeriesResults(data?.results);
     }
   }, [data]);
 
@@ -74,40 +77,40 @@ const AllMoviesScreen = ({ route }: { route: any }) => {
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
-          {data?.results?.length > 0
-            ? `Search results for ${movieSearchQuery}`
-            : "Recommended Movies"}
+          {result?.results?.length > 0
+            ? `Search results for ${tvShowsSearchQuery}`
+            : "Recommended Tv Shows"}
         </Text>
 
-        {data && data?.results && data?.results?.length > 0 && (
+        {result && result?.results && result?.results?.length > 0 && (
           <View style={styles.infoContainer}>
             <Text style={styles.infoText}>
-              Total results: {data?.total_results}
+              Total results: {result?.total_results}
             </Text>
             <Text style={styles.infoText}>
-              Total pages: {data?.total_pages}
+              Total pages: {result?.total_pages}
             </Text>
             <Text style={styles.infoText}>
-              Current page: {data?.page <= 0 ? currentPage : data?.page}
+              Current page: {result?.page <= 0 ? currentPage : result?.page}
             </Text>
           </View>
         )}
 
         <ScrollView contentContainerStyle={styles.cardContainer}>
-          {movieResults &&
-            movieResults.length > 0 &&
-            movieResults.map((item: any) => {
-              return (
-                <OtherMovieCard
-                  title={item?.original_title || item?.original_name}
+          {/* <Text style={styles.text}>All Series</Text> */}
+          <View style={styles.cardContainer}>
+            {seriesResults?.length > 0 &&
+              seriesResults.map((item: any) => (
+                <SeriesCard
+                  key={item.id}
+                  title={item?.name}
                   poster_image={item?.poster_path}
                   rating={item?.vote_average}
-                  release_date={item?.release_date || item?.first_air_date}
+                  release_date={item?.first_air_date}
                   movieId={item?.id}
-                  key={item.id}
                 />
-              );
-            })}
+              ))}
+          </View>
         </ScrollView>
 
         <View style={styles.reloadBtnContainer}>
@@ -127,20 +130,13 @@ const AllMoviesScreen = ({ route }: { route: any }) => {
   );
 };
 
-export default AllMoviesScreen;
+export default AllTvShowsScreen;
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.Primary200,
     width: "100%",
     flex: 1,
-  },
-
-  cardContainer: {
-    flexDirection: "row",
-    width: "100%",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
   },
 
   text: {
@@ -150,6 +146,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginLeft: 15,
     // marginVertical: 20,
+  },
+
+  cardContainer: {
+    flexDirection: "row",
+    width: "100%",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
   },
 
   reloadBtnContainer: {

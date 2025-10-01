@@ -1,19 +1,21 @@
-import { TextInput, View, StyleSheet, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Searchbar } from "react-native-paper";
 import { Colors } from "../../constants/colors";
-import Icons from "../ui/Icons";
 
 const SearchInput: React.FC<{
   onSearchChange: (enteredText: string) => void;
 }> = ({ onSearchChange }) => {
   return (
     <View style={styles.inputContainer}>
-      <View style={styles.icon}>
-        <Icons name="search" size={22} color={Colors.Secondary300} />
-      </View>
-
-      <TextInput
+      <Searchbar
+        onChangeText={onSearchChange}
         style={styles.input}
-        onChangeText={(enteredText: string) => onSearchChange(enteredText)}
+        placeholder="Search"
+        inputStyle={{
+          color: Colors.Secondary300,
+        }}
+        placeholderTextColor={Colors.Secondary300}
+        iconColor={Colors.Secondary300}
       />
     </View>
   );
@@ -32,14 +34,9 @@ const styles = StyleSheet.create({
 
   input: {
     backgroundColor: "#1C1C1C",
-    paddingTop: 10,
-    paddingLeft: 32,
     borderRadius: 6,
     color: Colors.Secondary300,
     fontSize: 18,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
   },
 
   icon: {

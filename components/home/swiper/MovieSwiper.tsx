@@ -1,36 +1,28 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  View,
-  ScrollView,
+  Dimensions,
   Image,
   ImageBackground,
-  Dimensions,
+  Pressable,
+  ScrollView,
   StyleSheet,
   Text,
-  Pressable,
+  View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-// import * as Notifications from "expo-notifications";
 import { Colors } from "../../../constants/colors";
+import { useFetchNowPlayingMoviesMutation } from "../../../lib/apis/movieApis";
 import DescriptionTab from "../../common/DescriptionTab";
 import Icons from "../../ui/Icons";
-import { useFetchNowPlayingMoviesMutation } from "../../../lib/apis/movieApis";
 
 const { width, height } = Dimensions.get("window");
-
-// Notifications.setNotificationHandler({
-//   handleNotification: async () => ({
-//     shouldShowAlert: true,
-//     shouldPlaySound: false,
-//     shouldSetBadge: false,
-//   }),
-// });
 
 const CustomSwiper = () => {
   const [activeIndex, setActiveIndex] = useState(1);
   const scrollRef = useRef(null);
 
-  const [fetchNowPlayingMovies, { data }] = useFetchNowPlayingMoviesMutation();
+  const [fetchNowPlayingMovies, { data, error }] =
+    useFetchNowPlayingMoviesMutation();
 
   const navigation = useNavigation();
 
@@ -44,51 +36,20 @@ const CustomSwiper = () => {
     fetchNowPlayingMovies(null);
   }, []);
 
-  // useEffect(() => {
-  //   const subscription = Notifications.addNotificationReceivedListener(
-  //     (notification: any) => {
-  //       console.log("Notification received: ");
-  //     }
-  //   );
-
-  //   const subscription2 = Notifications.addNotificationResponseReceivedListener(
-  //     (response: any) => {
-  //       console.log(response);
-  //     }
-  //   );
-
-  //   return () => {
-  //     subscription.remove();
-  //     subscription2.remove();
-  //   };
-  // }, []);
-
-  // const scheduleNotificationHandler = () => {
-  //   Notifications.scheduleNotificationAsync({
-  //     content: {
-  //       title: "Check out the latest movies!",
-  //       body: "Don't miss out on the latest movies now playing in theaters.",
-  //       data: { data: "goes here" },
-  //     },
-  //     trigger: {
-  //       seconds: 5,
-  //     },
-  //   });
-  // };
+  // console.log(error);
 
   return (
     <>
       <DescriptionTab
         title="NOW PLAYING !"
         onPress={() =>
+          // @ts-ignore
           navigation.navigate("AllMovies", { type: "now_playing" })
         }
-
-        // onPress={scheduleNotificationHandler}
       />
 
+      {/* <NowplayingLoader /> */}
       <View style={styles.container}>
-        {/* Left (Previous) Image - Blurred */}
         {activeIndex > 0 && (
           <ImageBackground
             source={{
@@ -129,6 +90,7 @@ const CustomSwiper = () => {
               <Pressable
                 style={styles.imageContainer}
                 onPress={() =>
+                  // @ts-ignore
                   navigation.navigate("MovieDetails", {
                     movieId: item.id,
                     title: item.title,

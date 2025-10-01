@@ -1,11 +1,10 @@
+import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
-import DescriptionTab from "../../common/DescriptionTab";
-import MovieCard from "../../common/MovieCard";
-import OtherMovieCard from "../../common/OtherMovieCard";
 import { useGetUpcomingMoviesMutation } from "../../../lib/apis/movieApis";
+import DescriptionTab from "../../common/DescriptionTab";
+import OtherMovieCard from "../../common/OtherMovieCard";
 
 // const { width, height } = Dimensions.get("window");
 
@@ -22,6 +21,7 @@ const ComingSoonSwiper = () => {
       <DescriptionTab
         title="COMING SOON"
         onPress={() =>
+          // @ts-ignore
           navigation.navigate("AllMovies", { type: "coming_soon" })
         }
       />
@@ -33,6 +33,7 @@ const ComingSoonSwiper = () => {
           // autoplayLoop
           // index={2}
           // showPagination
+
           data={data?.results?.slice(0, 11)}
           renderItem={({ item }) => (
             <OtherMovieCard

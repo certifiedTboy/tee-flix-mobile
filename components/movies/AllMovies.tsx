@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import OtherMovieCard from "../common/OtherMovieCard";
+import { StyleSheet, View } from "react-native";
+import { Colors } from "../../constants/colors";
 import {
   useFetchNowPlayingMoviesMutation,
-  useGetUpcomingMoviesMutation,
   useGetLatestMoviesMutation,
+  useGetUpcomingMoviesMutation,
 } from "../../lib/apis/movieApis";
-import { Colors } from "../../constants/colors";
+import OtherMovieCard from "../common/OtherMovieCard";
 
 const AllMovies: React.FC<{ type: string }> = ({ type }) => {
   const [fetchNowPlayingMovies, { data }] = useFetchNowPlayingMoviesMutation();
@@ -26,9 +26,6 @@ const AllMovies: React.FC<{ type: string }> = ({ type }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
-        {type === "popular_movie" ? "Popular Movies" : "All Movies"}
-      </Text>
       <View style={styles.cardContainer}>
         {type === "now_playing" &&
           data?.results?.length > 0 &&

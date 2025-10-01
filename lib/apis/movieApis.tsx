@@ -22,6 +22,27 @@ export const movieApi = createApi({
       }),
     }),
 
+    getOtherMovieCategory: builder.mutation({
+      query: (category) => ({
+        url: `/movie/${category}`,
+        method: "GET",
+      }),
+    }),
+
+    getOtherSeriesCategory: builder.mutation({
+      query: (category) => ({
+        url: `/tv/${category}`,
+        method: "GET",
+      }),
+    }),
+
+    getOtherTvShowsCategory: builder.mutation({
+      query: (category) => ({
+        url: `/tv/${category}?language=en-US&page=2`,
+        method: "GET",
+      }),
+    }),
+
     fetchNowPlayingMovies: builder.mutation({
       query: (payload) => ({
         url: "/movie/now_playing",
@@ -85,6 +106,27 @@ export const movieApi = createApi({
       }),
     }),
 
+    getShowingTodayShows: builder.mutation({
+      query: () => ({
+        url: `/tv/airing_today?language=en-US&page=1`,
+        method: "GET",
+      }),
+    }),
+
+    getOnTheAirShows: builder.mutation({
+      query: () => ({
+        url: `/tv/on_the_air?language=en-US&page=1`,
+        method: "GET",
+      }),
+    }),
+
+    getTopRatedShows: builder.mutation({
+      query: () => ({
+        url: `/tv/top_rated?language=en-US&page=1`,
+        method: "GET",
+      }),
+    }),
+
     searchMovies: builder.mutation({
       query: ({ searchQuery, currentPage }) => ({
         url: `/search/movie?api_key=${process.env.EXPO_PUBLIC_API_KEY_2}&query=${searchQuery}&page=${currentPage}`,
@@ -95,6 +137,13 @@ export const movieApi = createApi({
     searchShows: builder.mutation({
       query: ({ searchQuery, currentPage }) => ({
         url: `/search/tv?include_adult=true&language=en-US&query=${searchQuery}&page=${currentPage}`,
+        method: "GET",
+      }),
+    }),
+
+    getTopRatedMovies: builder.mutation({
+      query: () => ({
+        url: "/movie/top_rated",
         method: "GET",
       }),
     }),
@@ -114,4 +163,11 @@ export const {
   useGetSeriesThrillersMutation,
   useSearchMoviesMutation,
   useSearchShowsMutation,
+  useGetShowingTodayShowsMutation,
+  useGetOnTheAirShowsMutation,
+  useGetTopRatedShowsMutation,
+  useGetTopRatedMoviesMutation,
+  useGetOtherMovieCategoryMutation,
+  useGetOtherSeriesCategoryMutation,
+  useGetOtherTvShowsCategoryMutation,
 } = movieApi;

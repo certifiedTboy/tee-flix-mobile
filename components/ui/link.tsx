@@ -1,15 +1,20 @@
-import { Pressable, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { IconProps } from "react-text-to-speech/dist/types";
+import { Pressable, StyleSheet } from "react-native";
 import { Colors } from "../../constants/colors";
 
-const Link: React.FC<IconProps> = ({ color, size, name, onPress }) => {
+interface IconProps {
+  name: keyof typeof Ionicons.glyphMap;
+  color: string;
+  size: number;
+  onPress: () => void;
+}
+
+const Link = ({ color, size, name, onPress }: IconProps) => {
   return (
     <Pressable
       style={({ pressed }) => [styles.container, pressed && styles.pressed]}
       onPress={onPress}
     >
-      <Text style={styles.linkText}>See All</Text>
       <Ionicons name={name} color={color} size={size} />
     </Pressable>
   );

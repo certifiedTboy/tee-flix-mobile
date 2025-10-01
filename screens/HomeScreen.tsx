@@ -1,8 +1,8 @@
-import { View, ScrollView, StyleSheet } from "react-native";
-import { Colors } from "../constants/colors";
-import MovieSwiper from "../components/home/swiper/MovieSwiper";
+import { ScrollView, StyleSheet } from "react-native";
 import ComingSoonSwiper from "../components/home/swiper/ComingSoonSwiper";
+import MovieSwiper from "../components/home/swiper/MovieSwiper";
 import TvShowsSwiper from "../components/home/swiper/TvShowsSwiper";
+import { Colors } from "../constants/colors";
 
 const HomeScreen = () => {
   return (
