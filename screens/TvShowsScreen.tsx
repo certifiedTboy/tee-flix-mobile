@@ -1,4 +1,4 @@
-import OtherTvShowsCategories from "@/components/search/OtherTvShowsCategories";
+import OtherTvShowsCategories from "@/components/series/OtherTvShowsCategories";
 import { Colors } from "@/constants/colors";
 import { ScrollView, StyleSheet } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";

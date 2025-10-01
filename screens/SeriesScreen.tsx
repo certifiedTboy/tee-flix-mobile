@@ -1,4 +1,4 @@
-import OtherSeriesCategories from "@/components/search/OtherSeriesCategories";
+import OtherSeriesCategories from "@/components/series/OtherSeriesCategories";
 import { Colors } from "@/constants/colors";
 import { ScrollView, StyleSheet } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";

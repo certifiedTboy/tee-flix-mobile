@@ -41,10 +41,13 @@ const CustomSwiper = () => {
   return (
     <>
       <DescriptionTab
-        title="NOW PLAYING !"
+        title="Now Playing"
         onPress={() =>
           // @ts-ignore
-          navigation.navigate("AllMovies", { type: "now_playing" })
+          navigation.navigate("AllMovies", {
+            category: "now_playing",
+            categoryTitle: "Now Playing",
+          })
         }
       />
 

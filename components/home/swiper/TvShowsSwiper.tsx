@@ -1,10 +1,10 @@
+import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
+import { useGetAllSeriesMutation } from "../../../lib/apis/movieApis";
 import DescriptionTab from "../../common/DescriptionTab";
 import SeriesCard from "../../common/SeriesCard";
-import { useGetAllSeriesMutation } from "../../../lib/apis/movieApis";
 
 const TvShowsSwiper = () => {
   const [getAllSeries, { data }] = useGetAllSeriesMutation();
@@ -17,7 +17,8 @@ const TvShowsSwiper = () => {
   return (
     <>
       <DescriptionTab
-        title="TV SHOWS / SERIES"
+        title="TV Shows / Series"
+        // @ts-ignore
         onPress={() => navigation.navigate("AllSeries")}
       />
 

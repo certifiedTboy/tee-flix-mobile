@@ -1,5 +1,16 @@
+import { useColorScheme } from "@/hooks/useColorScheme";
 import SearchContextProvider from "@/store/search-context";
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
+import {
+  SafeAreaProvider,
+  initialWindowMetrics,
+} from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
 import Navigator from "./Navigator";
@@ -9,11 +20,17 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
+  const colorScheme = useColorScheme();
   return (
-    <Provider store={store}>
-      <SearchContextProvider>
-        <Navigator />
-      </SearchContextProvider>
-    </Provider>
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <StatusBar style="light" translucent={true} />
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+        <Provider store={store}>
+          <SearchContextProvider>
+            <Navigator />
+          </SearchContextProvider>
+        </Provider>
+      </SafeAreaProvider>
+    </ThemeProvider>
   );
 }

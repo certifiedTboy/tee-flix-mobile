@@ -1,5 +1,4 @@
 import { Colors } from "@/constants/colors";
-import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import {
   Dimensions,
@@ -33,8 +32,6 @@ const shadowStyle = {
 
 const Category = () => {
   const [index, setIndex] = useState(0);
-
-  const navigation = useNavigation();
 
   const renderScene = SceneMap({
     home: HomeScreen,
@@ -71,15 +68,6 @@ const Category = () => {
           >
             {routes[index].title}
           </Text>
-          {/* <Pressable style={{ marginTop: 10 }}>
-            <Icons
-              name="search"
-              size={Size.icon}
-              color={Colors.Primary100}
-              // @ts-ignore
-              onPress={() => navigation.navigate("Search")}
-            />
-          </Pressable> */}
         </View>
 
         {/* Swipeable content */}

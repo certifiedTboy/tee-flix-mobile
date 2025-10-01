@@ -19,10 +19,13 @@ const ComingSoonSwiper = () => {
   return (
     <>
       <DescriptionTab
-        title="COMING SOON"
+        title="Coming Soon"
         onPress={() =>
           // @ts-ignore
-          navigation.navigate("AllMovies", { type: "coming_soon" })
+          navigation.navigate("AllMovies", {
+            category: "upcoming",
+            categoryTitle: "Coming Soon",
+          })
         }
       />
 

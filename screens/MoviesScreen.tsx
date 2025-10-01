@@ -1,4 +1,4 @@
-import OtherMoviesCategories from "@/components/search/OtherMoviesCategories";
+import OtherMoviesCategories from "@/components/movies/OtherMoviesCategories";
 import { Colors } from "@/constants/colors";
 import { ScrollView, StyleSheet } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";

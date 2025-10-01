@@ -10,9 +10,7 @@ import MovieStreamScreen from "../screens/MovieStreamScreen";
 import SeriesDetailsScreen from "../screens/SeriesDetailsScreen";
 import SeriesScreen from "../screens/SeriesScreen";
 import SeriesStreamScreen from "../screens/SeriesStreamScreen";
-
 import Category from "./Category";
-import SearchDrawer from "./SearchDrawer";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,13 +34,6 @@ const Navigator = () => {
         name="Home"
         component={Category}
         options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Search"
-        component={SearchDrawer}
-        options={{
-          headerShown: false,
-        }}
       />
 
       <Stack.Screen
