@@ -40,23 +40,21 @@ const Navigator = () => {
         name="MovieDetails"
         // @ts-ignore
         component={MovieDetailsScreen}
-        options={({ route }) => {
-          return {
-            // @ts-ignore
-            title: route.params?.title ?? "Movie Details",
-          };
-        }}
+        options={({ route }) => ({
+          // @ts-ignore
+          title: route.params?.title ?? "Movie Details",
+          animation: "slide_from_right",
+        })}
       />
       <Stack.Screen
         name="SeriesDetails"
         // @ts-ignore
         component={SeriesDetailsScreen}
-        options={({ route }) => {
-          return {
-            // @ts-ignore
-            title: route.params?.title ?? "Series Details",
-          };
-        }}
+        options={({ route }) => ({
+          // @ts-ignore
+          title: route.params?.title ?? "Series Details",
+          animation: "slide_from_right",
+        })}
       />
 
       <Stack.Screen
@@ -64,6 +62,7 @@ const Navigator = () => {
         // @ts-ignore
         component={AllMoviesScreen}
         options={({ route }: { route: any }) => ({
+          animation: "slide_from_right",
           headerBackVisible: !searchBarIsFocused,
           title: `${route.params?.categoryTitle} Movies`,
           headerSearchBarOptions: {
@@ -91,6 +90,7 @@ const Navigator = () => {
         // @ts-ignore
         component={AllSeriesScreen}
         options={({ route }: { route: any }) => ({
+          animation: "slide_from_right",
           headerBackVisible: !searchBarIsFocused,
           title: `${route.params?.categoryTitle} Series`,
           headerSearchBarOptions: {
@@ -118,6 +118,7 @@ const Navigator = () => {
         // @ts-ignore
         component={AllTvShowsScreen}
         options={({ route }: { route: any }) => ({
+          animation: "slide_from_right",
           headerBackVisible: !searchBarIsFocused,
           title: `${route.params?.categoryTitle} TV Shows`,
           headerSearchBarOptions: {
@@ -142,19 +143,21 @@ const Navigator = () => {
       <Stack.Screen
         name="AllSeries"
         component={SeriesScreen}
-        options={{ headerTitle: "Tv Shows / Series" }}
+        options={{
+          headerTitle: "Tv Shows / Series",
+          animation: "slide_from_right",
+        }}
       />
       <Stack.Screen
         name="StreamMovie"
         // @ts-ignore
         component={MovieStreamScreen}
-        options={({ route }) => {
-          return {
-            title:
-              // @ts-ignore
-              `Now watching ${route.params?.movieTitle}` ?? "Now streaming...",
-          };
-        }}
+        options={({ route }) => ({
+          title:
+            // @ts-ignore
+            `Now watching ${route.params?.movieTitle}` ?? "Now streaming...",
+          animation: "slide_from_right",
+        })}
         // options={{ headerShown: false }}
       />
 
@@ -162,13 +165,12 @@ const Navigator = () => {
         name="StreamSeries"
         // @ts-ignore
         component={SeriesStreamScreen}
-        options={({ route }) => {
-          return {
-            title:
-              // @ts-ignore
-              `Now watching ${route.params?.seriesTitle}` ?? "Now streaming...",
-          };
-        }}
+        options={({ route }) => ({
+          title:
+            // @ts-ignore
+            `Now watching ${route.params?.seriesTitle}` ?? "Now streaming...",
+          animation: "slide_from_right",
+        })}
         // options={{ headerShown: false }}
       />
     </Stack.Navigator>

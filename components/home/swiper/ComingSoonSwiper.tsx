@@ -6,8 +6,6 @@ import { useGetUpcomingMoviesMutation } from "../../../lib/apis/movieApis";
 import DescriptionTab from "../../common/DescriptionTab";
 import OtherMovieCard from "../../common/OtherMovieCard";
 
-// const { width, height } = Dimensions.get("window");
-
 const ComingSoonSwiper = () => {
   const [getUpcomingMovies, { data }] = useGetUpcomingMoviesMutation();
 
