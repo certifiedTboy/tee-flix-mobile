@@ -1,6 +1,6 @@
 import OtherMoviesCategories from "@/components/movies/OtherMoviesCategories";
-import { Colors } from "@/constants/Colors";
 import { ScrollView, StyleSheet } from "react-native";
+import { Colors } from "../constants/Colors";
 
 const MoviesScreen = () => {
   return (

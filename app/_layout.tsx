@@ -10,7 +10,6 @@ import "react-native-reanimated";
 import {
   initialWindowMetrics,
   SafeAreaProvider,
-  SafeAreaView,
 } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
@@ -26,16 +25,11 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <StatusBar style="light" translucent={true} />
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <SafeAreaView
-          style={{ flex: 1, backgroundColor: "#000000" }}
-          edges={["bottom", "left", "right", "top"]}
-        >
-          <Provider store={store}>
-            <SearchContextProvider>
-              <Navigator />
-            </SearchContextProvider>
-          </Provider>
-        </SafeAreaView>
+        <Provider store={store}>
+          <SearchContextProvider>
+            <Navigator />
+          </SearchContextProvider>
+        </Provider>
       </SafeAreaProvider>
     </ThemeProvider>
   );

@@ -1,6 +1,6 @@
 import OtherSeriesCategories from "@/components/series/OtherSeriesCategories";
-import { Colors } from "@/constants/Colors";
 import { ScrollView, StyleSheet } from "react-native";
+import { Colors } from "../constants/Colors";
 
 const SeriesScreen = () => {
   return (

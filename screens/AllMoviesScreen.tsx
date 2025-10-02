@@ -1,10 +1,10 @@
 import LoadMoreBtn from "@/components/ui/LoadMoreBtn";
-import { Colors } from "@/constants/Colors";
 import { SearchContext } from "@/store/search-context";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import OtherMovieCard from "../components/common/OtherMovieCard";
+import { Colors } from "../constants/Colors";
 import {
   useGetOtherMovieCategoryMutation,
   useSearchMoviesMutation,

@@ -15,11 +15,11 @@
       "adaptiveIcon": {
         "backgroundColor": "#fcd834",
         "foregroundImage": "./assets/icon.png",
-        "backgroundImage": "./assets/icon.png",
         "monochromeImage": "./assets/icon.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.certifiedtboy.teeflix"
     },
     "web": {
       "output": "static",
@@ -43,6 +43,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c3ca5440-3887-4030-a464-06da2cb75a43"
+      }
     }
   }
 }

@@ -1,4 +1,3 @@
-import { Colors } from "@/constants/Colors";
 import { useState } from "react";
 import {
   Dimensions,
@@ -10,6 +9,7 @@ import {
 } from "react-native";
 import { SceneMap, TabView } from "react-native-tab-view";
 import Icons from "../components/ui/Icons";
+import { Colors } from "../constants/Colors";
 import HomeScreen from "../screens/HomeScreen";
 import MoviesScreen from "../screens/MoviesScreen";
 import SeriesScreen from "../screens/SeriesScreen";
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#000" },
   header: {
     height: 60,
+    marginTop: Platform.OS === "android" ? 25 : 0,
     paddingHorizontal: 15,
     flexDirection: "row",
     justifyContent: "space-between",

@@ -1,6 +1,6 @@
 import OtherTvShowsCategories from "@/components/series/OtherTvShowsCategories";
-import { Colors } from "@/constants/Colors";
 import { ScrollView, StyleSheet } from "react-native";
+import { Colors } from "../constants/Colors";
 
 const TvShowsScreen = () => {
   return (
