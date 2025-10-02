@@ -1,26 +1,18 @@
 import OtherMoviesCategories from "@/components/movies/OtherMoviesCategories";
-import { Colors } from "@/constants/colors";
+import { Colors } from "@/constants/Colors";
 import { ScrollView, StyleSheet } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 const MoviesScreen = () => {
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <ScrollView contentContainerStyle={styles.listContainer}>
-          <OtherMoviesCategories category="upcoming" categoryTitle="Upcoming" />
-          <OtherMoviesCategories
-            category="top_rated"
-            categoryTitle="Top Rated"
-          />
-          <OtherMoviesCategories
-            category="now_playing"
-            categoryTitle="Now Playing"
-          />
-          <OtherMoviesCategories category="popular" categoryTitle="Popular" />
-        </ScrollView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <ScrollView contentContainerStyle={styles.listContainer}>
+      <OtherMoviesCategories category="upcoming" categoryTitle="Upcoming" />
+      <OtherMoviesCategories category="top_rated" categoryTitle="Top Rated" />
+      <OtherMoviesCategories
+        category="now_playing"
+        categoryTitle="Now Playing"
+      />
+      <OtherMoviesCategories category="popular" categoryTitle="Popular" />
+    </ScrollView>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
-import { Colors } from "../../constants/colors";
+import { Colors } from "../../constants/Colors";
 import {
   useFetchNowPlayingMoviesMutation,
   useGetLatestMoviesMutation,

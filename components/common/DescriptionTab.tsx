@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text } from "react-native";
-import { Colors } from "../../constants/colors";
+import { Colors } from "../../constants/Colors";
 import Link from "../ui/link";
 const DescriptionTab: React.FC<{ title: string; onPress: () => void }> = ({
   title,

@@ -1,7 +1,6 @@
-import { Text, View, StyleSheet } from "react-native";
-import OtherMovieCard from "../common/OtherMovieCard";
+import { StyleSheet, Text, View } from "react-native";
+import { Colors } from "../../constants/Colors";
 import SeriesCard from "../common/SeriesCard";
-import { Colors } from "../../constants/colors";
 
 const RecommendedSeries: React.FC<{ movies: {}[] }> = ({ movies }) => {
   return (

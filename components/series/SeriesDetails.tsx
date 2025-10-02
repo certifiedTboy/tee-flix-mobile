@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
-import { Colors } from "../../constants/colors";
+import { Colors } from "../../constants/Colors";
 import { formatRuntime } from "../../helpers/helpers";
 import { MovieDetailsProps } from "../../interfaces/propsInterfaces";
 import SeriesThrillerReels from "../reels/SeriesThrillerReels";

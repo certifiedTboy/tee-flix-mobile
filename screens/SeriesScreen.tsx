@@ -1,29 +1,18 @@
 import OtherSeriesCategories from "@/components/series/OtherSeriesCategories";
-import { Colors } from "@/constants/colors";
+import { Colors } from "@/constants/Colors";
 import { ScrollView, StyleSheet } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 const SeriesScreen = () => {
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <ScrollView contentContainerStyle={styles.listContainer}>
-          <OtherSeriesCategories category="popular" categoryTitle="Popular" />
-          <OtherSeriesCategories
-            category="top_rated"
-            categoryTitle="Top Rated"
-          />
-          <OtherSeriesCategories
-            category="on_the_air"
-            categoryTitle="On The Air"
-          />
-          <OtherSeriesCategories
-            category="airing_today"
-            categoryTitle="Airing Today"
-          />
-        </ScrollView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <ScrollView contentContainerStyle={styles.listContainer}>
+      <OtherSeriesCategories category="popular" categoryTitle="Popular" />
+      <OtherSeriesCategories category="top_rated" categoryTitle="Top Rated" />
+      <OtherSeriesCategories category="on_the_air" categoryTitle="On The Air" />
+      <OtherSeriesCategories
+        category="airing_today"
+        categoryTitle="Airing Today"
+      />
+    </ScrollView>
   );
 };
 

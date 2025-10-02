@@ -1,14 +1,14 @@
+import { useNavigation } from "@react-navigation/native";
 import {
-  View,
-  Text,
-  StyleSheet,
   Dimensions,
   Image,
   Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { Colors } from "../../constants/Colors";
 import { MovieCardProps } from "../../interfaces/propsInterfaces";
-import { Colors } from "../../constants/colors";
 import Icons from "../ui/Icons";
 const MovieCard: React.FC<MovieCardProps> = ({
   poster_image,

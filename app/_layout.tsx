@@ -8,8 +8,9 @@ import {
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 import {
-  SafeAreaProvider,
   initialWindowMetrics,
+  SafeAreaProvider,
+  SafeAreaView,
 } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
@@ -25,11 +26,16 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <StatusBar style="light" translucent={true} />
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <Provider store={store}>
-          <SearchContextProvider>
-            <Navigator />
-          </SearchContextProvider>
-        </Provider>
+        <SafeAreaView
+          style={{ flex: 1, backgroundColor: "#000000" }}
+          edges={["bottom", "left", "right", "top"]}
+        >
+          <Provider store={store}>
+            <SearchContextProvider>
+              <Navigator />
+            </SearchContextProvider>
+          </Provider>
+        </SafeAreaView>
       </SafeAreaProvider>
     </ThemeProvider>
   );

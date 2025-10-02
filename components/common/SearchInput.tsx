@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import { Searchbar } from "react-native-paper";
-import { Colors } from "../../constants/colors";
+import { Colors } from "../../constants/Colors";
 
 const SearchInput: React.FC<{
   onSearchChange: (enteredText: string) => void;

@@ -1,4 +1,4 @@
-import { Colors } from "@/constants/colors";
+import { Colors } from "@/constants/Colors";
 import { useState } from "react";
 import {
   Dimensions,
@@ -8,7 +8,6 @@ import {
   Text,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { SceneMap, TabView } from "react-native-tab-view";
 import Icons from "../components/ui/Icons";
 import HomeScreen from "../screens/HomeScreen";
@@ -48,84 +47,77 @@ const Category = () => {
   ]);
 
   return (
-    <SafeAreaView
-      style={[{ backgroundColor: "#000" }, styles.container]}
-      edges={["top", "bottom", "left", "right"]}
-    >
-      <View style={{ flex: 1 }}>
-        {/* Optional header */}
-        <View
-          style={[styles.header, { backgroundColor: "#000", ...shadowStyle }]}
+    <View style={styles.container}>
+      {/* Optional header */}
+      <View
+        style={[styles.header, { backgroundColor: "#000", ...shadowStyle }]}
+      >
+        <Text
+          style={[
+            routes[index].key === "home"
+              ? styles.mainTitle
+              : styles.headerTitle,
+
+            { color: Colors.Primary100 },
+          ]}
         >
-          <Text
-            style={[
-              routes[index].key === "home"
-                ? styles.mainTitle
-                : styles.headerTitle,
-
-              { color: Colors.Primary100 },
-            ]}
-          >
-            {routes[index].title}
-          </Text>
-        </View>
-
-        {/* Swipeable content */}
-        <TabView
-          navigationState={{ index, routes }}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={{ width: Dimensions.get("window").width }}
-          swipeEnabled
-          renderTabBar={() => null} // we use a custom tab bar
-        />
-
-        {/* Custom Bottom Tab Bar */}
-
-        <View style={[styles.tabBar, { backgroundColor: "#000" }]}>
-          {routes.map((route, idx) => {
-            const isFocused = index === idx;
-            return (
-              <Pressable
-                key={route.key}
-                style={styles.tabItem}
-                onPress={() => setIndex(idx)}
-              >
-                <Icons
-                  // @ts-ignore
-                  name={
-                    isFocused && route.icon !== "logo-youtube"
-                      ? route.icon.concat("-outline")
-                      : route.icon
-                  }
-                  size={25}
-                  color={isFocused ? Colors.Primary100 : Colors.Secondary300}
-                  onPress={() => setIndex(idx)}
-                />
-                <Text
-                  style={{
-                    color: isFocused ? Colors.Primary100 : Colors.Secondary300,
-                    fontSize: 12,
-                    marginTop: 2,
-                  }}
-                >
-                  {route.title}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </View>
+          {routes[index].title}
+        </Text>
       </View>
-    </SafeAreaView>
+
+      {/* Swipeable content */}
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: Dimensions.get("window").width }}
+        swipeEnabled
+        renderTabBar={() => null} // we use a custom tab bar
+      />
+
+      {/* Custom Bottom Tab Bar */}
+
+      <View style={[styles.tabBar, { backgroundColor: "#000" }]}>
+        {routes.map((route, idx) => {
+          const isFocused = index === idx;
+          return (
+            <Pressable
+              key={route.key}
+              style={styles.tabItem}
+              onPress={() => setIndex(idx)}
+            >
+              <Icons
+                // @ts-ignore
+                name={
+                  isFocused && route.icon !== "logo-youtube"
+                    ? route.icon.concat("-outline")
+                    : route.icon
+                }
+                size={25}
+                color={isFocused ? Colors.Primary100 : Colors.Secondary300}
+                onPress={() => setIndex(idx)}
+              />
+              <Text
+                style={{
+                  color: isFocused ? Colors.Primary100 : Colors.Secondary300,
+                  fontSize: 12,
+                  marginTop: 2,
+                }}
+              >
+                {route.title}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </View>
+    </View>
   );
 };
 
 export default Category;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: { flex: 1, backgroundColor: "#000" },
   header: {
     height: 60,
     paddingHorizontal: 15,

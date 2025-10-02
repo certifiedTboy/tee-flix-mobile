@@ -1,29 +1,21 @@
 import OtherTvShowsCategories from "@/components/series/OtherTvShowsCategories";
-import { Colors } from "@/constants/colors";
+import { Colors } from "@/constants/Colors";
 import { ScrollView, StyleSheet } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 const TvShowsScreen = () => {
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <ScrollView contentContainerStyle={styles.listContainer}>
-          <OtherTvShowsCategories category="popular" categoryTitle="Popular" />
-          <OtherTvShowsCategories
-            category="top_rated"
-            categoryTitle="Top Rated"
-          />
-          <OtherTvShowsCategories
-            category="on_the_air"
-            categoryTitle="On The Air"
-          />
-          <OtherTvShowsCategories
-            category="airing_today"
-            categoryTitle="Airing Today"
-          />
-        </ScrollView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <ScrollView contentContainerStyle={styles.listContainer}>
+      <OtherTvShowsCategories category="popular" categoryTitle="Popular" />
+      <OtherTvShowsCategories category="top_rated" categoryTitle="Top Rated" />
+      <OtherTvShowsCategories
+        category="on_the_air"
+        categoryTitle="On The Air"
+      />
+      <OtherTvShowsCategories
+        category="airing_today"
+        categoryTitle="Airing Today"
+      />
+    </ScrollView>
   );
 };
 

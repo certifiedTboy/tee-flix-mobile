@@ -1,17 +1,10 @@
-import {
-  View,
-  StyleSheet,
-  Image,
-  Dimensions,
-  Text,
-  Pressable,
-} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 import Icons from "../ui/Icons";
 // import ThrillerReelsSwiper from "../reels/ThrillerReelsSwiper";
-import { MovieDetailsProps } from "../../interfaces/propsInterfaces";
-import { Colors } from "../../constants/colors";
+import { Colors } from "../../constants/Colors";
 import { formatRuntime } from "../../helpers/helpers";
+import { MovieDetailsProps } from "../../interfaces/propsInterfaces";
 import ThrillerReels from "../reels/ThrillerReels";
 
 const { height } = Dimensions.get("window");
@@ -96,6 +89,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({
             pressed && styles.pressed,
           ]}
           onPress={() =>
+            // @ts-ignore
             navigation.navigate("StreamMovie", { movieId, movieTitle: title })
           }
         >

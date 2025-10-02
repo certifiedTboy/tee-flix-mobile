@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
-import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { WebView } from "react-native-webview";
 import * as ScreenOrientation from "expo-screen-orientation";
-import Icons from "../ui/Icons";
-import { StyleSheet } from "react-native";
-import { Colors } from "../../constants/colors";
+import { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { WebView } from "react-native-webview";
+import { Colors } from "../../constants/Colors";
 import { Size } from "../../constants/size";
+import Icons from "../ui/Icons";
 
 const MovieStreaming: React.FC<{ movieId: string }> = ({ movieId }) => {
   const [fullScreen, setFullScreen] = useState(true);

@@ -18,8 +18,13 @@ const TvShowsSwiper = () => {
     <>
       <DescriptionTab
         title="TV Shows / Series"
-        // @ts-ignore
-        onPress={() => navigation.navigate("AllSeries")}
+        onPress={() =>
+          // @ts-ignore
+          navigation.navigate("AllTvShowsScreen", {
+            category: "popular",
+            categoryTitle: "TV Shows / Series",
+          })
+        }
       />
 
       <View style={styles.container}>

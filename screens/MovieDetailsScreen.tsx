@@ -1,10 +1,10 @@
+import { RouteProp } from "@react-navigation/native";
 import { useEffect } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import MovieDetails from "../components/movies/MovieDetails";
 import RecommendedMovies from "../components/movies/RecommendedMovies";
-import { RouteProp } from "@react-navigation/native";
+import { Colors } from "../constants/Colors";
 import { useGetMovieDetailsMutation } from "../lib/apis/movieApis";
-import { Colors } from "../constants/colors";
 
 type MovieDetailsScreenRouteProp = RouteProp<
   { params: { movieId: string } },

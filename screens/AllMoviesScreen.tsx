@@ -1,10 +1,9 @@
 import LoadMoreBtn from "@/components/ui/LoadMoreBtn";
-import { Colors } from "@/constants/colors";
+import { Colors } from "@/constants/Colors";
 import { SearchContext } from "@/store/search-context";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import OtherMovieCard from "../components/common/OtherMovieCard";
 import {
   useGetOtherMovieCategoryMutation,
@@ -71,59 +70,55 @@ const AllMoviesScreen = ({ route }: { route: any }) => {
     currentPage > 1 && setCurrentPage(currentPage - 1);
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
-          {data?.results?.length > 0
-            ? `Search results for ${movieSearchQuery}`
-            : "Recommended Movies"}
-        </Text>
+    <View style={styles.container}>
+      <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
+        {data?.results?.length > 0
+          ? `Search results for ${movieSearchQuery}`
+          : "Recommended Movies"}
+      </Text>
 
-        {data && data?.results && data?.results?.length > 0 && (
-          <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>
-              Total results: {data?.total_results}
-            </Text>
-            <Text style={styles.infoText}>
-              Total pages: {data?.total_pages}
-            </Text>
-            <Text style={styles.infoText}>
-              Current page: {data?.page <= 0 ? currentPage : data?.page}
-            </Text>
-          </View>
-        )}
-
-        <ScrollView contentContainerStyle={styles.cardContainer}>
-          {movieResults &&
-            movieResults.length > 0 &&
-            movieResults.map((item: any) => {
-              return (
-                <OtherMovieCard
-                  title={item?.original_title || item?.original_name}
-                  poster_image={item?.poster_path}
-                  rating={item?.vote_average}
-                  release_date={item?.release_date || item?.first_air_date}
-                  movieId={item?.id}
-                  key={item.id}
-                />
-              );
-            })}
-        </ScrollView>
-
-        <View style={styles.reloadBtnContainer}>
-          <LoadMoreBtn
-            onLoadMore={decrementPage}
-            iconName="arrow-left"
-            style={styles.reloadBtn}
-          />
-          <LoadMoreBtn
-            onLoadMore={incrementPage}
-            iconName="arrow-right"
-            style={styles.reloadBtn}
-          />
+      {data && data?.results && data?.results?.length > 0 && (
+        <View style={styles.infoContainer}>
+          <Text style={styles.infoText}>
+            Total results: {data?.total_results}
+          </Text>
+          <Text style={styles.infoText}>Total pages: {data?.total_pages}</Text>
+          <Text style={styles.infoText}>
+            Current page: {data?.page <= 0 ? currentPage : data?.page}
+          </Text>
         </View>
-      </SafeAreaView>
-    </SafeAreaProvider>
+      )}
+
+      <ScrollView contentContainerStyle={styles.cardContainer}>
+        {movieResults &&
+          movieResults.length > 0 &&
+          movieResults.map((item: any) => {
+            return (
+              <OtherMovieCard
+                title={item?.original_title || item?.original_name}
+                poster_image={item?.poster_path}
+                rating={item?.vote_average}
+                release_date={item?.release_date || item?.first_air_date}
+                movieId={item?.id}
+                key={item.id}
+              />
+            );
+          })}
+      </ScrollView>
+
+      <View style={styles.reloadBtnContainer}>
+        <LoadMoreBtn
+          onLoadMore={decrementPage}
+          iconName="arrow-left"
+          style={styles.reloadBtn}
+        />
+        <LoadMoreBtn
+          onLoadMore={incrementPage}
+          iconName="arrow-right"
+          style={styles.reloadBtn}
+        />
+      </View>
+    </View>
   );
 };
 
@@ -133,7 +128,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.Primary200,
     width: "100%",
-    flex: 1,
   },
 
   cardContainer: {
@@ -156,7 +150,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     margin: 16,
     right: 0,
-    bottom: 0,
+    bottom: 30,
     zIndex: 100,
     flexDirection: "row",
     gap: 10,

@@ -1,6 +1,5 @@
 import SeriesCard from "@/components/common/SeriesCard";
 import LoadMoreBtn from "@/components/ui/LoadMoreBtn";
-import { Colors } from "@/constants/colors";
 import {
   useGetOtherSeriesCategoryMutation,
   useSearchShowsMutation,
@@ -9,7 +8,7 @@ import { SearchContext } from "@/store/search-context";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { Colors } from "../constants/Colors";
 
 const AllSeriesScreen = ({ route }: { route: any }) => {
   const [seriesResults, setSeriesResults] = useState<any[]>([]);
@@ -73,59 +72,57 @@ const AllSeriesScreen = ({ route }: { route: any }) => {
     currentPage > 1 && setCurrentPage(currentPage - 1);
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
-          {result?.results?.length > 0
-            ? `Search results for ${seriesSearchQuery}`
-            : "Recommended Series"}
-        </Text>
+    <View style={styles.container}>
+      <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
+        {result?.results?.length > 0
+          ? `Search results for ${seriesSearchQuery}`
+          : "Recommended Series"}
+      </Text>
 
-        {result && result?.results && result?.results?.length > 0 && (
-          <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>
-              Total results: {result?.total_results}
-            </Text>
-            <Text style={styles.infoText}>
-              Total pages: {result?.total_pages}
-            </Text>
-            <Text style={styles.infoText}>
-              Current page: {result?.page <= 0 ? currentPage : result?.page}
-            </Text>
-          </View>
-        )}
-
-        <ScrollView contentContainerStyle={styles.cardContainer}>
-          {/* <Text style={styles.text}>All Series</Text> */}
-          <View style={styles.cardContainer}>
-            {seriesResults?.length > 0 &&
-              seriesResults.map((item: any) => (
-                <SeriesCard
-                  key={item.id}
-                  title={item?.name}
-                  poster_image={item?.poster_path}
-                  rating={item?.vote_average}
-                  release_date={item?.first_air_date}
-                  movieId={item?.id}
-                />
-              ))}
-          </View>
-        </ScrollView>
-
-        <View style={styles.reloadBtnContainer}>
-          <LoadMoreBtn
-            onLoadMore={decrementPage}
-            iconName="arrow-left"
-            style={styles.reloadBtn}
-          />
-          <LoadMoreBtn
-            onLoadMore={incrementPage}
-            iconName="arrow-right"
-            style={styles.reloadBtn}
-          />
+      {result && result?.results && result?.results?.length > 0 && (
+        <View style={styles.infoContainer}>
+          <Text style={styles.infoText}>
+            Total results: {result?.total_results}
+          </Text>
+          <Text style={styles.infoText}>
+            Total pages: {result?.total_pages}
+          </Text>
+          <Text style={styles.infoText}>
+            Current page: {result?.page <= 0 ? currentPage : result?.page}
+          </Text>
         </View>
-      </SafeAreaView>
-    </SafeAreaProvider>
+      )}
+
+      <ScrollView contentContainerStyle={styles.cardContainer}>
+        {/* <Text style={styles.text}>All Series</Text> */}
+        <View style={styles.cardContainer}>
+          {seriesResults?.length > 0 &&
+            seriesResults.map((item: any) => (
+              <SeriesCard
+                key={item.id}
+                title={item?.name}
+                poster_image={item?.poster_path}
+                rating={item?.vote_average}
+                release_date={item?.first_air_date}
+                movieId={item?.id}
+              />
+            ))}
+        </View>
+      </ScrollView>
+
+      <View style={styles.reloadBtnContainer}>
+        <LoadMoreBtn
+          onLoadMore={decrementPage}
+          iconName="arrow-left"
+          style={styles.reloadBtn}
+        />
+        <LoadMoreBtn
+          onLoadMore={incrementPage}
+          iconName="arrow-right"
+          style={styles.reloadBtn}
+        />
+      </View>
+    </View>
   );
 };
 

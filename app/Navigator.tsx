@@ -3,12 +3,11 @@ import AllTvShowsScreen from "@/screens/AllTvShowsScreen";
 import { SearchContext } from "@/store/search-context";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useContext, useState } from "react";
-import { Colors } from "../constants/colors";
+import { Colors } from "../constants/Colors";
 import AllMoviesScreen from "../screens/AllMoviesScreen";
 import MovieDetailsScreen from "../screens/MovieDetailsScreen";
 import MovieStreamScreen from "../screens/MovieStreamScreen";
 import SeriesDetailsScreen from "../screens/SeriesDetailsScreen";
-import SeriesScreen from "../screens/SeriesScreen";
 import SeriesStreamScreen from "../screens/SeriesStreamScreen";
 import Category from "./Category";
 
@@ -140,14 +139,14 @@ const Navigator = () => {
           },
         })}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="AllSeries"
         component={SeriesScreen}
         options={{
           headerTitle: "Tv Shows / Series",
           animation: "slide_from_right",
         }}
-      />
+      /> */}
       <Stack.Screen
         name="StreamMovie"
         // @ts-ignore

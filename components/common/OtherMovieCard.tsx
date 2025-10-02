@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { Colors } from "../../constants/colors";
+import { Colors } from "../../constants/Colors";
 import { MovieCardProps } from "../../interfaces/propsInterfaces";
 import Icons from "../ui/Icons";
 
