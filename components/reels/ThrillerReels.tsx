@@ -1,18 +1,16 @@
 import React, {
-  useState,
   useCallback,
-  useRef,
-  useLayoutEffect,
   useEffect,
+  useLayoutEffect,
+  useState,
 } from "react";
-import { View, Alert, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
 import { useGetMovieThrillersMutation } from "../../lib/apis/movieApis";
 
 const ThrillerReels: React.FC<{ movieId: number }> = ({ movieId }) => {
   const [playing, setPlaying] = useState(true);
   const [trailerId, setTrailerId] = useState<string | null>(null);
-  const [playList, setPlayList] = useState<string[]>([]);
 
   const [getMovieThrillers, { data }] = useGetMovieThrillersMutation();
 
@@ -25,7 +23,6 @@ const ThrillerReels: React.FC<{ movieId: number }> = ({ movieId }) => {
   const onStateChange = useCallback((state: any) => {
     if (state === "ended") {
       setPlaying(false);
-      Alert.alert("video has finished playing!");
     }
   }, []);
 

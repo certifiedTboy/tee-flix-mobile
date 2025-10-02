@@ -1,11 +1,10 @@
 import React, {
-  useState,
   useCallback,
-  useRef,
-  useLayoutEffect,
   useEffect,
+  useLayoutEffect,
+  useState,
 } from "react";
-import { View, Alert, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
 import { useGetSeriesThrillersMutation } from "../../lib/apis/movieApis";
 
@@ -25,7 +24,6 @@ const SeriesThrillerReels: React.FC<{ seriesId: number }> = ({ seriesId }) => {
   const onStateChange = useCallback((state: any) => {
     if (state === "ended") {
       setPlaying(false);
-      Alert.alert("video has finished playing!");
     }
   }, []);
 
