@@ -1,6 +1,5 @@
-import { useEffect } from "react";
-import MovieStreaming from "../components/movies/MovieStreaming";
 import { RouteProp } from "@react-navigation/native";
+import MovieStreaming from "../components/movies/MovieStreaming";
 
 type MovieDetailsScreenRouteProp = RouteProp<
   { params: { movieId: string; movieTitle: string } },

@@ -19,7 +19,6 @@
           "initialOrientation": "DEFAULT"
         }
       ],
-     
       [
         "expo-splash-screen",
         {
@@ -34,7 +33,8 @@
       ]
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+       "bundleIdentifier": "com.certifiedtboy.teeflix"
     },
     "android": {
       "adaptiveIcon": {
@@ -48,7 +48,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "43534a0b-c49b-4e96-8c46-dc95b0e19d26"
+        "projectId": "125d0637-39cb-44a8-9103-82cb58dc62e7"
       }
     }
   }
