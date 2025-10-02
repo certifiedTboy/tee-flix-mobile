@@ -1,4 +1,4 @@
-import { useColorScheme } from "@/hooks/useColorScheme";
+import { useColorScheme } from "@/hooks/use-color-scheme";
 import SearchContextProvider from "@/store/search-context";
 import {
   DarkTheme,

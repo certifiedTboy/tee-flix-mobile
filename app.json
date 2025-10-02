@@ -3,53 +3,46 @@
     "name": "tee-flix",
     "slug": "tee-flix",
     "version": "1.0.0",
-    "orientation": "default",
+    "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "scheme": "teeflix",
+    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/cover.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#fcd834"
-    },
-    "plugins": [
-      [
-        "expo-screen-orientation",
-        {
-          "initialOrientation": "DEFAULT"
-        }
-      ],
-      [
-        "expo-splash-screen",
-        {
-          "backgroundColor": "#fcd834",
-          "image": "./assets/cover.png",
-          "dark": {
-            "image": "./assets/cover.png",
-            "backgroundColor": "#fcd834"
-          },
-          "imageWidth": 300
-        }
-      ]
-    ],
     "ios": {
-      "supportsTablet": true,
-       "bundleIdentifier": "com.certifiedtboy.teeflix"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
+        "backgroundColor": "#fcd834",
         "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#fcd834"
+        "backgroundImage": "./assets/icon.png",
+        "monochromeImage": "./assets/icon.png"
       },
-      "package": "com.certifiedtboy.teeflix"
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "125d0637-39cb-44a8-9103-82cb58dc62e7"
-      }
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/cover.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#fcd834",
+          "dark": {
+            "backgroundColor": "#fcd834"
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
     }
   }
 }
