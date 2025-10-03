@@ -1,9 +1,10 @@
+import type { ComponentProps } from "react";
 import { ImageSourcePropType } from "react-native";
 
 export interface IconProps {
   color: string;
   size: number;
-  name: string;
+  name: ComponentProps<typeof import("@expo/vector-icons").Ionicons>["name"];
   onPress?: () => void;
 }
 

@@ -5,11 +5,11 @@ import { Colors } from "../../constants/Colors";
 import { formatRuntime } from "../../helpers/helpers";
 import { MovieDetailsProps } from "../../interfaces/propsInterfaces";
 import Icon from "../ui/Icon";
-import SeriesThrillerPlayer from "./SeriesThrillerPlayer";
+import TvShowThrillerPlayer from "./TvShowThrillerPlyer";
 
 const { height } = Dimensions.get("window");
 
-const SeriesDetails = ({
+const TvShowsDetails: React.FC<MovieDetailsProps> = ({
   movieId,
   release_date,
   overview,
@@ -21,12 +21,12 @@ const SeriesDetails = ({
   runtime,
   episodes,
   seasons,
-}: MovieDetailsProps) => {
+}) => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <SeriesThrillerPlayer seriesId={movieId} />
+      <TvShowThrillerPlayer tvShowId={movieId} />
 
       <View style={styles.details}>
         <Text style={styles.movieTitle}>{title}</Text>
@@ -76,12 +76,11 @@ const SeriesDetails = ({
             )}
           </View>
         </View>
-
         <Link
           style={styles.playButton}
           href={{
-            pathname: "/series-streaming-screen",
-            params: { seriesId: movieId, title },
+            pathname: "/tvshows-streaming-screen",
+            params: { tvShowId: movieId, title },
           }}
         >
           <Icon name="play" size={30} color={Colors.Primary200} />
@@ -97,7 +96,7 @@ const SeriesDetails = ({
   );
 };
 
-export default SeriesDetails;
+export default TvShowsDetails;
 
 const styles = StyleSheet.create({
   container: {

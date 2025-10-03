@@ -5,9 +5,9 @@ import { StyleSheet, View } from "react-native";
 import { WebView } from "react-native-webview";
 import { Colors } from "../../constants/Colors";
 import { Size } from "../../constants/size";
-import Icons from "../ui/Icons";
+import Icon from "../ui/Icon";
 
-const MovieStreaming: React.FC<{ movieId: string }> = ({ movieId }) => {
+const MovieStreaming = ({ movieId }: { movieId: number }) => {
   const [fullScreen, setFullScreen] = useState(true);
 
   const navigation = useNavigation();
@@ -56,7 +56,7 @@ const MovieStreaming: React.FC<{ movieId: string }> = ({ movieId }) => {
 
       <View style={styles.toggleFullScreen}>
         {!fullScreen && (
-          <Icons
+          <Icon
             name="expand"
             size={Size.icon}
             color={Colors.Primary100}
@@ -65,7 +65,7 @@ const MovieStreaming: React.FC<{ movieId: string }> = ({ movieId }) => {
         )}
 
         {fullScreen && (
-          <Icons
+          <Icon
             name="contract"
             size={Size.icon}
             color={Colors.Primary100}

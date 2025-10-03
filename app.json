@@ -4,22 +4,19 @@
     "slug": "tee-flix",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/icon.png",
     "scheme": "teeflix",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
-     "splash": {
-      "image": "./assets/cover.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#fcd834"
-    },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#fcd834",
-        "foregroundImage": "./assets/icon.png"
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
@@ -34,13 +31,13 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#fcd834",
-          "image": "./assets/cover.png",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff",
           "dark": {
-            "image": "./assets/cover.png",
-            "backgroundColor": "#fcd834"
-          },
-          "imageWidth": 300
+            "backgroundColor": "#000000"
+          }
         }
       ]
     ],

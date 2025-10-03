@@ -1,20 +1,35 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Link } from "expo-router";
+import { StyleSheet, Text, View } from "react-native";
 import { Colors } from "../../constants/Colors";
-import Link from "../ui/link";
-const DescriptionTab: React.FC<{ title: string; onPress: () => void }> = ({
+import Icon from "../ui/Icon";
+
+const DescriptionTab = ({
   title,
-  onPress,
+  pathname,
+  category,
+}: {
+  title: string;
+  pathname: string;
+  category: string;
 }) => {
   return (
-    <Pressable style={styles.container} onPress={onPress}>
-      <Text style={styles.descText}>{title}</Text>
-      <Link
-        name="chevron-forward-outline"
-        color={Colors.Primary100}
-        size={25}
-        onPress={onPress}
-      />
-    </Pressable>
+    <Link
+      href={{
+        pathname: pathname as any,
+        params: { title, category },
+      }}
+      style={{ padding: 5, height: 60 }}
+    >
+      <View style={styles.container}>
+        <Text style={styles.descText}>{title}</Text>
+
+        <Icon
+          name="chevron-forward-outline"
+          size={20}
+          color={Colors.Primary100}
+        />
+      </View>
+    </Link>
   );
 };
 
@@ -22,12 +37,9 @@ export default DescriptionTab;
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: Colors.Secondary200,
     padding: 10,
     width: "95%",
     marginHorizontal: "auto",
-    // borderRadius: 8,
-    // opacity: 0.5,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

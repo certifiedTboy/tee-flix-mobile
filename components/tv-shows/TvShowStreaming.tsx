@@ -7,7 +7,7 @@ import { Colors } from "../../constants/Colors";
 import { Size } from "../../constants/size";
 import Icon from "../ui/Icon";
 
-const SeriesStreaming = ({ seriesId }: { seriesId: string }) => {
+const TvShowStreaming = ({ tvShowId }: { tvShowId: string }) => {
   const [fullScreen, setFullScreen] = useState(true);
   const [episode, setEpisode] = useState(1);
   const [season, setSeason] = useState(1);
@@ -75,7 +75,7 @@ const SeriesStreaming = ({ seriesId }: { seriesId: string }) => {
         <WebView
           originWhitelist={["*"]}
           source={{
-            html: `<iframe width="100%" height="100%"  src=https://vidsrc.pro/embed/tv/${seriesId}/${season}/${episode}></iframe>`,
+            html: `<iframe width="100%" height="100%"  src=https://vidsrc.pro/embed/tv/${tvShowId}/${season}/${episode}></iframe>`,
           }}
         />
       </View>
@@ -179,4 +179,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SeriesStreaming;
+export default TvShowStreaming;

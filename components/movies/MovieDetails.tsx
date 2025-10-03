@@ -1,15 +1,14 @@
-import { useNavigation } from "@react-navigation/native";
-import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
-import Icons from "../ui/Icons";
-// import ThrillerReelsSwiper from "../reels/ThrillerReelsSwiper";
+import { Link } from "expo-router";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../../constants/Colors";
 import { formatRuntime } from "../../helpers/helpers";
 import { MovieDetailsProps } from "../../interfaces/propsInterfaces";
-import ThrillerReels from "../reels/ThrillerReels";
+import Icon from "../ui/Icon";
+import MovieThrillerPlayer from "./MovieThrillerPlayer";
 
 const { height } = Dimensions.get("window");
 
-const MovieDetails: React.FC<MovieDetailsProps> = ({
+const MovieDetails = ({
   movieId,
   release_date,
   overview,
@@ -21,19 +20,10 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({
   runtime,
   episodes,
   seasons,
-}) => {
-  const navigation = useNavigation();
-
+}: MovieDetailsProps) => {
   return (
     <View style={styles.container}>
-      {/* <Image
-        style={styles.movieImage}
-        source={{
-          uri: `${process.env.EXPO_PUBLIC_API_IMAGE_URL}${poster_image}`,
-        }}
-      /> */}
-
-      <ThrillerReels movieId={movieId} />
+      <MovieThrillerPlayer movieId={movieId} />
 
       <View style={styles.details}>
         <Text style={styles.movieTitle}>{title}</Text>
@@ -45,12 +35,12 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({
         <View style={styles.detailsContainer}>
           <View>
             <Text style={styles.date}>
-              <Icons name="calendar" size={12} color={Colors.Primary100} />
+              <Icon name="calendar" size={12} color={Colors.Primary100} />
               {"  "}
               {release_date}
             </Text>
             <Text style={styles.date}>
-              <Icons name="star" size={14} color={Colors.Primary100} />
+              <Icon name="star" size={14} color={Colors.Primary100} />
               {"  "}
               {Number(rating).toFixed(1)}
             </Text>
@@ -59,7 +49,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({
           <View>
             {production_companies && production_companies.length > 0 && (
               <Text style={styles.date}>
-                <Icons name="videocam" size={14} color={Colors.Primary100} />
+                <Icon name="videocam" size={14} color={Colors.Primary100} />
                 {"  "}
                 {production_companies[0].name}
               </Text>
@@ -67,7 +57,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({
 
             {runtime && (
               <Text style={styles.date}>
-                <Icons name="timer" size={14} color={Colors.Primary100} />
+                <Icon name="timer" size={14} color={Colors.Primary100} />
                 {"  "}
                 {formatRuntime(runtime)}
               </Text>
@@ -75,7 +65,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({
 
             {episodes && seasons && (
               <Text style={styles.date}>
-                <Icons name="timer" size={14} color={Colors.Primary100} />
+                <Icon name="timer" size={14} color={Colors.Primary100} />
                 {"  "}
                 {episodes} episodes in {seasons}{" "}
                 {seasons > 1 ? "seasons" : "season"}
@@ -83,18 +73,15 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({
             )}
           </View>
         </View>
-        <Pressable
-          style={({ pressed }) => [
-            styles.playButton,
-            pressed && styles.pressed,
-          ]}
-          onPress={() =>
-            // @ts-ignore
-            navigation.navigate("StreamMovie", { movieId, movieTitle: title })
-          }
+        <Link
+          style={styles.playButton}
+          href={{
+            pathname: "/movie-streaming-screen",
+            params: { movieId, title },
+          }}
         >
-          <Icons name="play" size={30} color={Colors.Primary200} />
-        </Pressable>
+          <Icon name="play" size={30} color={Colors.Primary200} />
+        </Link>
 
         {overview && (
           <View style={styles.detailsContainer2}>
@@ -154,6 +141,7 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     paddingVertical: 10,
     alignItems: "center",
+    textAlign: "center",
   },
 
   pressed: {
