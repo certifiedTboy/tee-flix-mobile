@@ -1,5 +1,3 @@
-import SeriesCard from "@/components/common/SeriesCard";
-import LoadMoreBtn from "@/components/ui/LoadMoreBtn";
 import {
   useGetOtherSeriesCategoryMutation,
   useSearchShowsMutation,
@@ -8,6 +6,8 @@ import { SearchContext } from "@/store/search-context";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
+import SeriesCard from "../components/common/SeriesCard";
+import LoadMoreBtn from "../components/ui/LoadMoreBtn";
 import { Colors } from "../constants/Colors";
 
 const AllSeriesScreen = ({ route }: { route: any }) => {
