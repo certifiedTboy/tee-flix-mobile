@@ -27,8 +27,6 @@ const ExploreTvShowsScreen = ({ route }: { route: any }) => {
   const { tvShowsSearchQuery, setTvShowsSearchQuery } =
     useContext(SearchContext);
 
-  console.log(searchBarIsFocused);
-
   useEffect(() => {
     navigation.setOptions({
       headerSearchBarOptions: {
