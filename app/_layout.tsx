@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { Colors } from "../constants/Colors";
 import SearchContextProvider from "../lib/context/search-context";
 
-export default function RootLayout() {
+const RootLayout = () => {
   return (
     <Provider store={store}>
       <SearchContextProvider>
@@ -103,4 +103,6 @@ export default function RootLayout() {
       </SearchContextProvider>
     </Provider>
   );
-}
+};
+
+export default RootLayout;

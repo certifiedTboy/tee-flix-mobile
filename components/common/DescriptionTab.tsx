@@ -18,7 +18,7 @@ const DescriptionTab = ({
         pathname: pathname as any,
         params: { title, category },
       }}
-      style={{ padding: 5, height: 60 }}
+      style={{ padding: 10 }}
     >
       <View style={styles.container}>
         <Text style={styles.descText}>{title}</Text>
@@ -37,9 +37,9 @@ export default DescriptionTab;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
-    width: "95%",
-    marginHorizontal: "auto",
+    // padding: 10,
+    width: "100%",
+    // marginHorizontal: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

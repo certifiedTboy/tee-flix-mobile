@@ -29,6 +29,7 @@ const ExploreTvShowsScreen = ({ route }: { route: any }) => {
 
   useEffect(() => {
     navigation.setOptions({
+      headerBackVisible: !searchBarIsFocused,
       headerSearchBarOptions: {
         placeholder: "Search tv shows...",
         placeholderTextColor: "#fff", // <-- placeholder color
@@ -42,12 +43,14 @@ const ExploreTvShowsScreen = ({ route }: { route: any }) => {
         onFocus: () => {
           setsearchBarIsFocused(true);
         },
-        onBlur: () => {
+
+        oncancel: () => {
+          setTvShowsSearchQuery("");
           setsearchBarIsFocused(false);
         },
       },
     });
-  }, []);
+  }, [searchBarIsFocused]);
 
   useFocusEffect(
     useCallback(() => {

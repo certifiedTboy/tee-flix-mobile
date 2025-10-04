@@ -42,12 +42,13 @@ const ExploreSeriesScreen = ({ route }: { route: any }) => {
         onFocus: () => {
           setsearchBarIsFocused(true);
         },
-        onBlur: () => {
+        oncancel: () => {
+          setSeriesSearchQuery("");
           setsearchBarIsFocused(false);
         },
       },
     });
-  }, []);
+  }, [searchBarIsFocused]);
 
   useFocusEffect(
     useCallback(() => {

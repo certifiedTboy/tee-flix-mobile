@@ -28,6 +28,7 @@ const ExploreMoviesScreen = () => {
 
   useEffect(() => {
     navigation.setOptions({
+      headerBackVisible: !searchBarIsFocused,
       headerSearchBarOptions: {
         placeholder: "Search movies...",
         placeholderTextColor: "#fff", // <-- placeholder color
@@ -41,12 +42,13 @@ const ExploreMoviesScreen = () => {
         onFocus: () => {
           setsearchBarIsFocused(true);
         },
-        onBlur: () => {
+        oncancel: () => {
+          setMovieSearchQuery("");
           setsearchBarIsFocused(false);
         },
       },
     });
-  }, []);
+  }, [searchBarIsFocused]);
 
   useFocusEffect(
     useCallback(() => {
