@@ -1,4 +1,6 @@
 import TvShowsDetails from "@/components/tv-shows/TvShowsDetails";
+import DetailsSkeleton from "@/components/ui/skeletons/DetailsSkeleton";
+import MovieList from "@/components/ui/skeletons/MovieList";
 import {
   useGetSeriesDetailsMutation,
   useGetSeriesRecommendationsMutation,
@@ -10,7 +12,7 @@ import RecommendedSeries from "../components/series/RecommendedSeries";
 import { Colors } from "../constants/Colors";
 
 const TvShowsDetailsScreen = () => {
-  const [getSeriesDetails, { data }] = useGetSeriesDetailsMutation();
+  const [getSeriesDetails, { data, isLoading }] = useGetSeriesDetailsMutation();
 
   const [getSeriesRecommendations, { data: recoData }] =
     useGetSeriesRecommendationsMutation();
@@ -26,7 +28,9 @@ const TvShowsDetailsScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      {data && (
+      {isLoading ? (
+        <DetailsSkeleton />
+      ) : (
         <TvShowsDetails
           movieId={data?.id}
           release_date={data?.first_air_date}
@@ -43,7 +47,11 @@ const TvShowsDetailsScreen = () => {
         />
       )}
 
-      {recoData && <RecommendedSeries movies={recoData?.results} />}
+      {!recoData ? (
+        <MovieList length={4} />
+      ) : (
+        <RecommendedSeries movies={recoData?.results} />
+      )}
     </ScrollView>
   );
 };

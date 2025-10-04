@@ -1,13 +1,15 @@
+import DetailsSkeleton from "@/components/ui/skeletons/DetailsSkeleton";
 import { useGetMovieDetailsMutation } from "@/lib/apis/movies-apis";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import MovieDetails from "../components/movies/MovieDetails";
 import RecommendedMovies from "../components/movies/RecommendedMovies";
+import MovieList from "../components/ui/skeletons/MovieList";
 import { Colors } from "../constants/Colors";
 
 const MovieDetailsScreen = () => {
-  const [getMovieDetails, { data }] = useGetMovieDetailsMutation();
+  const [getMovieDetails, { data, isLoading }] = useGetMovieDetailsMutation();
 
   const { movieId } = useLocalSearchParams();
 
@@ -19,7 +21,9 @@ const MovieDetailsScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      {data && (
+      {isLoading ? (
+        <DetailsSkeleton />
+      ) : (
         <MovieDetails
           movieId={data?.id}
           release_date={data?.release_date}
@@ -35,7 +39,11 @@ const MovieDetailsScreen = () => {
         />
       )}
 
-      {data && <RecommendedMovies movies={data?.recommendations?.results} />}
+      {!data ? (
+        <MovieList length={4} />
+      ) : (
+        <RecommendedMovies movies={data?.recommendations?.results} />
+      )}
     </ScrollView>
   );
 };

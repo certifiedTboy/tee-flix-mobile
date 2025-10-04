@@ -4,4 +4,5 @@ export const Colors = {
   Secondary100: "#CCCCCC",
   Secondary200: "#8C8C8C",
   Secondary300: "#ffffff",
+  error100: "#D80000FF",
 };

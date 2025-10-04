@@ -2,6 +2,8 @@ import { useGetOtherTvShowsCategoryMutation } from "@/lib/apis/movies-apis";
 import { useCallback, useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import DescriptionTab from "../common/DescriptionTab";
+import HorinzontalMovielist from "../ui/skeletons/HorizontalMovielist";
+import Skeleton from "../ui/skeletons/Skeleton";
 import TvShowCard from "./TvShowCard";
 
 const TvShowsCategories = ({
@@ -34,17 +36,27 @@ const TvShowsCategories = ({
 
   return (
     <View style={styles.container}>
-      <DescriptionTab
-        title={categoryTitle}
-        category={category}
-        pathname="/explore-tvshows-screen"
-      />
-      <FlatList
-        renderItem={RenderedCard}
-        data={data?.results}
-        keyExtractor={(item) => item.id}
-        horizontal
-      />
+      {isLoading ? (
+        <View style={styles.skeletonContainer}>
+          <Skeleton width="95%" height={30} radius={5} />
+        </View>
+      ) : (
+        <DescriptionTab
+          title={categoryTitle}
+          category={category}
+          pathname="/explore-tvshows-screen"
+        />
+      )}
+      {isLoading ? (
+        <HorinzontalMovielist length={20} />
+      ) : (
+        <FlatList
+          renderItem={RenderedCard}
+          data={data?.results}
+          keyExtractor={(item) => item.id}
+          horizontal
+        />
+      )}
     </View>
   );
 };
@@ -54,5 +66,13 @@ export default TvShowsCategories;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+
+  skeletonContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: "auto",
+    flex: 1,
+    marginVertical: 20,
   },
 });

@@ -1,3 +1,5 @@
+import MovieList from "@/components/ui/skeletons/MovieList";
+import Skeleton from "@/components/ui/skeletons/Skeleton";
 import { useFocusEffect } from "@react-navigation/native";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useCallback, useContext, useEffect, useState } from "react";
@@ -22,7 +24,8 @@ const ExploreTvShowsScreen = ({ route }: { route: any }) => {
   const { category } = useLocalSearchParams();
   const navigation = useNavigation();
 
-  const [searchSeries, { data: result }] = useSearchShowsMutation();
+  const [searchSeries, { data: result, isLoading: resultLoading }] =
+    useSearchShowsMutation();
 
   const { tvShowsSearchQuery, setTvShowsSearchQuery } =
     useContext(SearchContext);
@@ -110,6 +113,12 @@ const ExploreTvShowsScreen = ({ route }: { route: any }) => {
           : "Recommended Tv Shows"}
       </Text>
 
+      {resultLoading && (
+        <View style={styles.skeletonContainer}>
+          <Skeleton height={40} width="95%" />
+        </View>
+      )}
+
       {result && result?.results && result?.results?.length > 0 && (
         <View style={styles.infoContainer}>
           <Text style={styles.infoText}>
@@ -125,7 +134,7 @@ const ExploreTvShowsScreen = ({ route }: { route: any }) => {
       )}
 
       <ScrollView contentContainerStyle={styles.cardContainer}>
-        {/* <Text style={styles.text}>All Series</Text> */}
+        {(isLoading || resultLoading) && <MovieList length={8} />}
         <View style={styles.cardContainer}>
           {seriesResults?.length > 0 &&
             seriesResults.map((item: any) => (
@@ -209,6 +218,14 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+  },
+
+  skeletonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
+    marginHorizontal: 10,
   },
 
   infoText: {

@@ -1,9 +1,10 @@
 import MovieCard from "@/components/movies/MovieCard";
+import MovieList from "@/components/ui/skeletons/MovieList";
+import Skeleton from "@/components/ui/skeletons/Skeleton";
 import { SearchContext } from "@/lib/context/search-context";
 import { useFocusEffect } from "@react-navigation/native";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useCallback, useContext, useEffect, useState } from "react";
-
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import LoadMoreBtn from "../components/ui/LoadMoreBtn";
 import { Colors } from "../constants/Colors";
@@ -16,9 +17,11 @@ const ExploreMoviesScreen = () => {
   const [movieResults, setMovieResults] = useState<any[]>([]);
   const [searchBarIsFocused, setsearchBarIsFocused] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchMovies, { data }] = useSearchMoviesMutation();
-  const [getOtherMovieCategory, { data: latestMovies }] =
-    useGetOtherMovieCategoryMutation();
+  const [searchMovies, { data, isLoading }] = useSearchMoviesMutation();
+  const [
+    getOtherMovieCategory,
+    { data: latestMovies, isLoading: isLoadingLatest },
+  ] = useGetOtherMovieCategoryMutation();
 
   const navigation = useNavigation();
 
@@ -107,6 +110,11 @@ const ExploreMoviesScreen = () => {
           ? `Search results for ${movieSearchQuery}`
           : "Recommended Movies"}
       </Text>
+      {isLoading && (
+        <View style={styles.skeletonContainer}>
+          <Skeleton height={40} width="95%" />
+        </View>
+      )}
 
       {data && data?.results && data?.results?.length > 0 && (
         <View style={styles.infoContainer}>
@@ -121,6 +129,7 @@ const ExploreMoviesScreen = () => {
       )}
 
       <ScrollView contentContainerStyle={styles.cardContainer}>
+        {(isLoading || isLoadingLatest) && <MovieList length={8} />}
         {movieResults &&
           movieResults.length > 0 &&
           movieResults.map((item: any) => {
@@ -210,6 +219,14 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize: 12,
     fontWeight: "bold",
+  },
+
+  skeletonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
+    marginHorizontal: 10,
   },
 
   reloadBtn: {
