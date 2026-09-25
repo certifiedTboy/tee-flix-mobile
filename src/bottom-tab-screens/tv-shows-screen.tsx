@@ -1,14 +1,28 @@
 import TvShowsCategories from "@/components/tv-shows/TvShowsCategories";
-import { ScrollView, StyleSheet } from "react-native";
+import CatalogScreenHeader from "@/components/common/CatalogScreenHeader";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { Colors } from "../constants/Colors";
 
 const TvShowsScreen = () => {
   return (
-    <ScrollView contentContainerStyle={styles.listContainer}>
-      <TvShowsCategories category="popular" categoryTitle="Popular" />
-      <TvShowsCategories category="top_rated" categoryTitle="Top Rated" />
-      <TvShowsCategories category="on_the_air" categoryTitle="On The Air" />
-      <TvShowsCategories category="airing_today" categoryTitle="Airing Today" />
+    <ScrollView
+      style={styles.screen}
+      contentContainerStyle={styles.listContainer}
+      showsVerticalScrollIndicator={false}
+    >
+      <CatalogScreenHeader
+        eyebrow="LIVE & ON DEMAND"
+        title="TV Shows"
+        description="Stay up to date with the shows making every day a little better."
+        icon="tv"
+        accent="#70d9cb"
+      />
+      <View style={styles.sections}>
+        <TvShowsCategories category="popular" categoryTitle="Popular" />
+        <TvShowsCategories category="on_the_air" categoryTitle="On The Air" />
+        <TvShowsCategories category="airing_today" categoryTitle="Airing Today" />
+        <TvShowsCategories category="top_rated" categoryTitle="Top Rated" />
+      </View>
     </ScrollView>
   );
 };
@@ -16,24 +30,9 @@ const TvShowsScreen = () => {
 export default TvShowsScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Colors.Primary200,
-    width: "100%",
-    flex: 1,
-  },
-
+  screen: { backgroundColor: Colors.Primary200, flex: 1 },
   listContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 100,
+    paddingBottom: 32,
   },
-
-  text: {
-    color: Colors.Secondary300,
-    fontSize: 15,
-    fontWeight: "bold",
-    marginBottom: 20,
-    marginLeft: 23,
-    marginVertical: 20,
-  },
+  sections: { gap: 20 },
 });
