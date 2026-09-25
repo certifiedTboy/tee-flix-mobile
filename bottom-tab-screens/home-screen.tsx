@@ -1,6 +1,6 @@
 import { useGetLatestMoviesMutation } from "@/lib/apis/movies-apis";
-import { Link } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
+import { Link } from "expo-router";
 import { useEffect } from "react";
 import {
   ActivityIndicator,
@@ -13,11 +13,10 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Colors } from "../constants/Colors";
 import ComingSoonSwiper from "../components/home/ComingSoonSwiper";
-import MovieSwiper from "../components/home/MovieSwiper";
 import TvShowsSwiper from "../components/home/TvShowSwiper";
 import Icon from "../components/ui/Icon";
+import { Colors } from "../constants/Colors";
 
 const imageUrl = process.env.EXPO_PUBLIC_API_IMAGE_URL;
 
@@ -75,33 +74,50 @@ const HomeScreen = () => {
         </View>
 
         <View style={styles.quickActions}>
-          <QuickAction icon="film-outline" label="Movies" href="/explore-movies-screen" />
+          <QuickAction
+            icon="film-outline"
+            label="Movies"
+            href="/explore-movies-screen"
+          />
           <QuickAction
             icon="logo-youtube"
             label="Series"
             href="/explore-series-screen"
           />
-          <QuickAction icon="tv-outline" label="TV Shows" href="/explore-tvshows-screen" />
+          <QuickAction
+            icon="tv-outline"
+            label="TV Shows"
+            href="/explore-tvshows-screen"
+          />
         </View>
 
         <SectionHeading
-          title="Trending now"
-          subtitle="The titles everyone is talking about"
-          href={{ pathname: "/explore-movies-screen", params: { title: "Popular", category: "popular" } }}
+          title="The pulse"
+          subtitle="Fresh picks, ranked by the community"
+          href={{
+            pathname: "/explore-movies-screen",
+            params: { title: "Popular", category: "popular" },
+          }}
         />
-        <MovieSwiper />
+        <TrendingPicks movies={data?.results} />
 
         <SectionHeading
           title="Coming soon"
           subtitle="Add these to your watchlist"
-          href={{ pathname: "/explore-movies-screen", params: { title: "Upcoming", category: "upcoming" } }}
+          href={{
+            pathname: "/explore-movies-screen",
+            params: { title: "Upcoming", category: "upcoming" },
+          }}
         />
         <ComingSoonSwiper />
 
         <SectionHeading
           title="Binge-worthy series"
           subtitle="Your next long-form obsession"
-          href={{ pathname: "/explore-series-screen", params: { title: "Popular", category: "popular" } }}
+          href={{
+            pathname: "/explore-series-screen",
+            params: { title: "Popular", category: "popular" },
+          }}
         />
         <TvShowsSwiper />
       </ScrollView>
@@ -119,8 +135,12 @@ const FeaturedContent = ({ movie }: { movie?: any }) => (
       {movie?.original_title || "Stories worth staying up for"}
     </Text>
     <View style={styles.metaRow}>
-      <Text style={styles.metaAccent}>★ {Number(movie?.vote_average || 0).toFixed(1)}</Text>
-      <Text style={styles.metaText}>{movie?.release_date?.slice(0, 4) || "2025"}</Text>
+      <Text style={styles.metaAccent}>
+        ★ {Number(movie?.vote_average || 0).toFixed(1)}
+      </Text>
+      <Text style={styles.metaText}>
+        {movie?.release_date?.slice(0, 4) || "2025"}
+      </Text>
       <Text style={styles.metaText}>Movie</Text>
     </View>
     <Text style={styles.featuredDescription} numberOfLines={2}>
@@ -151,7 +171,10 @@ const QuickAction = ({
 }: {
   icon: "film-outline" | "logo-youtube" | "tv-outline";
   label: string;
-  href: "/explore-movies-screen" | "/explore-series-screen" | "/explore-tvshows-screen";
+  href:
+    | "/explore-movies-screen"
+    | "/explore-series-screen"
+    | "/explore-tvshows-screen";
 }) => (
   <Link href={href} asChild>
     <Pressable style={styles.quickAction}>
@@ -162,6 +185,51 @@ const QuickAction = ({
       <Icon name="chevron-forward" size={14} color={Colors.Secondary200} />
     </Pressable>
   </Link>
+);
+
+const TrendingPicks = ({ movies }: { movies?: any[] }) => (
+  <ScrollView
+    horizontal
+    showsHorizontalScrollIndicator={false}
+    contentContainerStyle={styles.trendingList}
+  >
+    {(movies || []).slice(0, 8).map((movie, index) => (
+      <Link
+        key={movie.id}
+        href={{
+          pathname: "/movie-details-screen",
+          params: { movieId: movie.id, title: movie.original_title },
+        }}
+        asChild
+      >
+        <Pressable style={styles.trendingCard}>
+          <View style={styles.trendingPosterFrame}>
+            <ImageBackground
+              source={{ uri: `${imageUrl}${movie.poster_path}` }}
+              style={styles.trendingPoster}
+              imageStyle={styles.trendingPosterRadius}
+            >
+              <LinearGradient
+                colors={["rgba(0,0,0,0.05)", "rgba(0,0,0,0.8)"]}
+                style={styles.trendingOverlay}
+              >
+                <Text style={styles.trendingRank}>{String(index + 1).padStart(2, "0")}</Text>
+                <View style={styles.trendingRating}>
+                  <Text style={styles.trendingRatingText}>
+                    ★ {Number(movie.vote_average || 0).toFixed(1)}
+                  </Text>
+                </View>
+              </LinearGradient>
+            </ImageBackground>
+          </View>
+          <Text style={styles.trendingTitle} numberOfLines={1}>
+            {movie.original_title}
+          </Text>
+          <Text style={styles.trendingYear}>{movie.release_date?.slice(0, 4) || "—"}</Text>
+        </Pressable>
+      </Link>
+    ))}
+  </ScrollView>
 );
 
 const SectionHeading = ({
@@ -205,7 +273,12 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     letterSpacing: 2,
   },
-  greeting: { color: Colors.Secondary300, fontSize: 24, fontWeight: "800", marginTop: 5 },
+  greeting: {
+    color: Colors.Secondary300,
+    fontSize: 24,
+    fontWeight: "800",
+    marginTop: 5,
+  },
   avatar: {
     alignItems: "center",
     backgroundColor: "#25252d",
@@ -227,14 +300,46 @@ const styles = StyleSheet.create({
   heroImageRadius: { borderRadius: 22 },
   heroGradient: { flex: 1, justifyContent: "flex-end" },
   featuredContent: { padding: 20 },
-  featuredBadge: { alignItems: "center", flexDirection: "row", marginBottom: 10 },
-  liveDot: { backgroundColor: Colors.Primary100, borderRadius: 4, height: 7, marginRight: 7, width: 7 },
-  featuredBadgeText: { color: Colors.Primary100, fontSize: 10, fontWeight: "800", letterSpacing: 1.3 },
-  featuredTitle: { color: Colors.Secondary300, fontSize: 30, fontWeight: "900", lineHeight: 34, maxWidth: "92%" },
-  metaRow: { alignItems: "center", flexDirection: "row", gap: 13, marginTop: 11 },
+  featuredBadge: {
+    alignItems: "center",
+    flexDirection: "row",
+    marginBottom: 10,
+  },
+  liveDot: {
+    backgroundColor: Colors.Primary100,
+    borderRadius: 4,
+    height: 7,
+    marginRight: 7,
+    width: 7,
+  },
+  featuredBadgeText: {
+    color: Colors.Primary100,
+    fontSize: 10,
+    fontWeight: "800",
+    letterSpacing: 1.3,
+  },
+  featuredTitle: {
+    color: Colors.Secondary300,
+    fontSize: 30,
+    fontWeight: "900",
+    lineHeight: 34,
+    maxWidth: "92%",
+  },
+  metaRow: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 13,
+    marginTop: 11,
+  },
   metaAccent: { color: Colors.Primary100, fontSize: 13, fontWeight: "800" },
   metaText: { color: "#d5d5da", fontSize: 12 },
-  featuredDescription: { color: "#c0c0c8", fontSize: 12, lineHeight: 18, marginTop: 10, maxWidth: "95%" },
+  featuredDescription: {
+    color: "#c0c0c8",
+    fontSize: 12,
+    lineHeight: 18,
+    marginTop: 10,
+    maxWidth: "95%",
+  },
   watchButton: {
     alignItems: "center",
     alignSelf: "flex-start",
@@ -246,7 +351,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 11,
   },
-  watchButtonText: { color: Colors.Primary200, fontSize: 12, fontWeight: "800" },
+  watchButtonText: {
+    color: Colors.Primary200,
+    fontSize: 12,
+    fontWeight: "800",
+  },
   quickActions: { gap: 8, paddingHorizontal: 16, paddingVertical: 18 },
   quickAction: {
     alignItems: "center",
@@ -266,7 +375,12 @@ const styles = StyleSheet.create({
     marginRight: 11,
     width: 34,
   },
-  quickActionText: { color: Colors.Secondary300, flex: 1, fontSize: 13, fontWeight: "700" },
+  quickActionText: {
+    color: Colors.Secondary300,
+    flex: 1,
+    fontSize: 13,
+    fontWeight: "700",
+  },
   sectionHeading: {
     alignItems: "flex-end",
     flexDirection: "row",
@@ -277,6 +391,44 @@ const styles = StyleSheet.create({
   },
   sectionTitle: { color: Colors.Secondary300, fontSize: 20, fontWeight: "800" },
   sectionSubtitle: { color: Colors.Secondary200, fontSize: 11, marginTop: 4 },
-  seeAll: { alignItems: "center", flexDirection: "row", gap: 5, paddingBottom: 2 },
+  seeAll: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 5,
+    paddingBottom: 2,
+  },
   seeAllText: { color: Colors.Primary100, fontSize: 12, fontWeight: "700" },
+  trendingList: { gap: 12, paddingHorizontal: 18, paddingTop: 10, paddingBottom: 20 },
+  trendingCard: { width: 112 },
+  trendingPosterFrame: {
+    backgroundColor: "#17171f",
+    borderRadius: 13,
+    height: 164,
+    overflow: "hidden",
+    width: 112,
+  },
+  trendingPoster: { flex: 1 },
+  trendingPosterRadius: { borderRadius: 13 },
+  trendingOverlay: { flex: 1, justifyContent: "space-between", padding: 8 },
+  trendingRank: {
+    color: "rgba(255,255,255,0.8)",
+    fontSize: 21,
+    fontWeight: "900",
+    letterSpacing: -1,
+  },
+  trendingRating: {
+    alignSelf: "flex-start",
+    backgroundColor: "rgba(0,0,0,0.65)",
+    borderRadius: 6,
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+  },
+  trendingRatingText: { color: Colors.Primary100, fontSize: 10, fontWeight: "800" },
+  trendingTitle: {
+    color: Colors.Secondary300,
+    fontSize: 12,
+    fontWeight: "700",
+    marginTop: 8,
+  },
+  trendingYear: { color: Colors.Secondary200, fontSize: 10, marginTop: 3 },
 });
