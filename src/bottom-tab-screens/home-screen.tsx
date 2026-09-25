@@ -90,14 +90,6 @@ const HomeScreen = () => {
           />
         </View>
 
-        <SectionHeading
-          title="Trending now"
-          subtitle="The titles everyone is talking about"
-          href={{
-            pathname: "/explore-movies-screen",
-            params: { title: "Popular", category: "popular" },
-          }}
-        />
         <MovieSwiper />
       </ScrollView>
     </SafeAreaView>
@@ -164,27 +156,6 @@ const QuickAction = ({
       <Icon name="chevron-forward" size={14} color={Colors.Secondary200} />
     </Pressable>
   </Link>
-);
-
-const SectionHeading = ({
-  title,
-  subtitle,
-  href,
-}: {
-  title: string;
-  subtitle: string;
-  href: { pathname: string; params: { title: string; category: string } };
-}) => (
-  <View style={styles.sectionHeading}>
-    <View>
-      <Text style={styles.sectionTitle}>{title}</Text>
-      <Text style={styles.sectionSubtitle}>{subtitle}</Text>
-    </View>
-    <Link href={href as any} style={styles.seeAll}>
-      <Text style={styles.seeAllText}>See all</Text>
-      <Icon name="arrow-forward" size={15} color={Colors.Primary100} />
-    </Link>
-  </View>
 );
 
 export default HomeScreen;
@@ -315,21 +286,4 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "700",
   },
-  sectionHeading: {
-    alignItems: "flex-end",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 18,
-    paddingTop: 10,
-    paddingBottom: 5,
-  },
-  sectionTitle: { color: Colors.Secondary300, fontSize: 20, fontWeight: "800" },
-  sectionSubtitle: { color: Colors.Secondary200, fontSize: 11, marginTop: 4 },
-  seeAll: {
-    alignItems: "center",
-    flexDirection: "row",
-    gap: 5,
-    paddingBottom: 2,
-  },
-  seeAllText: { color: Colors.Primary100, fontSize: 12, fontWeight: "700" },
 });
