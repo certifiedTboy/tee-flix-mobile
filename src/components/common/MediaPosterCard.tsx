@@ -54,7 +54,7 @@ const MediaPosterCard = ({
       ? imageUrl && posterImage
         ? { uri: `${imageUrl}${posterImage}` }
         : undefined
-      : posterImage ?? undefined;
+      : (posterImage ?? undefined);
   const year = releaseDate?.slice(0, 4);
 
   return (
@@ -81,7 +81,11 @@ const MediaPosterCard = ({
             </View>
           )}
           <LinearGradient
-            colors={["rgba(5, 6, 9, 0.20)", "rgba(5, 6, 9, 0.02)", "rgba(5, 6, 9, 0.76)"]}
+            colors={[
+              "rgba(5, 6, 9, 0.20)",
+              "rgba(5, 6, 9, 0.02)",
+              "rgba(5, 6, 9, 0.76)",
+            ]}
             locations={[0, 0.48, 1]}
             style={styles.posterGradient}
           />

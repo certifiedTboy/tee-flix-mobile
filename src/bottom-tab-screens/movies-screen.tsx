@@ -1,21 +1,38 @@
+import { useGetLatestMoviesMutation } from "@/lib/apis/movies-apis";
 import MoviesCategories from "@/components/movies/MoviesCategories";
-import CatalogScreenHeader from "@/components/common/CatalogScreenHeader";
+import CatalogFeatureHeader from "@/components/common/CatalogFeatureHeader";
+import { useEffect } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Colors } from "../constants/Colors";
 
 const MoviesScreen = () => {
+  const [getLatestMovies, { data, isLoading }] = useGetLatestMoviesMutation();
+
+  useEffect(() => {
+    getLatestMovies(null);
+  }, [getLatestMovies]);
+
   return (
     <ScrollView
       style={styles.screen}
       contentContainerStyle={styles.listContainer}
       showsVerticalScrollIndicator={false}
     >
-      <CatalogScreenHeader
-        eyebrow="THE BIG SCREEN"
-        title="Movies"
-        description="Find your next favorite, from fresh releases to all-time greats."
-        icon="film"
+      <CatalogFeatureHeader
+        eyebrow="ROLL THE CREDITS"
+        greeting="What story calls to you?"
+        featureLabel="SPOTLIGHT PICK"
+        fallbackTitle="Your next favorite is waiting"
+        fallbackDescription="Explore big-screen adventures, hidden gems, and stories worth sharing."
+        mediaLabel="Movie"
+        icon="film-outline"
         accent={Colors.Primary100}
+        featuredItem={data?.results?.[0]}
+        isLoading={isLoading}
+        detailRoute={(id, title) => ({
+          pathname: "/movie-details-screen",
+          params: { movieId: id, title },
+        })}
       />
       <View style={styles.sections}>
         <MoviesCategories category="now_playing" categoryTitle="Now Playing" />
@@ -31,8 +48,6 @@ export default MoviesScreen;
 
 const styles = StyleSheet.create({
   screen: { backgroundColor: Colors.Primary200, flex: 1 },
-  listContainer: {
-    paddingBottom: 32,
-  },
+  listContainer: { paddingBottom: 32 },
   sections: { gap: 20 },
 });

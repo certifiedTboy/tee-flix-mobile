@@ -1,21 +1,38 @@
+import { useGetTvShowsMutation } from "@/lib/apis/movies-apis";
 import TvShowsCategories from "@/components/tv-shows/TvShowsCategories";
-import CatalogScreenHeader from "@/components/common/CatalogScreenHeader";
+import CatalogFeatureHeader from "@/components/common/CatalogFeatureHeader";
+import { useEffect } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Colors } from "../constants/Colors";
 
 const TvShowsScreen = () => {
+  const [getTvShows, { data, isLoading }] = useGetTvShowsMutation();
+
+  useEffect(() => {
+    getTvShows(null);
+  }, [getTvShows]);
+
   return (
     <ScrollView
       style={styles.screen}
       contentContainerStyle={styles.listContainer}
       showsVerticalScrollIndicator={false}
     >
-      <CatalogScreenHeader
-        eyebrow="LIVE & ON DEMAND"
-        title="TV Shows"
-        description="Stay up to date with the shows making every day a little better."
-        icon="tv"
+      <CatalogFeatureHeader
+        eyebrow="TUNE INTO SOMETHING GOOD"
+        greeting="Tonight deserves a great show."
+        featureLabel="ON YOUR WATCHLIST"
+        fallbackTitle="Find your next favorite show"
+        fallbackDescription="Discover fresh episodes, fan favorites, and the next show you won't want to pause."
+        mediaLabel="TV Show"
+        icon="tv-outline"
         accent="#70d9cb"
+        featuredItem={data?.results?.[0]}
+        isLoading={isLoading}
+        detailRoute={(id, title) => ({
+          pathname: "/tvshows-details-screen",
+          params: { tvShowId: id, title },
+        })}
       />
       <View style={styles.sections}>
         <TvShowsCategories category="popular" categoryTitle="Popular" />
