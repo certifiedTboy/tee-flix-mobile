@@ -4,6 +4,7 @@ import { Colors } from "../../constants/Colors";
 import { formatRuntime } from "../../helpers/helpers";
 import { MovieDetailsProps } from "../../interfaces/propsInterfaces";
 import Icon from "../ui/Icon";
+import MovieSwiper from "../home/MovieSwiper";
 import MovieThrillerPlayer from "./MovieThrillerPlayer";
 
 const { height } = Dimensions.get("window");
@@ -20,6 +21,8 @@ const MovieDetails = ({
   runtime,
   episodes,
   seasons,
+  recommendations,
+  recommendationsLoading,
 }: MovieDetailsProps) => {
   return (
     <View style={styles.container}>
@@ -89,6 +92,13 @@ const MovieDetails = ({
           </View>
         )}
       </View>
+      <MovieSwiper
+        items={recommendations ?? []}
+        isLoading={recommendationsLoading}
+        mediaType="movie"
+        title="You might also like"
+        subtitle="More movies picked for you"
+      />
     </View>
   );
 };

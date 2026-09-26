@@ -1,5 +1,4 @@
 import DetailsSkeleton from "@/components/ui/skeletons/DetailsSkeleton";
-import MovieList from "@/components/ui/skeletons/MovieList";
 import {
   useGetSeriesDetailsMutation,
   useGetSeriesRecommendationsMutation,
@@ -7,14 +6,20 @@ import {
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect } from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import RecommendedSeries from "../components/series/RecommendedSeries";
 import SeriesDetails from "../components/series/SeriesDetails";
 import { Colors } from "../constants/Colors";
 
 const SeriesDetailsScreen = () => {
   const [getSeriesDetails, { data, isLoading }] = useGetSeriesDetailsMutation();
 
-  const [getSeriesRecommendations, { data: recoData }] =
+  const [
+    getSeriesRecommendations,
+    {
+      data: recoData,
+      isLoading: recommendationsLoading,
+      isError: recommendationsError,
+    },
+  ] =
     useGetSeriesRecommendationsMutation();
 
   const { seriesId, title } = useLocalSearchParams<{
@@ -54,13 +59,10 @@ const SeriesDetailsScreen = () => {
             key={data?.id}
             episodes={data?.number_of_episodes}
             seasons={data?.number_of_seasons}
+            recommendations={recoData?.results}
+            recommendationsLoading={recommendationsLoading}
+            recommendationsError={recommendationsError}
           />
-        )}
-
-        {!recoData ? (
-          <MovieList length={4} />
-        ) : (
-          <RecommendedSeries movies={recoData?.results} />
         )}
       </ScrollView>
     </>

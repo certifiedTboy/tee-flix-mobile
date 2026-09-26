@@ -4,8 +4,6 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import MovieDetails from "../components/movies/MovieDetails";
-import RecommendedMovies from "../components/movies/RecommendedMovies";
-import MovieList from "../components/ui/skeletons/MovieList";
 import { Colors } from "../constants/Colors";
 
 const MovieDetailsScreen = () => {
@@ -42,14 +40,9 @@ const MovieDetailsScreen = () => {
             rating={data?.vote_average}
             tagline={data?.tagline}
             runtime={data?.runtime}
+            recommendations={data?.recommendations?.results}
             key={data?.id}
           />
-        )}
-
-        {!data ? (
-          <MovieList length={4} />
-        ) : (
-          <RecommendedMovies movies={data?.recommendations?.results} />
         )}
       </ScrollView>
     </>

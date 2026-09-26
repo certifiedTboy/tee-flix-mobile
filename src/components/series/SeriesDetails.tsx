@@ -4,6 +4,7 @@ import { Colors } from "../../constants/Colors";
 import { formatRuntime } from "../../helpers/helpers";
 import { MovieDetailsProps } from "../../interfaces/propsInterfaces";
 import Icon from "../ui/Icon";
+import MovieSwiper from "../home/MovieSwiper";
 import SeriesThrillerPlayer from "./SeriesThrillerPlayer";
 
 const { height } = Dimensions.get("window");
@@ -20,6 +21,9 @@ const SeriesDetails = ({
   runtime,
   episodes,
   seasons,
+  recommendations,
+  recommendationsLoading,
+  recommendationsError,
 }: MovieDetailsProps) => {
   return (
     <View style={styles.container}>
@@ -90,6 +94,14 @@ const SeriesDetails = ({
           </View>
         )}
       </View>
+      <MovieSwiper
+        items={recommendations ?? []}
+        isLoading={recommendationsLoading}
+        hasError={recommendationsError}
+        mediaType="series"
+        title="More series to explore"
+        subtitle="Keep the next-episode feeling going"
+      />
     </View>
   );
 };

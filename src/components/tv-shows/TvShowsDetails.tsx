@@ -4,6 +4,7 @@ import { Colors } from "../../constants/Colors";
 import { formatRuntime } from "../../helpers/helpers";
 import { MovieDetailsProps } from "../../interfaces/propsInterfaces";
 import Icon from "../ui/Icon";
+import MovieSwiper from "../home/MovieSwiper";
 import TvShowThrillerPlayer from "./TvShowThrillerPlyer";
 
 const { height } = Dimensions.get("window");
@@ -20,6 +21,9 @@ const TvShowsDetails: React.FC<MovieDetailsProps> = ({
   runtime,
   episodes,
   seasons,
+  recommendations,
+  recommendationsLoading,
+  recommendationsError,
 }) => {
   return (
     <View style={styles.container}>
@@ -89,6 +93,14 @@ const TvShowsDetails: React.FC<MovieDetailsProps> = ({
           </View>
         )}
       </View>
+      <MovieSwiper
+        items={recommendations ?? []}
+        isLoading={recommendationsLoading}
+        hasError={recommendationsError}
+        mediaType="tv-show"
+        title="More shows for tonight"
+        subtitle="Find another series worth settling in for"
+      />
     </View>
   );
 };

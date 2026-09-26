@@ -32,4 +32,21 @@ export interface MovieDetailsProps {
   runtime?: number;
   episodes?: number;
   seasons?: number;
+  recommendations?: MediaRecommendation[];
+  recommendationsLoading?: boolean;
+  recommendationsError?: boolean;
+}
+
+export interface MediaRecommendation {
+  id: number;
+  original_title?: string;
+  original_name?: string;
+  name?: string;
+  poster_path?: string | null;
+  release_date?: string;
+  first_air_date?: string;
+  vote_average?: number;
+  vote_count?: number;
+  original_language?: string;
+  overview?: string;
 }

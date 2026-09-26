@@ -14,31 +14,71 @@ import {
   View,
 } from "react-native";
 import { Colors } from "../../constants/Colors";
+import { MediaRecommendation } from "../../interfaces/propsInterfaces";
 
-type NowPlayingMovie = {
-  id: number;
-  original_title?: string;
-  poster_path?: string | null;
-  release_date?: string;
-  vote_average?: number;
-  vote_count?: number;
-  original_language?: string;
-  overview?: string;
+type MediaType = "movie" | "series" | "tv-show";
+
+type DetailsHref =
+  | {
+      pathname: "/movie-details-screen";
+      params: { movieId: number; title: string };
+    }
+  | {
+      pathname: "/series-details-screen";
+      params: { seriesId: number; title: string };
+    }
+  | {
+      pathname: "/tvshows-details-screen";
+      params: { tvShowId: number; title: string };
+    };
+
+type MovieSwiperProps = {
+  items?: MediaRecommendation[];
+  mediaType?: MediaType;
+  title?: string;
+  subtitle?: string;
+  isLoading?: boolean;
+  hasError?: boolean;
 };
 
 const imageUrl = process.env.EXPO_PUBLIC_API_IMAGE_URL;
 
-const MovieSwiper = () => {
+const MovieSwiper = ({
+  items,
+  mediaType = "movie",
+  title,
+  subtitle,
+  isLoading: itemsLoading = false,
+  hasError: itemsError = false,
+}: MovieSwiperProps) => {
   const [getMovies, { data, isLoading, isError }] =
     useGetOtherMovieCategoryMutation();
   const { width } = useWindowDimensions();
+  const usesNowPlayingFeed = items === undefined;
 
   useEffect(() => {
-    getMovies("now_playing");
-  }, [getMovies]);
+    if (usesNowPlayingFeed) {
+      getMovies("now_playing");
+    }
+  }, [getMovies, usesNowPlayingFeed]);
 
-  const movies: NowPlayingMovie[] = data?.results ?? [];
+  const movies: MediaRecommendation[] = items ?? data?.results ?? [];
   const cardWidth = Math.min(width * 0.72, 300);
+  const sectionTitle =
+    title ?? (usesNowPlayingFeed ? "Now playing" : "Recommended for you");
+  const sectionSubtitle =
+    subtitle ??
+    (usesNowPlayingFeed
+      ? "A closer look at what’s on the big screen"
+      : "More stories picked for you");
+  const loading = usesNowPlayingFeed ? isLoading : itemsLoading;
+  const hasError = usesNowPlayingFeed ? isError : itemsError;
+  const mediaLabel =
+    mediaType === "movie"
+      ? "MOVIE"
+      : mediaType === "series"
+        ? "SERIES"
+        : "TV SHOW";
 
   return (
     <View style={styles.container}>
@@ -46,43 +86,50 @@ const MovieSwiper = () => {
         <View style={styles.headingCopy}>
           <View style={styles.eyebrowRow}>
             <View style={styles.liveDot} />
-            <Text style={styles.eyebrow}>IN THEATERS NOW</Text>
+            <Text style={styles.eyebrow}>
+              {usesNowPlayingFeed ? "IN THEATERS NOW" : "KEEP WATCHING"}
+            </Text>
           </View>
-          <Text style={styles.sectionTitle}>Now playing</Text>
-          <Text style={styles.sectionSubtitle}>
-            A closer look at what’s on the big screen
-          </Text>
+          <Text style={styles.sectionTitle}>{sectionTitle}</Text>
+          <Text style={styles.sectionSubtitle}>{sectionSubtitle}</Text>
         </View>
-        <Link
-          href={{
-            pathname: "/explore-movies-screen",
-            params: { title: "Now Playing", category: "now_playing" },
-          }}
-          style={styles.seeAll}
-        >
-          <Ionicons
-            name="chevron-forward-outline"
-            size={20}
-            color={Colors.Primary100}
-          />
-        </Link>
+        {usesNowPlayingFeed ? (
+          <Link
+            href={{
+              pathname: "/explore-movies-screen",
+              params: { title: "Now Playing", category: "now_playing" },
+            }}
+            style={styles.seeAll}
+            accessibilityLabel="See all now playing movies"
+          >
+            <Ionicons
+              name="chevron-forward-outline"
+              size={20}
+              color={Colors.Primary100}
+            />
+          </Link>
+        ) : null}
       </View>
 
-      {isLoading ? (
+      {loading ? (
         <View style={styles.status}>
           <ActivityIndicator color={Colors.Primary100} />
-          <Text style={styles.statusText}>Finding your next movie…</Text>
+          <Text style={styles.statusText}>Finding your next favorite…</Text>
         </View>
-      ) : isError ? (
+      ) : hasError ? (
         <View style={styles.status}>
           <Text style={styles.statusText}>
-            We couldn’t load movies right now. Please try again later.
+            {usesNowPlayingFeed
+              ? "We couldn’t load movies right now. Please try again later."
+              : "We couldn’t load recommendations right now. Please try again later."}
           </Text>
         </View>
       ) : movies.length === 0 ? (
         <View style={styles.status}>
           <Text style={styles.statusText}>
-            No now-playing movies are available right now.
+            {usesNowPlayingFeed
+              ? "No now-playing movies are available right now."
+              : "No recommendations are available right now."}
           </Text>
         </View>
       ) : (
@@ -93,7 +140,13 @@ const MovieSwiper = () => {
           contentContainerStyle={styles.listContent}
           keyExtractor={(item) => String(item.id)}
           renderItem={({ item, index }) => (
-            <MovieCard movie={item} width={cardWidth} index={index} />
+            <MovieCard
+              movie={item}
+              width={cardWidth}
+              index={index}
+              mediaType={mediaType}
+              mediaLabel={mediaLabel}
+            />
           )}
         />
       )}
@@ -105,25 +158,39 @@ const MovieCard = ({
   movie,
   width,
   index,
+  mediaType,
+  mediaLabel,
 }: {
-  movie: NowPlayingMovie;
+  movie: MediaRecommendation;
   width: number;
   index: number;
+  mediaType: MediaType;
+  mediaLabel: string;
 }) => {
   const rating = Number(movie.vote_average);
-  const year = movie.release_date?.slice(0, 4);
+  const year = (movie.release_date || movie.first_air_date)?.slice(0, 4);
   const posterUri =
     imageUrl && movie.poster_path ? `${imageUrl}${movie.poster_path}` : null;
-  const title = movie.original_title || "Untitled movie";
+  const title =
+    movie.original_title || movie.original_name || movie.name || "Untitled";
+  const detailsHref: DetailsHref =
+    mediaType === "movie"
+      ? {
+          pathname: "/movie-details-screen",
+          params: { movieId: movie.id, title },
+        }
+      : mediaType === "series"
+        ? {
+            pathname: "/series-details-screen",
+            params: { seriesId: movie.id, title },
+          }
+        : {
+            pathname: "/tvshows-details-screen",
+            params: { tvShowId: movie.id, title },
+          };
 
   return (
-    <Link
-      href={{
-        pathname: "/movie-details-screen",
-        params: { movieId: movie.id, title },
-      }}
-      asChild
-    >
+    <Link href={detailsHref} asChild>
       <Pressable
         accessibilityLabel={`${title}, rated ${
           Number.isFinite(rating) ? rating.toFixed(1) : "not rated"
@@ -154,7 +221,7 @@ const MovieCard = ({
           />
           <View style={styles.nowPlayingBadge}>
             <View style={styles.badgeDot} />
-            <Text style={styles.badgeText}>NOW PLAYING</Text>
+            <Text style={styles.badgeText}>{mediaLabel}</Text>
           </View>
           <View style={styles.ratingBadge}>
             <Ionicons name="star" size={12} color={Colors.Primary100} />
@@ -182,10 +249,12 @@ const MovieCard = ({
             ) : null}
           </View>
           <Text numberOfLines={3} style={styles.overview}>
-            {movie.overview?.trim() || "Discover the story behind this movie."}
+            {movie.overview?.trim() || `Discover the story behind ${title}.`}
           </Text>
           <View style={styles.detailsLink}>
-            <Text style={styles.detailsLinkText}>Explore movie</Text>
+            <Text style={styles.detailsLinkText}>
+              Explore {mediaType === "tv-show" ? "show" : mediaType}
+            </Text>
             <Ionicons
               name="arrow-forward"
               size={14}
