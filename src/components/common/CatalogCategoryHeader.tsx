@@ -39,8 +39,7 @@ const CatalogCategoryHeader = ({
       accessibilityLabel={`See all ${title.toLowerCase()} titles`}
       style={styles.seeAll}
     >
-      <Text style={[styles.seeAllText, { color: accent }]}>See all</Text>
-      <Ionicons name="chevron-forward-outline" size={15} color={accent} />
+      <Ionicons name="chevron-forward-outline" size={20} color={accent} />
     </Link>
   </View>
 );

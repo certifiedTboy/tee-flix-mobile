@@ -60,8 +60,11 @@ const MovieSwiper = () => {
           }}
           style={styles.seeAll}
         >
-          <Text style={styles.seeAllText}>See all</Text>
-          <Ionicons name="arrow-forward" size={15} color={Colors.Primary100} />
+          <Ionicons
+            name="chevron-forward-outline"
+            size={20}
+            color={Colors.Primary100}
+          />
         </Link>
       </View>
 
@@ -166,9 +169,7 @@ const MovieCard = ({
 
         <View style={styles.cardDetails}>
           <View style={styles.metadataRow}>
-            {year ? (
-              <Text style={styles.metadataText}>{year}</Text>
-            ) : null}
+            {year ? <Text style={styles.metadataText}>{year}</Text> : null}
             {movie.original_language ? (
               <Text style={styles.languageTag}>
                 {movie.original_language.toUpperCase()}
@@ -185,7 +186,11 @@ const MovieCard = ({
           </Text>
           <View style={styles.detailsLink}>
             <Text style={styles.detailsLinkText}>Explore movie</Text>
-            <Ionicons name="arrow-forward" size={14} color={Colors.Primary100} />
+            <Ionicons
+              name="arrow-forward"
+              size={14}
+              color={Colors.Primary100}
+            />
           </View>
         </View>
       </Pressable>
@@ -324,7 +329,11 @@ const styles = StyleSheet.create({
     gap: 5,
     marginTop: 12,
   },
-  detailsLinkText: { color: Colors.Primary100, fontSize: 11, fontWeight: "700" },
+  detailsLinkText: {
+    color: Colors.Primary100,
+    fontSize: 11,
+    fontWeight: "700",
+  },
   listContent: { paddingHorizontal: 20, paddingBottom: 4 },
   status: {
     alignItems: "center",
