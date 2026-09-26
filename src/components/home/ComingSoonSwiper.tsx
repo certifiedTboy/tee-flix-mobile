@@ -1,10 +1,10 @@
 import { useGetUpcomingMoviesMutation } from "@/lib/apis/movies-apis";
 import { useCallback, useEffect } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList } from "react-native";
 import DescriptionTab from "../common/DescriptionTab";
 import MovieCard from "../movies/MovieCard";
+import DescriptionTabSkeleton from "../ui/skeletons/DescriptionTabSkeleton";
 import HorinzontalMovielist from "../ui/skeletons/HorizontalMovielist";
-import Skeleton from "../ui/skeletons/Skeleton";
 
 const ComingSoonSwiper = () => {
   const [getUpcomingMovies, { data, isLoading }] =
@@ -31,9 +31,7 @@ const ComingSoonSwiper = () => {
   return (
     <>
       {isLoading ? (
-        <View style={styles.skeletonContainer}>
-          <Skeleton width="95%" height={30} radius={5} />
-        </View>
+        <DescriptionTabSkeleton />
       ) : (
         <DescriptionTab
           title="Coming Soon"
@@ -57,13 +55,3 @@ const ComingSoonSwiper = () => {
 };
 
 export default ComingSoonSwiper;
-
-const styles = StyleSheet.create({
-  skeletonContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: "auto",
-    flex: 1,
-    marginVertical: 20,
-  },
-});

@@ -4,7 +4,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 import { useEffect } from "react";
 import {
-  ActivityIndicator,
   FlatList,
   Image,
   Pressable,
@@ -15,6 +14,7 @@ import {
 } from "react-native";
 import { Colors } from "../../constants/Colors";
 import { MediaRecommendation } from "../../interfaces/propsInterfaces";
+import RecommendationCardSkeleton from "../ui/skeletons/RecommendationCardSkeleton";
 
 type MediaType = "movie" | "series" | "tv-show";
 
@@ -112,10 +112,19 @@ const MovieSwiper = ({
       </View>
 
       {loading ? (
-        <View style={styles.status}>
-          <ActivityIndicator color={Colors.Primary100} />
-          <Text style={styles.statusText}>Finding your next favorite…</Text>
-        </View>
+        <FlatList
+          data={[0, 1, 2]}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.listContent}
+          keyExtractor={(item) => String(item)}
+          renderItem={({ index }) => (
+            <RecommendationCardSkeleton
+              width={cardWidth}
+              isFirst={index === 0}
+            />
+          )}
+        />
       ) : hasError ? (
         <View style={styles.status}>
           <Text style={styles.statusText}>

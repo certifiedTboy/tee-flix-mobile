@@ -3,7 +3,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 import { useState } from "react";
 import {
-  ActivityIndicator,
   ImageBackground,
   Pressable,
   StyleSheet,
@@ -11,6 +10,7 @@ import {
   View,
 } from "react-native";
 import { Colors } from "../../constants/Colors";
+import FeatureContentSkeleton from "../ui/skeletons/FeatureContentSkeleton";
 
 type CatalogRoute =
   | "/explore-movies-screen"
@@ -165,11 +165,7 @@ const CatalogFeatureHeader = ({
             style={styles.heroImage}
           >
             {isLoading && !featuredItem ? (
-              <ActivityIndicator
-                color={accent}
-                size="large"
-                style={styles.loading}
-              />
+              <FeatureContentSkeleton padding={18} />
             ) : (
               gradient
             )}
@@ -219,7 +215,6 @@ const styles = StyleSheet.create({
   heroImage: { flex: 1, justifyContent: "flex-end" },
   heroImageRadius: { borderRadius: 22 },
   heroGradient: { flex: 1, justifyContent: "flex-end" },
-  loading: { flex: 1 },
   featuredContent: { padding: 18 },
   featuredBadge: {
     alignItems: "center",

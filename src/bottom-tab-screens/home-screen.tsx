@@ -3,7 +3,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 import { useEffect } from "react";
 import {
-  ActivityIndicator,
   Dimensions,
   ImageBackground,
   Pressable,
@@ -15,6 +14,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import MovieSwiper from "../components/home/MovieSwiper";
 import Icon from "../components/ui/Icon";
+import FeatureContentSkeleton from "../components/ui/skeletons/FeatureContentSkeleton";
 import { Colors } from "../constants/Colors";
 
 const imageUrl = process.env.EXPO_PUBLIC_API_IMAGE_URL;
@@ -63,8 +63,8 @@ const HomeScreen = () => {
               colors={["#392a08", "#111116", "#08090e"]}
               style={styles.heroImage}
             >
-              {isLoading ? (
-                <ActivityIndicator color={Colors.Primary100} size="large" />
+              {isLoading && !featuredMovie ? (
+                <FeatureContentSkeleton />
               ) : (
                 <FeaturedContent movie={featuredMovie} />
               )}

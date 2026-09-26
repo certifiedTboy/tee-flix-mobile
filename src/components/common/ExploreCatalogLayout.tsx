@@ -14,6 +14,7 @@ import {
   View,
 } from "react-native";
 import { Colors } from "../../constants/Colors";
+import MovieList from "../ui/skeletons/MovieList";
 
 type ExploreCatalogLayoutProps = {
   title: string;
@@ -195,10 +196,7 @@ const ExploreCatalogLayout = ({
             </Text>
           </View>
         ) : isLoading && !hasResults ? (
-          <View style={styles.loadingState}>
-            <ActivityIndicator color={accent} size="large" />
-            <Text style={styles.loadingText}>Curating your collection…</Text>
-          </View>
+          <MovieList length={6} />
         ) : hasResults ? (
           <View style={styles.grid}>{children}</View>
         ) : (
@@ -428,12 +426,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     paddingHorizontal: 8,
   },
-  loadingState: {
-    alignItems: "center",
-    justifyContent: "center",
-    minHeight: 260,
-  },
-  loadingText: { color: Colors.Secondary200, fontSize: 11, marginTop: 12 },
   emptyState: {
     alignItems: "center",
     justifyContent: "center",

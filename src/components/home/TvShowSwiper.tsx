@@ -1,10 +1,10 @@
 import { useGetAllSeriesMutation } from "@/lib/apis/movies-apis";
 import { useCallback, useEffect } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList } from "react-native";
 import DescriptionTab from "../common/DescriptionTab";
 import TvShowCard from "../tv-shows/TvShowCard";
+import DescriptionTabSkeleton from "../ui/skeletons/DescriptionTabSkeleton";
 import HorinzontalMovielist from "../ui/skeletons/HorizontalMovielist";
-import Skeleton from "../ui/skeletons/Skeleton";
 
 const TvShowsSwiper = () => {
   const [getAllSeries, { data, isLoading }] = useGetAllSeriesMutation();
@@ -30,9 +30,7 @@ const TvShowsSwiper = () => {
   return (
     <>
       {isLoading ? (
-        <View style={styles.skeletonContainer}>
-          <Skeleton width="95%" height={30} radius={5} />
-        </View>
+        <DescriptionTabSkeleton />
       ) : (
         <DescriptionTab
           title="TV Shows / Series"
@@ -55,13 +53,3 @@ const TvShowsSwiper = () => {
 };
 
 export default TvShowsSwiper;
-
-const styles = StyleSheet.create({
-  skeletonContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: "auto",
-    flex: 1,
-    marginVertical: 20,
-  },
-});
