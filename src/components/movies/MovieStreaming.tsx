@@ -1,5 +1,5 @@
-import * as ScreenOrientation from "expo-screen-orientation";
 import { Stack } from "expo-router";
+import * as ScreenOrientation from "expo-screen-orientation";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { WebView } from "react-native-webview";
@@ -12,13 +12,13 @@ const MovieStreaming = ({ movieId }: { movieId: number }) => {
 
   const changeScreenOrientation = async () => {
     await ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
+      ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT,
     );
   };
 
   const changePortraitOrientation = async () => {
     await ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.PORTRAIT
+      ScreenOrientation.OrientationLock.PORTRAIT,
     );
   };
 
@@ -46,7 +46,7 @@ const MovieStreaming = ({ movieId }: { movieId: number }) => {
           <WebView
             originWhitelist={["*"]}
             source={{
-              html: `<iframe width="100%" height="100%" src=https://vidsrc.xyz/embed/movie/${movieId}></iframe>`,
+              html: `<iframe width="100%" height="100%" src=https://vidsrc.mov/embed/movie/${movieId}></iframe>`,
             }}
           />
         </View>
