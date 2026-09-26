@@ -1,231 +1,114 @@
-import MovieList from "@/components/ui/skeletons/MovieList";
-import Skeleton from "@/components/ui/skeletons/Skeleton";
-import { Stack, useFocusEffect, useLocalSearchParams } from "expo-router";
-import { useCallback, useContext, useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import TvShowCard from "../components/tv-shows/TvShowCard";
-import LoadMoreBtn from "../components/ui/LoadMoreBtn";
-import { Colors } from "../constants/Colors";
+import ExploreCatalogLayout from "@/components/common/ExploreCatalogLayout";
+import TvShowCard from "@/components/tv-shows/TvShowCard";
 import {
-  useGetOtherSeriesCategoryMutation,
+  useGetOtherTvShowsCategoryMutation,
   useSearchShowsMutation,
-} from "../lib/apis/movies-apis";
-import { SearchContext } from "../lib/context/search-context";
+} from "@/lib/apis/movies-apis";
+import { Stack, useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
 
 const ExploreTvShowsScreen = () => {
-  const [seriesResults, setSeriesResults] = useState<any[]>([]);
-  const [searchBarIsFocused, setsearchBarIsFocused] = useState(false);
+  const { category: categoryParam, title: titleParam } = useLocalSearchParams<{
+    category?: string | string[];
+    title?: string | string[];
+  }>();
+  const category = Array.isArray(categoryParam) ? categoryParam[0] : categoryParam;
+  const title = Array.isArray(titleParam) ? titleParam[0] : titleParam;
+  const activeCategory = category || "popular";
+  const [searchText, setSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-
-  const [getOtherSeriesCategory, { data, isLoading }] =
-    useGetOtherSeriesCategoryMutation();
-
-  const { category, title } = useLocalSearchParams();
-
-  const [searchSeries, { data: result, isLoading: resultLoading }] =
-    useSearchShowsMutation();
-
-  const { tvShowsSearchQuery, setTvShowsSearchQuery } =
-    useContext(SearchContext);
-
-  useFocusEffect(
-    useCallback(() => {
-      if (tvShowsSearchQuery.trim().length === 0 && category) {
-        getOtherSeriesCategory(category);
-      }
-
-      return () => {
-        setTvShowsSearchQuery("");
-        setSeriesResults([]);
-        setCurrentPage(1);
-      };
-    }, [])
-  );
+  const [getCategory, categoryState] = useGetOtherTvShowsCategoryMutation();
+  const [searchShows, searchState] = useSearchShowsMutation();
+  const searchQuery = searchText.trim();
+  const isSearchMode = searchQuery.length > 0;
 
   useEffect(() => {
+    if (isSearchMode) return;
+    getCategory({ category: activeCategory, page: currentPage });
+  }, [activeCategory, currentPage, getCategory, isSearchMode]);
+
+  useEffect(() => {
+    if (searchQuery.length < 2) return;
     const timer = setTimeout(() => {
-      if (tvShowsSearchQuery.trim().length > 0) {
-        searchSeries({ searchQuery: tvShowsSearchQuery, currentPage });
-      }
-    }, 1000);
+      searchShows({ searchQuery, currentPage });
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [currentPage, searchQuery, searchShows]);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [tvShowsSearchQuery, currentPage]);
+  const isCurrentSearch =
+    searchState.originalArgs?.searchQuery === searchQuery &&
+    searchState.originalArgs?.currentPage === currentPage &&
+    !searchState.isLoading;
+  const isCurrentCategory =
+    categoryState.originalArgs?.category === activeCategory &&
+    categoryState.originalArgs?.page === currentPage &&
+    !categoryState.isLoading;
+  const results = isSearchMode
+    ? isCurrentSearch
+      ? (searchState.data?.results ?? [])
+      : []
+    : isCurrentCategory
+      ? (categoryState.data?.results ?? [])
+      : [];
+  const response = isSearchMode
+    ? isCurrentSearch
+      ? searchState.data
+      : undefined
+    : isCurrentCategory
+      ? categoryState.data
+      : undefined;
+  const isLoading = isSearchMode
+    ? searchQuery.length >= 2 && (!isCurrentSearch || searchState.isLoading)
+    : !isCurrentCategory || categoryState.isLoading;
+  const hasError = isSearchMode
+    ? isCurrentSearch && searchState.isError
+    : isCurrentCategory && categoryState.isError;
+  const totalPages = response?.total_pages ?? 1;
 
-  useEffect(() => {
-    if (result && result?.results?.length > 0) {
-      setSeriesResults(result.results);
-    }
-  }, [result]);
-
-  useEffect(() => {
-    if (data && data?.results?.length > 0) {
-      setSeriesResults(data?.results);
-    }
-  }, [data]);
-
-  /**
-   * increase page number by 1 until it reaches total pages on API
-   */
-  const incrementPage = () =>
-    currentPage < data?.total_pages && setCurrentPage(currentPage + 1);
-
-  /**
-   * decrease page number by 1 until it reaches 1
-   */
-  const decrementPage = () =>
-    currentPage > 1 && setCurrentPage(currentPage - 1);
+  const updateSearch = (value: string) => {
+    setSearchText(value);
+    setCurrentPage(1);
+  };
 
   return (
     <>
       <Stack.Screen
-        options={{
-          title: `${title || "Recommended"} TV Shows`,
-          animation: "slide_from_right",
-          headerBackVisible: !searchBarIsFocused,
-          headerSearchBarOptions: {
-            placeholder: "Search tv shows...",
-            hintTextColor: "#fff",
-            textColor: Colors.Secondary200,
-            tintColor: Colors.Primary100,
-            headerIconColor: Colors.Primary100,
-            onChangeText: (event: { nativeEvent: { text: string } }) => {
-              setTvShowsSearchQuery(event.nativeEvent.text);
-            },
-            onFocus: () => {
-              setsearchBarIsFocused(true);
-            },
-            onCancelButtonPress: () => {
-              setTvShowsSearchQuery("");
-              setsearchBarIsFocused(false);
-            },
-          },
-        }}
+        options={{ title: `${title || "Discover"} TV Shows`, animation: "slide_from_right" }}
       />
-      <View style={styles.container}>
-      <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
-        {result?.results?.length > 0
-          ? `Search results for ${tvShowsSearchQuery}`
-          : "Recommended Tv Shows"}
-      </Text>
-
-      {resultLoading && (
-        <View style={styles.skeletonContainer}>
-          <Skeleton height={40} width="95%" />
-        </View>
-      )}
-
-      {result && result?.results && result?.results?.length > 0 && (
-        <View style={styles.infoContainer}>
-          <Text style={styles.infoText}>
-            Total results: {result?.total_results}
-          </Text>
-          <Text style={styles.infoText}>
-            Total pages: {result?.total_pages}
-          </Text>
-          <Text style={styles.infoText}>
-            Current page: {result?.page <= 0 ? currentPage : result?.page}
-          </Text>
-        </View>
-      )}
-
-      <ScrollView contentContainerStyle={styles.cardContainer}>
-        {(isLoading || resultLoading) && <MovieList length={8} />}
-        <View style={styles.cardContainer}>
-          {seriesResults?.length > 0 &&
-            seriesResults.map((item: any) => (
-              <TvShowCard
-                key={item.id}
-                title={item?.name}
-                poster_image={item?.poster_path}
-                rating={item?.vote_average}
-                release_date={item?.first_air_date}
-                movieId={item?.id}
-              />
-            ))}
-        </View>
-      </ScrollView>
-
-      <View style={styles.reloadBtnContainer}>
-        <LoadMoreBtn
-          onLoadMore={decrementPage}
-          iconName="arrow-left"
-          style={styles.reloadBtn}
-        />
-        <LoadMoreBtn
-          onLoadMore={incrementPage}
-          iconName="arrow-right"
-          style={styles.reloadBtn}
-        />
-      </View>
-      </View>
+      <ExploreCatalogLayout
+        title="TV Shows"
+        eyebrow="TONIGHT'S NEXT OBSESSION"
+        description="From comfort-watch favorites to brand-new worlds, find the perfect show for your evening."
+        accent="#70d9cb"
+        searchPlaceholder="Search shows and series"
+        searchValue={searchText}
+        onSearchChange={updateSearch}
+        suggestions={["Reality", "Documentary", "Comedy", "Thriller"]}
+        resultCount={response?.total_results ?? results.length}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        isSearching={isSearchMode && searchQuery.length >= 2 && isLoading}
+        isLoadingCategory={!isSearchMode && isLoading}
+        hasError={hasError}
+        isSearchMode={isSearchMode}
+        onPreviousPage={() => setCurrentPage((page) => Math.max(1, page - 1))}
+        onNextPage={() =>
+          setCurrentPage((page) => Math.min(totalPages, page + 1))
+        }
+      >
+        {results.map((item: any) => (
+          <TvShowCard
+            title={item?.original_name || item?.name}
+            poster_image={item?.poster_path}
+            rating={item?.vote_average}
+            release_date={item?.first_air_date}
+            movieId={item?.id}
+            key={item.id}
+          />
+        ))}
+      </ExploreCatalogLayout>
     </>
   );
 };
 
 export default ExploreTvShowsScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Colors.Primary200,
-    width: "100%",
-    flex: 1,
-  },
-
-  text: {
-    color: Colors.Secondary300,
-    fontSize: 15,
-    fontWeight: "bold",
-    marginBottom: 20,
-    marginLeft: 15,
-    // marginVertical: 20,
-  },
-
-  cardContainer: {
-    flexDirection: "row",
-    width: "100%",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-  },
-
-  reloadBtnContainer: {
-    position: "absolute",
-    margin: 16,
-    right: 0,
-    bottom: 0,
-    zIndex: 100,
-    flexDirection: "row",
-    gap: 10,
-  },
-
-  infoContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: Colors.Primary100,
-    padding: 10,
-    marginHorizontal: 10,
-    borderRadius: 10,
-    marginBottom: 15,
-    boxShadow: "0px 2px 3.84px rgba(140, 140, 140, 0.25)",
-  },
-
-  skeletonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 10,
-    marginHorizontal: 10,
-  },
-
-  infoText: {
-    fontSize: 12,
-    fontWeight: "bold",
-  },
-
-  reloadBtn: {
-    backgroundColor: Colors.Primary100,
-  },
-});

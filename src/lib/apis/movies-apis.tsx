@@ -23,24 +23,39 @@ export const movieApi = createApi({
     }),
 
     getOtherMovieCategory: builder.mutation({
-      query: (category) => ({
-        url: `/movie/${category}`,
-        method: "GET",
-      }),
+      query: (request) => {
+        const category =
+          typeof request === "string" ? request : request.category;
+        const page = typeof request === "string" ? 1 : request.page ?? 1;
+        return {
+          url: `/movie/${category}?page=${page}`,
+          method: "GET",
+        };
+      },
     }),
 
     getOtherSeriesCategory: builder.mutation({
-      query: (category) => ({
-        url: `/tv/${category}`,
-        method: "GET",
-      }),
+      query: (request) => {
+        const category =
+          typeof request === "string" ? request : request.category;
+        const page = typeof request === "string" ? 1 : request.page ?? 1;
+        return {
+          url: `/tv/${category}?language=en-US&page=${page}`,
+          method: "GET",
+        };
+      },
     }),
 
     getOtherTvShowsCategory: builder.mutation({
-      query: (category) => ({
-        url: `/tv/${category}?language=en-US&page=2`,
-        method: "GET",
-      }),
+      query: (request) => {
+        const category =
+          typeof request === "string" ? request : request.category;
+        const page = typeof request === "string" ? 2 : request.page ?? 1;
+        return {
+          url: `/tv/${category}?language=en-US&page=${page}`,
+          method: "GET",
+        };
+      },
     }),
 
     fetchNowPlayingMovies: builder.mutation({
@@ -129,14 +144,14 @@ export const movieApi = createApi({
 
     searchMovies: builder.mutation({
       query: ({ searchQuery, currentPage }) => ({
-        url: `/search/movie?api_key=${process.env.EXPO_PUBLIC_API_KEY_2}&query=${searchQuery}&page=${currentPage}`,
+        url: `/search/movie?api_key=${process.env.EXPO_PUBLIC_API_KEY_2}&query=${encodeURIComponent(searchQuery)}&page=${currentPage}`,
         method: "GET",
       }),
     }),
 
     searchShows: builder.mutation({
       query: ({ searchQuery, currentPage }) => ({
-        url: `/search/tv?include_adult=true&language=en-US&query=${searchQuery}&page=${currentPage}`,
+        url: `/search/tv?include_adult=true&language=en-US&query=${encodeURIComponent(searchQuery)}&page=${currentPage}`,
         method: "GET",
       }),
     }),
