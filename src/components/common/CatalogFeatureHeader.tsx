@@ -59,16 +59,6 @@ type CatalogFeatureHeaderProps = {
 
 const imageUrl = process.env.EXPO_PUBLIC_API_IMAGE_URL;
 
-const actions: {
-  icon: "film-outline" | "logo-youtube" | "tv-outline";
-  label: string;
-  href: CatalogRoute;
-}[] = [
-  { icon: "film-outline", label: "Movies", href: "/explore-movies-screen" },
-  { icon: "logo-youtube", label: "Series", href: "/explore-series-screen" },
-  { icon: "tv-outline", label: "TV Shows", href: "/explore-tvshows-screen" },
-];
-
 const CatalogFeatureHeader = ({
   eyebrow,
   greeting,
@@ -126,12 +116,12 @@ const CatalogFeatureHeader = ({
           {featuredItem?.overview?.trim() || fallbackDescription}
         </Text>
         {hasFeaturedDetails && featuredItem?.id ? (
-          <Link
-            href={detailRoute(featuredItem.id, title)}
-            asChild
-          >
+          <Link href={detailRoute(featuredItem.id, title)} asChild>
             <Pressable
-              style={[styles.watchButton, { backgroundColor: accent }]}
+              style={StyleSheet.flatten([
+                styles.watchButton,
+                { backgroundColor: accent },
+              ])}
               accessibilityLabel={`View details for ${title}`}
             >
               <Ionicons name="play" size={15} color="#101014" />
@@ -186,29 +176,6 @@ const CatalogFeatureHeader = ({
           </LinearGradient>
         )}
       </View>
-
-      <View style={styles.quickActions}>
-        {actions.map((action) => (
-          <Link key={action.label} href={action.href} asChild>
-            <Pressable
-              style={({ pressed }) => [
-                styles.quickAction,
-                pressed && styles.quickActionPressed,
-              ]}
-            >
-              <View style={[styles.quickIcon, { backgroundColor: `${accent}20` }]}>
-                <Ionicons name={action.icon} size={17} color={accent} />
-              </View>
-              <Text style={styles.quickActionText}>{action.label}</Text>
-              <Ionicons
-                name="chevron-forward"
-                size={13}
-                color={Colors.Secondary200}
-              />
-            </Pressable>
-          </Link>
-        ))}
-      </View>
     </>
   );
 };
@@ -247,6 +214,7 @@ const styles = StyleSheet.create({
     height: 330,
     marginHorizontal: 16,
     overflow: "hidden",
+    marginBottom: 30,
   },
   heroImage: { flex: 1, justifyContent: "flex-end" },
   heroImageRadius: { borderRadius: 22 },
@@ -267,7 +235,12 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     maxWidth: "95%",
   },
-  metaRow: { alignItems: "center", flexDirection: "row", gap: 12, marginTop: 9 },
+  metaRow: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 12,
+    marginTop: 9,
+  },
   metaAccent: { fontSize: 12, fontWeight: "800" },
   metaText: { color: "#d5d5da", fontSize: 11 },
   featuredDescription: {

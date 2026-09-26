@@ -37,7 +37,7 @@ type MediaPosterCardProps = {
 };
 
 const imageUrl = process.env.EXPO_PUBLIC_API_IMAGE_URL;
-const cardWidth = Dimensions.get("window").width / 2.42;
+const cardWidth = Dimensions.get("window").width / 2.3;
 
 const MediaPosterCard = ({
   title,
@@ -62,11 +62,13 @@ const MediaPosterCard = ({
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={accessibilityLabel}
-        style={({ pressed }) => [
-          styles.card,
-          { width: cardWidth },
-          pressed && styles.pressed,
-        ]}
+        style={({ pressed }) =>
+          StyleSheet.flatten([
+            styles.card,
+            { width: cardWidth },
+            pressed && styles.pressed,
+          ])
+        }
       >
         <View style={styles.posterFrame}>
           {posterSource ? (
@@ -138,7 +140,7 @@ const styles = StyleSheet.create({
   },
   pressed: { opacity: 0.88, transform: [{ scale: 0.98 }] },
   posterFrame: {
-    aspectRatio: 0.7,
+    aspectRatio: 0.68,
     backgroundColor: "#202026",
     overflow: "hidden",
     position: "relative",
@@ -188,17 +190,17 @@ const styles = StyleSheet.create({
   posterFooter: { bottom: 11, left: 11, position: "absolute", right: 11 },
   posterTitle: {
     color: "#fff",
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: "800",
-    lineHeight: 18,
+    lineHeight: 19,
   },
   details: {
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
-    minHeight: 40,
-    paddingHorizontal: 10,
+    minHeight: 48,
+    paddingHorizontal: 12,
   },
-  metadata: { alignItems: "center", flexDirection: "row", gap: 6 },
-  releaseText: { color: "#b5b5bd", fontSize: 10, fontWeight: "600" },
+  metadata: { alignItems: "center", flexDirection: "row", gap: 7 },
+  releaseText: { color: "#c4c4cb", fontSize: 11, fontWeight: "600" },
 });

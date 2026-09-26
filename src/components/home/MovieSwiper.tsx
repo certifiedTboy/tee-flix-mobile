@@ -125,12 +125,14 @@ const MovieCard = ({
         accessibilityLabel={`${title}, rated ${
           Number.isFinite(rating) ? rating.toFixed(1) : "not rated"
         }`}
-        style={({ pressed }) => [
-          styles.card,
-          { width },
-          index > 0 && styles.cardSpacing,
-          pressed && styles.cardPressed,
-        ]}
+        style={({ pressed }) =>
+          StyleSheet.flatten([
+            styles.card,
+            { width },
+            index > 0 && styles.cardSpacing,
+            pressed && styles.cardPressed,
+          ])
+        }
       >
         <View style={styles.posterFrame}>
           {posterUri ? (

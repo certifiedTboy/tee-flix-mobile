@@ -1,6 +1,6 @@
-import { useGetLatestMoviesMutation } from "@/lib/apis/movies-apis";
-import MoviesCategories from "@/components/movies/MoviesCategories";
 import CatalogFeatureHeader from "@/components/common/CatalogFeatureHeader";
+import MoviesCategories from "@/components/movies/MoviesCategories";
+import { useGetLatestMoviesMutation } from "@/lib/apis/movies-apis";
 import { useEffect } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Colors } from "../constants/Colors";
