@@ -96,7 +96,7 @@ const MediaPosterCard = ({
           </View>
           {Number.isFinite(numericRating) && numericRating > 0 ? (
             <View style={styles.ratingBadge}>
-              <Ionicons name="star" size={11} color={Colors.Primary100} />
+              <Ionicons name="star" size={7} color={Colors.Primary100} />
               <Text style={styles.ratingText}>{numericRating.toFixed(1)}</Text>
             </View>
           ) : null}
@@ -163,14 +163,14 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     left: 9,
-    paddingHorizontal: 7,
+    paddingHorizontal: 4,
     paddingVertical: 5,
     position: "absolute",
     top: 9,
   },
   typeText: {
     color: "#f1f1f3",
-    fontSize: 7,
+    fontSize: 5,
     fontWeight: "800",
     letterSpacing: 0.6,
   },
@@ -180,13 +180,13 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     flexDirection: "row",
     gap: 4,
-    paddingHorizontal: 7,
+    paddingHorizontal: 5,
     paddingVertical: 5,
     position: "absolute",
     right: 9,
     top: 9,
   },
-  ratingText: { color: "#fff", fontSize: 10, fontWeight: "800" },
+  ratingText: { color: "#fff", fontSize: 7, fontWeight: "800" },
   posterFooter: { bottom: 11, left: 11, position: "absolute", right: 11 },
   posterTitle: {
     color: "#fff",

@@ -40,7 +40,7 @@ const CatalogCategoryHeader = ({
       style={styles.seeAll}
     >
       <Text style={[styles.seeAllText, { color: accent }]}>See all</Text>
-      <Ionicons name="arrow-forward" size={15} color={accent} />
+      <Ionicons name="chevron-forward-outline" size={15} color={accent} />
     </Link>
   </View>
 );
@@ -72,6 +72,12 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     marginTop: 2,
   },
-  seeAll: { alignItems: "center", flexDirection: "row", gap: 6, padding: 8 },
+  seeAll: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    gap: 6,
+    // padding: 8,
+  },
   seeAllText: { fontSize: 11, fontWeight: "700" },
 });
